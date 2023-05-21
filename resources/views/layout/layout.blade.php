@@ -15,6 +15,7 @@
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     @stack('css')
+    @livewireStyles
 </head>
 <body>
 
@@ -39,5 +40,6 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>

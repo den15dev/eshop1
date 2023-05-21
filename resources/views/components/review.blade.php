@@ -39,7 +39,9 @@
         @endif
     </p>
 
-    <div class="mb-4">
+    <livewire:reactions :review="$review" :userid="$userid" />
+
+{{--    <div class="mb-4">
         @if($review->hilighted === 1)
         <a href="" class="item_review_like_link_active">
             <span class="bi-hand-thumbs-up-fill fs-5 me-1"></span>
@@ -63,5 +65,5 @@
             {{ $review->reactions_counted[0] }}
         </a>
         @endif
-    </div>
+    </div> --}}
 </div>

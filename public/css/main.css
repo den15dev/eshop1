@@ -362,7 +362,7 @@ del {
 }
 
 .form-check-input:focus {
-    outline:0px !important;
+    outline:0 !important;
     -webkit-appearance:none;
     box-shadow: none !important;
 }
@@ -815,19 +815,28 @@ del {
     display: block;
 }
 
-.item_review_like_link {
-    text-decoration: none;
+
+
+.review_reaction,
+.review_reaction_disabled {
     color: #808080;
 }
 
-.item_review_like_link:hover {
-    color: #5055de;
+.review_reaction {
+    cursor: pointer;
 }
 
-.item_review_like_link_active {
-    text-decoration: none;
-    color: #5055de;
+.review_reaction:hover {
+    color: #999cff;
 }
+
+.review_reaction_active {
+    color: #656bea;
+    cursor: pointer;
+}
+
+
+
 
 #add_review_form {
     width: 100%;

@@ -31,17 +31,29 @@
 
     <div class="mb-3">
         <label for="item_pros_form" class="form-label">Достоинства:</label>
-        <textarea class="form-control" name="pros" id="item_pros_form" placeholder="Необязательно для заполнения" style="height: 100px"{{ $user_id && !$is_reviewed ? '' : ' disabled' }}>{{ old('pros') }}</textarea>
+        @if($user_id && !$is_reviewed)
+        <textarea class="form-control" name="pros" id="item_pros_form" placeholder="Необязательно для заполнения" style="height: 100px">{{ old('pros') }}</textarea>
+        @else
+        <textarea class="form-control" name="pros" id="item_pros_form" style="height: 100px" disabled></textarea>
+        @endif
     </div>
 
     <div class="mb-3">
         <label for="item_cons_form" class="form-label">Недостатки:</label>
-        <textarea class="form-control" name="cons" id="item_cons_form" placeholder="Необязательно для заполнения" style="height: 100px"{{ $user_id && !$is_reviewed ? '' : ' disabled' }}>{{ old('cons') }}</textarea>
+        @if($user_id && !$is_reviewed)
+        <textarea class="form-control" name="cons" id="item_cons_form" placeholder="Необязательно для заполнения" style="height: 100px">{{ old('cons') }}</textarea>
+        @else
+        <textarea class="form-control" name="cons" id="item_cons_form" style="height: 100px" disabled></textarea>
+        @endif
     </div>
 
     <div class="mb-3">
         <label for="item_comment_form" class="form-label">Комментарий:</label>
-        <textarea class="form-control" name="comment" id="item_comment_form" placeholder="Необязательно для заполнения" style="height: 100px"{{ $user_id && !$is_reviewed ? '' : ' disabled' }}>{{ old('comment') }}</textarea>
+        @if($user_id && !$is_reviewed)
+        <textarea class="form-control" name="comment" id="item_comment_form" placeholder="Необязательно для заполнения" style="height: 100px">{{ old('comment') }}</textarea>
+        @else
+        <textarea class="form-control" name="comment" id="item_comment_form" style="height: 100px" disabled></textarea>
+        @endif
     </div>
 
     @if($user_id && !$is_reviewed)

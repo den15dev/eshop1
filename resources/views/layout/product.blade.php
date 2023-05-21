@@ -169,7 +169,7 @@
 
             @forelse($reviews as $review)
             @if($review->pros || $review->cons || $review->comnt)
-            <x-review :review="$review" />
+            <x-review :review="$review" :userid="$user_id" />
             @endif
             @empty
             <div class="text-center fs-2 lightgrey_text">
