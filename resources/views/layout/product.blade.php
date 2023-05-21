@@ -172,15 +172,24 @@
             <x-review :review="$review" :userid="$user_id" />
             @endif
             @empty
-            <div class="text-center fs-2 lightgrey_text">
+            <div class="text-center fs-2 mb-4 lightgrey_text">
                 Нет отзывов
             </div>
             @endforelse
 
 
-            @include('layout.includes.review-form')
+            @if($user_id)
+                @if($is_reviewed)
+                    <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Ваш отзыв был опубликован</h4>
+                @else
+                    @include('layout.includes.review-form')
+                @endif
+            @else
+                <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Зарегистрируйтесь или войдите, чтобы оставлять отзывы</h4>
+            @endif
+
             @if(session()->has('message'))
-                <x-message type="{{ session('message.type') }}" content="{{ session('message.content') }}" align="center" />
+            <x-message type="{{ session('message.type') }}" content="{{ session('message.content') }}" align="center" />
             @endif
 
         </div>
