@@ -14,7 +14,6 @@ class HeaderComposer
             'menu_catalog' => (new CategoryService())->buildMenu(),
             'comparison' => 2,
             'favourites' => 3,
-            'cart' => 4,
             'orders' => true,
         ];
 

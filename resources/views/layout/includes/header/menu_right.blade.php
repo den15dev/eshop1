@@ -12,11 +12,9 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-color-main" href="#">
+        <a href="{{ route('cart') }}" class="nav-link text-color-main">
             <span class="bi-cart me-1 count_label_cont">
-                @if($menu_data['cart'])
-                    <div class="count_label">{{ $menu_data['cart'] }}</div>
-                @endif
+                <livewire:cart-badge />
             </span>
             Корзина
         </a>

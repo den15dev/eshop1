@@ -83,7 +83,7 @@
                 <button class="item-increase-btn">+</button>
             </div>
 
-            <button type="button" class="btn2 btn2-primary addtocart_big_btn" id="item_addtocart_btn">В корзину</button>
+            <livewire:add-to-cart-button wire:click="updateCart" :product_id="$product->id" :size="'big'" />
 
             <div class="d-flex flex-row mb-4">
             <span class="cat_block_addbtn me-4">

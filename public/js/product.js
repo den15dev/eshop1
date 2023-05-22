@@ -6,10 +6,12 @@ let qty_plus_btn = qty_input.parentNode.getElementsByTagName('button')[1];
 qty_minus_btn.onclick = function () {
     if (qty_input.value > 1) {
         qty_input.value = parseInt(qty_input.value, 10) - 1;
+        Livewire.emit('updateQuantity', qty_input.value);
     }
 }
 qty_plus_btn.onclick = function () {
     qty_input.value = parseInt(qty_input.value, 10) + 1;
+    Livewire.emit('updateQuantity', qty_input.value);
 }
 
 

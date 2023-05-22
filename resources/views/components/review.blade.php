@@ -40,30 +40,4 @@
     </p>
 
     <livewire:reactions :review="$review" :userid="$userid" />
-
-{{--    <div class="mb-4">
-        @if($review->hilighted === 1)
-        <a href="" class="item_review_like_link_active">
-            <span class="bi-hand-thumbs-up-fill fs-5 me-1"></span>
-            {{ $review->reactions_counted[1] }}
-        </a>
-        @else
-        <a href="" class="item_review_like_link">
-            <span class="bi-hand-thumbs-up fs-5 me-1"></span>
-            {{ $review->reactions_counted[1] }}
-        </a>
-        @endif
-
-        @if($review->hilighted === 0)
-        <a href="" class="item_review_like_link_active ms-2">
-            <span class="bi-hand-thumbs-down-fill fs-5 me-1" style="vertical-align: -4px"></span>
-            {{ $review->reactions_counted[0] }}
-        </a>
-        @else
-        <a href="" class="item_review_like_link ms-2">
-            <span class="bi-hand-thumbs-down fs-5 me-1" style="vertical-align: -4px"></span>
-            {{ $review->reactions_counted[0] }}
-        </a>
-        @endif
-    </div> --}}
 </div>
