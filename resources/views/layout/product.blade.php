@@ -66,7 +66,7 @@
 
             <a href="#specifications" class="d-block blue_link mb-5" style="width: fit-content" id="all_specs_link">Все характеристики</a>
 
-            <a href="{{ route('brand', $product->brand_slug) }}" class="d-block mb-4">
+            <a href="{{ route('brand', $product->brand_slug) }}" class="d-block mb-4" style="width: fit-content">
                 <img style="width: 120px" src="{{ get_any_image('storage/images/brands/' . $product->brand_slug) }}" alt="{{ $product->brand_name }}">
             </a>
         </div>
@@ -79,11 +79,11 @@
 
             <div class="item_qty_cont">
                 <button class="item-decrease-btn">-</button>
-                <input type="text" class="item-qty-input" id="item_qty_input" value="1">
+                <input type="text" class="item-qty-input" id="item_qty_input" value="{{ $in_cart ?? 1 }}">
                 <button class="item-increase-btn">+</button>
             </div>
 
-            <livewire:add-to-cart-button wire:click="updateCart" :product_id="$product->id" :size="'big'" />
+            <livewire:add-to-cart-big-btn wire:click="updateCart" :product_id="$product->id" :in_cart="$in_cart" />
 
             <div class="d-flex flex-row mb-4">
             <span class="cat_block_addbtn me-4">
@@ -189,7 +189,7 @@
             @endif
 
             @if(session()->has('message'))
-            <x-message type="{{ session('message.type') }}" content="{{ session('message.content') }}" align="center" />
+            <x-message-flash type="{{ session('message.type') }}" content="{{ session('message.content') }}" align="center" />
             @endif
 
         </div>

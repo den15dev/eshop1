@@ -12,9 +12,9 @@ class HeaderComposer
     {
         $menu_data = [
             'menu_catalog' => (new CategoryService())->buildMenu(),
-            'comparison' => 2,
-            'favourites' => 3,
-            'orders' => true,
+            'comparison' => 0,
+            'favourites' => 0,
+            'orders' => false,
         ];
 
         $view->with('menu_data', $menu_data);

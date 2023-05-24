@@ -32,9 +32,9 @@ class ProductService
     /**
      * Gets a collection of recently viewed products from DB preserving a giving order.
      *
-     * @param array|null $ids - product ids or null in case of empty session variable.
+     * @param array|null $ids - product ids or null in case of empty cookie array.
      * @param int $exclude_id - product id that must be excluded from results.
-     * @return Collection - will be empty in case of empty session variable.
+     * @return Collection - will be empty in case of empty cookie array.
      */
     public function getRecentlyViewed(array|null $ids, int $exclude_id = 0): Collection
     {

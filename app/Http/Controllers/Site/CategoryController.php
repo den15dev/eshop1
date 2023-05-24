@@ -7,7 +7,6 @@ use App\Services\BrandService;
 use App\Services\CategoryService;
 use App\Services\ProductService;
 use App\Services\SpecificationService;
-use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -41,7 +40,7 @@ class CategoryController extends Controller
 
         $products = $filtered_query->paginate($layout[1]);
 
-        $recently_viewed = $productService->getRecentlyViewed(json_decode(Request::cookie('rct_viewed')));
+        $recently_viewed = $productService->getRecentlyViewed(json_decode(request()->cookie('rct_viewed')));
 
         return view('layout.products', compact(
             'category_slug',

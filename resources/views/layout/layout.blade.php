@@ -35,9 +35,12 @@
 
     </div>
 
+    @include('layout.includes.message-client')
+
     @include('layout.includes.loadtime')
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>
     @stack('scripts')
     @livewireScripts

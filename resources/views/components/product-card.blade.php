@@ -22,7 +22,7 @@
     @endif
     <span class="d-block text-dark fw-semibold fs-4 mb-2">{{ format_price($product->final_price) }} ₽</span>
 
-    <livewire:add-to-cart-button wire:click="updateCart" :product_id="$product->id" :size="'normal'" />
+    <livewire:add-to-cart-small-btn wire:click="updateCart" :product_id="$product->id" />
 
     <div class="d-flex flex-row small mb-4">
         <span class="cat_block_addbtn me-3">

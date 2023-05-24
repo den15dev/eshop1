@@ -33,6 +33,8 @@ Route::post('/catalog/{category}/{product}', [ReviewController::class, 'store'])
 Route::get('/promo/{promo}', [PromoController::class, 'show'])->name('promo');
 Route::get('/brands/{brand}', [BrandController::class, 'show'])->name('brand');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 require __DIR__.'/auth.php';
 

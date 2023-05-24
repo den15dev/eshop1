@@ -895,13 +895,11 @@ del {
 }
 
 .cart_total_title {
-    display: block;
     margin-top: 17px;
     float: left;
 }
 
 .cart_total_price {
-    display: block;
     font-size: 24px;
     margin: 8px auto 20px 20px;
     float: right;
@@ -926,7 +924,7 @@ del {
 }
 
 .cart_btn_link {
-    text-decoration: none;
+    cursor: pointer;
     color: #b6b6b6;
 }
 
@@ -1132,10 +1130,6 @@ del {
 
 /* --------- Message --------- */
 
-#message_cont {
-    display: block;
-}
-
 .message_bg {
     position: fixed;
     top: 0;
@@ -1143,7 +1137,7 @@ del {
     width: 100%;
     height: 100%;
     background-color: black;
-    opacity: 0.5;
+    opacity: 0.3;
     z-index: 50;
 }
 
@@ -1199,8 +1193,11 @@ del {
 }
 
 .message_icon_warning {
-    /*color: #ea3672;*/
     color: #fcd96e;
+}
+
+.message_icon_confirm {
+    color: #cbcef8;
 }
 
 
