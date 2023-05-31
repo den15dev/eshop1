@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use App\Services\CartService;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -14,25 +16,29 @@ class CartController extends Controller
     {
         $products = $cartService->getCartProducts();
 
-        $cart_cost = $cartService->getCartCost($products);
+        if ($products->count()) {
+            $cart_cost = $cartService->getCartCost($products);
+            $shops = Shop::where('is_active', 1)->get();
+            $user = Auth::user();
 
-        $recently_viewed = collect([]);
-        if (!$products->count()) {
-            $recently_viewed = $productService->getRecentlyViewed(json_decode(request()->cookie('rct_viewed')));
+            return view('layout.cart', compact(
+                'products',
+                'cart_cost',
+                'user',
+                'shops',
+            ));
         }
 
-        return view('layout.cart', compact(
-            'products',
-            'cart_cost',
-            'recently_viewed'
-        ));
+        $recently_viewed = $productService->getRecentlyViewed(json_decode(request()->cookie('rct_viewed')));
+
+        return view('layout.cart', compact('recently_viewed'));
+
     }
 
 
     public function remove(Request $request, CartService $cartService)
     {
         $product_id = $request->input('product_id');
-
         $cartService->removeFromCart($product_id);
 
         return response('ok', 200)->header('Content-Type', 'text/plain');

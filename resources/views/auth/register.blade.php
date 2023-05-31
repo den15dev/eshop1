@@ -47,7 +47,7 @@
             </div>
 
 
-            <div class="mb-4">
+            <div class="mb-3">
                 <label for="password_confirmation" class="form-label">Подтверждение пароля:</label>
                 <input type="password" name="password_confirmation" class="form-control @if ($errors->get('password_confirmation')) is-invalid @endif" id="password_confirmation">
 
@@ -59,7 +59,11 @@
             </div>
 
 
-            <button type="submit" class="btn2 btn2-primary login_btn w-100">Зарегистрироваться</button>
+            @if($cart || $orders)
+                <x-move-cart-and-orders :cart="$cart" :orders="$orders" />
+            @endif
+
+            <button type="submit" class="btn2 btn2-primary login_btn mt-4 w-100">Зарегистрироваться</button>
         </form>
 
     </div>

@@ -10,6 +10,7 @@ use Database\Seeders\data\Categories;
 use Database\Seeders\data\Brands;
 use Database\Seeders\data\Promos;
 use Database\Seeders\data\Products;
+use Database\Seeders\data\Shops;
 use Database\Seeders\data\Specifications;
 
 class DatabaseSeeder extends Seeder
@@ -31,11 +32,12 @@ class DatabaseSeeder extends Seeder
 //        $this->seedModel(Promos::getData(), 'promos');
 //        $this->seedModel(Categories::getData(), 'categories');
      //   $this->seedModel(Specifications::getData(), 'specifications');
+        $this->seedModel(Shops::getData(), 'shops');
 
         $this->call([
       //      ProductSeeder::class,
 //            ProductSpecificationSeeder::class,
-            ReactionSeeder::class,
+//            ReactionSeeder::class,
         ]);
 
 

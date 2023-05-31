@@ -33,13 +33,16 @@
                 @endif
             </div>
 
-
-            <div class="mb-3 form-check">
+            <div class="form-check">
                 <input type="checkbox" name="remember" class="form-check-input" id="remember_me">
                 <label class="form-check-label" for="remember_me">Запомнить меня</label>
             </div>
 
-            <button type="submit" class="btn2 btn2-primary login_btn w-100 mb-3">Войти</button>
+            @if($cart || $orders)
+                <x-move-cart-and-orders :cart="$cart" :orders="$orders" />
+            @endif
+
+            <button type="submit" class="btn2 btn2-primary login_btn w-100 mt-3 mb-3">Войти</button>
 
             <a href="{{ route('password.request') }}" class="blue_link">Забыли пароль?</a>
         </form>

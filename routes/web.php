@@ -8,6 +8,7 @@ use App\Http\Controllers\Site\PromoController;
 use App\Http\Controllers\Site\BrandController;
 use App\Http\Controllers\Site\ReviewController;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -32,12 +33,17 @@ Route::get('/catalog/{category}/{product}', [ProductController::class, 'show'])-
 Route::post('/catalog/{category}/{product}', [ReviewController::class, 'store'])->name('review.add');
 Route::get('/promo/{promo}', [PromoController::class, 'show'])->name('promo');
 Route::get('/brands/{brand}', [BrandController::class, 'show'])->name('brand');
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-require __DIR__.'/auth.php';
+Route::post('/orders/create', [OrderController::class, 'create'])->name('orders.create');
+Route::get('/new-order/{order_id}', [OrderController::class, 'showNew'])->whereNumber('order_id')->name('new-order');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
+
+require __DIR__.'/auth.php';
 
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {

@@ -264,7 +264,7 @@ class CategoryService
                 $layout_arr[1] = 12;
             }
         } else {
-             // Set cookie on 400 days ("forever") with disabled "HttpOnly" parameter.
+             // Set cookie on 5 years with disabled "HttpOnly" parameter.
              // The cookie encryption should be disabled in
              // EncryptCookies.php middleware in protected $except property.
              // All these should be done for cookie can be read by javascript on a client.

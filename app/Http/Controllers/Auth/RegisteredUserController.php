@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\CartService;
+use App\Services\OrderService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,9 +20,12 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        $cart = session('cart');
+        $orders = json_decode($request->cookie('ord'));
+
+        return view('auth.register', compact('cart', 'orders'));
     }
 
     /**
@@ -29,7 +33,11 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, CartService $cartService): RedirectResponse
+    public function store(
+        Request $request,
+        CartService $cartService,
+        OrderService $orderService
+    ): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -47,7 +55,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        $cartService->moveCartFromSessionToDB($user->id);
+        if ($request->boolean('move_cart_and_orders')) {
+            $cartService->moveCartFromSessionToDB($user->id);
+            $orderService->moveOrdersFromCookie($user->id, $user->email);
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\CartService;
+use App\Services\OrderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +17,33 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.login');
+        $cart = session('cart');
+        $orders = json_decode($request->cookie('ord'));
+
+        return view('auth.login', compact('cart', 'orders'));
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request, CartService $cartService): RedirectResponse
+    public function store(
+        LoginRequest $request,
+        CartService $cartService,
+        OrderService $orderService
+    ): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        $cartService->moveCartFromSessionToDB($request->user()->id);
+        if ($request->boolean('move_cart_and_orders')) {
+            $user_id = $request->user()->id;
+            $user_email = $request->user()->email;
+            $cartService->moveCartFromSessionToDB($user_id);
+            $orderService->moveOrdersFromCookie($user_id, $user_email);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

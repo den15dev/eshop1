@@ -3,7 +3,7 @@
 @section('main_content')
     <div class="container">
 
-        @if($products->count())
+        @if(isset($products))
             <h2 class="mb-0">Корзина</h2>
 
             <div class="d-flex justify-content-end mb-3">
@@ -13,17 +13,39 @@
             <div class="border-bottom"></div>
 
             @foreach($products as $product)
-            <x-cart-row :product="$product" :index="$loop->index" />
+            <x-cart-item :product="$product" :index="$loop->index" />
             @endforeach
 
-            <div class="cart_block">
+            <div class="cart_block mb-2">
                 <div class="cart_descr"></div>
                 <livewire:cart-total :cost="$cart_cost" />
             </div>
 
 
-            <form method="post" class="cart_details_cont">
-                <ul class="nav nav-tabs mb-4" id="delivery_tab_cont">
+            <form method="POST" class="cart_details_cont" action="{{ route('orders.create') }}" onsubmit="return validateOrderForm()" novalidate>
+                @csrf
+                <label for="nameInput" class="form-label required">Имя:</label>
+                <input type="text" name="name" class="form-control @error('name') is-invalid @else mb-4 @enderror" id="nameInput" value="{{ old('name') ?? ($user ? $user->name : '') }}" onblur="validateName(this)">
+                @error('name')
+                <div id="nameInputFeedback" class="invalid-feedback mb-25">{{ $message }}</div>
+                @enderror
+
+                <label for="phoneInput" class="form-label required">Номер телефона:</label>
+                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @else mb-4 @enderror" id="phoneInput" value="{{ old('phone') ?? ($user ? $user->phone : '') }}" onblur="validatePhone(this)">
+                @error('phone')
+                <div id="phoneInputFeedback" class="invalid-feedback mb-25">{{ $message }}</div>
+                @enderror
+
+                <label for="emailInput" class="form-label">Адрес email:</label>
+                <input type="email" name="email" class="form-control @error('email') is-invalid @else mb-4 @enderror" id="emailInput" value="{{ old('email') ?? ($user ? $user->email : '') }}">
+                @error('email')
+                <div id="emailInputFeedback" class="invalid-feedback mb-25">{{ $message }}</div>
+                @enderror
+
+
+                {{-- --------------- Tabs ------------------ --}}
+
+                <ul class="nav nav-tabs mb-4 mt-5" id="delivery_tab_cont">
                     <li class="nav-item">
                         <div class="nav-link active" data-pageid="delivery">Доставка</div>
                     </li>
@@ -32,119 +54,73 @@
                     </li>
                 </ul>
 
-
-                <div id="delivery_cont">
-                    <label for="nameInput" class="form-label">Имя:</label>
-                    <input type="text" name="name" class="form-control mb-4" id="nameInput" value="Александр">
-
-                    <label for="phoneInput" class="form-label">Номер телефона:</label>
-                    <input type="tel" name="phone" class="form-control mb-4" id="phoneInput" value="+7 (902) 735-56-24">
-
-                    <!--<input type="tel" name="phone" class="form-control is-invalid" id="phoneInput" value="+7 (902) 735-56-24">
-                    <div id="phoneInputFeedback" class="invalid-feedback mb-25">
-                        Пожалуйста, укажите правильный номер телефона.
-                    </div>-->
-
-                    <label for="delAddrInput" class="form-label">Адрес доставки:</label>
-                    <input type="tel" name="delivery_address" class="form-control mb-4" id="delAddrInput" value="Московская область, г. Видное, ул. Красного октября, 45, кв. 125">
-
-
-                    <span class="d-block mb-2">Способ оплаты:</span>
-                    <div class="mb-5" id="pay_method_cont">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pay_method" id="pay_method_online" checked>
-                            <label class="form-check-label" for="pay_method_online">
-                                Картой онлайн
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pay_method" id="pay_method_card_courier">
-                            <label class="form-check-label" for="pay_method_card_courier">
-                                Картой курьеру
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pay_method" id="pay_method_cash_courier">
-                            <label class="form-check-label" for="pay_method_cash_courier">
-                                Наличными курьеру
-                            </label>
-                        </div>
-                    </div>
+                <div class="mb-45" id="delivery_cont">
+                    <label for="delAddrInput" class="form-label required">Адрес доставки:</label>
+                    <input type="text" name="delivery_address" class="form-control @error('delivery_address') is-invalid @else mb-4 @enderror" id="delAddrInput" value="{{ old('delivery_address') ?? ($user ? $user->address : '') }}" onblur="validateShippingAddress(this)">
+                    @error('delivery_address')
+                    <div id="delAddrInputFeedback" class="invalid-feedback mb-25">{{ $message }}</div>
+                    @enderror
                 </div>
 
-
-                <div id="self-delivery_cont" style="display: none">
+                <div class="mb-45" id="self-delivery_cont" style="display: none">
                     <span class="d-block mb-2">Выберите магазин:</span>
-                    <select class="form-select mb-4" aria-label="Выбор магазина">
-                        <option selected>г. Москва, пр. Дежнёва, 21, ТЦ «Эго Молл»</option>
-                        <option value="1">г. Москва, ул. Декабристов, 12, «ТЦ Форт»</option>
-                        <option value="2">г. Москва, просп. Мира, 211, корп. 2, «ТРК Европолис»</option>
-                        <option value="3">г. Москва, Алтуфьевское ш., 70, корп. 1, «ТЦ Маркос Молл»</option>
-                        <option value="4">г. Москва, Дмитровское ш., 43, корп. 1</option>
+                    <select class="form-select mb-4" name="shop_id" aria-label="Выбор магазина">
+                    @foreach($shops as $shop)
+                        @if($loop->first)
+                        <option value="{{ $shop->id }}" selected>{{ $shop->address }}</option>
+                        @else
+                        <option value="{{ $shop->id }}">{{ $shop->address }}</option>
+                        @endif
+                    @endforeach
                     </select>
+                </div>
 
-                    <label for="sd_nameInput" class="form-label">Имя:</label>
-                    <input type="text" name="name" class="form-control mb-4" id="sd_nameInput" value="Александр">
 
-                    <label for="sd_phoneInput" class="form-label">Номер телефона:</label>
-                    <input type="tel" name="phone" class="form-control mb-4" id="sd_phoneInput" value="+7 (902) 735-56-24">
+                {{-- --------------- Payment methods ------------------ --}}
 
-                    <!--<input type="tel" name="phone" class="form-control is-invalid" id="sd_phoneInput" value="+7 (902) 735-56-24">
-                    <div id="phoneInputFeedback" class="invalid-feedback mb-25">
-                        Пожалуйста, укажите правильный номер телефона.
-                    </div>-->
-
-                    <span class="d-block mb-2">Способ оплаты:</span>
-                    <div class="mb-5" id="sd_pay_method_cont">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sd_pay_method" id="sd_pay_method_online" checked>
-                            <label class="form-check-label" for="sd_pay_method_online">
-                                Картой онлайн
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sd_pay_method" id="sd_pay_method_shop">
-                            <label class="form-check-label" for="sd_pay_method_shop">
-                                Картой или наличными в магазине
-                            </label>
-                        </div>
+                <span class="d-block mb-2">Способ оплаты:</span>
+                <div class="mb-45" id="pay_method_cont">
+                    <div class="form-check" id="pay_method_online_cont">
+                        <input class="form-check-input" type="radio" name="payment_method" value="online" id="pay_method_online" checked>
+                        <label class="form-check-label" for="pay_method_online">
+                            Картой онлайн
+                        </label>
+                    </div>
+                    <div class="form-check" id="pay_method_card_cont">
+                        <input class="form-check-input" type="radio" name="payment_method" value="card" id="pay_method_card">
+                        <label class="form-check-label" for="pay_method_card">
+                            Картой курьеру
+                        </label>
+                    </div>
+                    <div class="form-check" id="pay_method_cash_cont">
+                        <input class="form-check-input" type="radio" name="payment_method" value="cash" id="pay_method_cash">
+                        <label class="form-check-label" for="pay_method_cash">
+                            Наличными курьеру
+                        </label>
+                    </div>
+                    <div class="form-check" id="pay_method_shop_cont" style="display: none">
+                        <input class="form-check-input" type="radio" name="payment_method" value="shop" id="pay_method_shop">
+                        <label class="form-check-label" for="pay_method_shop">
+                            Картой или наличными в магазине
+                        </label>
                     </div>
                 </div>
 
-                <script>
-                    let tabCont = document.getElementById('delivery_tab_cont');
-                    let tabBtnArr = Array.from(tabCont.getElementsByClassName('nav-link'));
 
-                    [...tabBtnArr].forEach(function(tabBtn) {
-                        tabBtn.onclick = function() {
-                            if (tabBtn.className !== 'nav-link active') {
-                                let btnId = tabBtn.getAttribute('data-pageid');
-                                let btnPageCont = document.getElementById(btnId + '_cont');
-
-                                [...tabBtnArr].forEach(function(prevActiveBtn) {
-                                    if (prevActiveBtn.className === 'nav-link active') {
-                                        prevActiveBtn.className = 'nav-link blue_link';
-                                        let prevActiveBtnId = prevActiveBtn.getAttribute('data-pageid');
-                                        let prevActivePageCont = document.getElementById(prevActiveBtnId + '_cont');
-                                        prevActivePageCont.style.display = 'none';
-                                    }
-                                });
-
-                                tabBtn.className = 'nav-link active';
-                                btnPageCont.style.display = 'block';
-                            }
-                        };
-                    });
-                </script>
+                <input type="hidden" name="delivery_type" value="delivery" id="delivery_type">
 
                 <button type="submit" class="btn2 btn2-primary cart_order_btn">Оформить заказ</button>
             </form>
 
+            @push('scripts')
+                <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
+                <script src="{{ asset('js/cart.js') }}"></script>
+            @endpush
 
         @else
 
             <div class="text-center fs-2 lightgrey_text" style="padding: 120px 0">
-                Корзина пуста
+                В корзине пусто
             </div>
 
             @if($recently_viewed->count())
@@ -160,8 +136,8 @@
                 @endpush
 
                 @push('scripts')
-                    <script src="{{ asset('js/splide.min.js') }}"></script>
                     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
+                    <script src="{{ asset('js/splide.min.js') }}"></script>
                     <script src="{{ asset('js/recently_viewed.js') }}"></script>
                 @endpush
             @endif
@@ -169,8 +145,3 @@
 
     </div>
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
-<script src="{{ asset('js/cart.js') }}"></script>
-@endpush

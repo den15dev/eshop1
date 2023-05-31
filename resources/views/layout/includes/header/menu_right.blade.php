@@ -20,10 +20,12 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-color-main" href="#">
+        <a href="{{ route('orders') }}" class="nav-link text-color-main">
             <span class="bi-receipt me-1 count_label_cont">
-                @if($menu_data['orders'])
-                    <div class="user_notify_dot dot_icon_pos"></div>
+                @if($menu_data['orders'] === 1)
+                    <div class="user_notify_dot dot_blue dot_icon_pos"></div>
+                @elseif($menu_data['orders'] === 2)
+                    <div class="user_notify_dot dot_green dot_icon_pos"></div>
                 @endif
             </span>
             Заказы

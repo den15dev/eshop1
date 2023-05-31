@@ -73,13 +73,10 @@ class Product extends Model
 
     public function scopeDiscount(Builder $query): void
     {
-        $query->where('discount_prc', '>', 0)->orderBy('created_at')->limit(10);
-    }
-
-
-    public function scopeLatest(Builder $query): void
-    {
-        $query->orderBy('created_at')->limit(10);
+        $query->where('discount_prc', '>', 0)
+            ->orderBy('discount_prc', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->limit(10);
     }
 
 

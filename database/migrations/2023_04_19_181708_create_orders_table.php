@@ -15,16 +15,21 @@ return new class extends Migration
 
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['new', 'accepted', 'sent', 'completed', 'cancelled'])->default('new');
+            $table->enum('status', ['new', 'accepted', 'ready', 'sent', 'completed', 'cancelled'])->default('new');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->string('name');
             $table->string('phone', 15);
-            $table->enum('shipping_m', ['delivery', 'self'])->default('delivery');
-            $table->enum('payment_m', ['online', 'card', 'cash'])->default('online');
-            $table->string('address', 150);
+            $table->string('email', 150)->nullable();
+            $table->enum('delivery_type', ['delivery', 'self'])->default('delivery');
+            $table->enum('payment_method', ['online', 'card', 'cash', 'shop'])->default('online');
+            $table->boolean('payment_status')->default(0);
+            $table->string('delivery_address', 150);
+            $table->unsignedBigInteger('shop_id')->nullable();
+            $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('no action');
+            $table->decimal('items_cost', 12, 2);
             $table->decimal('shipping_cost', 10, 2)->nullable();
-            $table->decimal('total', 10, 2);
+            $table->decimal('total_cost', 12, 2);
             $table->timestamps();
         });
 

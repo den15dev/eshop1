@@ -188,6 +188,12 @@ class CartService
     }
 
 
+    /**
+     * Returns 2-elements array - ['total' => ..., 'final_total' => ...].
+     *
+     * @param ECollection $products
+     * @return array|string[]
+     */
     public function getCartCost(ECollection $products): array
     {
         $cost = [

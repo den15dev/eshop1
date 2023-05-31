@@ -4,6 +4,7 @@
 namespace App\View\Composers;
 
 use App\Services\CategoryService;
+use App\Services\OrderService;
 use Illuminate\View\View;
 
 class HeaderComposer
@@ -14,7 +15,7 @@ class HeaderComposer
             'menu_catalog' => (new CategoryService())->buildMenu(),
             'comparison' => 0,
             'favourites' => 0,
-            'orders' => false,
+            'orders' => (new OrderService())->checkForUncompleteOrders(),
         ];
 
         $view->with('menu_data', $menu_data);
