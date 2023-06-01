@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder as EBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
@@ -84,14 +85,13 @@ class ProductService
     }
 
 
-
     /**
      * Gets min and max prices of a given query.
      *
-     * @param HasMany $filtered_query
+     * @param HasMany|EBuilder $filtered_query
      * @return array
      */
-    public function getPriceMinMax(HasMany $filtered_query): array
+    public function getPriceMinMax(HasMany|EBuilder $filtered_query): array
     {
         $priceMinMax = ['', ''];
         $prices = $filtered_query->get()->pluck('final_price');

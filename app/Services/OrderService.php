@@ -159,12 +159,12 @@ class OrderService
     }
 
 
-
     /**
      * After user authentication, takes order ids from cookie
      * and associate the orders in DB with the user.
      *
      * @param int $user_id
+     * @param string $email
      * @return Void
      */
     public function moveOrdersFromCookie(int $user_id, string $email): Void

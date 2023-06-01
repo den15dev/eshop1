@@ -1,4 +1,4 @@
-<li class="pt-1 pb-1 ps-3">
+<li class="pt-1 pb-1 ps-3" @if($disabled) style="pointer-events: none;" @endif>
     <input class="form-check-input"
            type="checkbox"
            name="{{ $filtername }}[{{ $id }}]{{ $index !== '' ? '[' . $index . ']' : '' }}"
@@ -9,6 +9,7 @@
            @else
                @checked(request($filtername . '.' . $id . '.' . $index))
            @endif
+           @disabled($disabled)
     >
     <label class="form-check-label ms-1" for="{{ $index !== '' ? $filtername . $id . '_' . $index : $filtername . $id }}">
         {{ $value }} {{ $units }}<span class="lightgrey_text"> ({{ $quantity }})</span>

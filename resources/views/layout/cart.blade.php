@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('page_title', 'Корзина - ' . config('app.name'))
+
 @section('main_content')
     <div class="container">
 
@@ -113,7 +115,6 @@
             </form>
 
             @push('scripts')
-                <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
                 <script src="{{ asset('js/cart.js') }}"></script>
             @endpush
 
@@ -136,7 +137,6 @@
                 @endpush
 
                 @push('scripts')
-                    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
                     <script src="{{ asset('js/splide.min.js') }}"></script>
                     <script src="{{ asset('js/recently_viewed.js') }}"></script>
                 @endpush

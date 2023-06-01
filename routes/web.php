@@ -9,6 +9,7 @@ use App\Http\Controllers\Site\BrandController;
 use App\Http\Controllers\Site\ReviewController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\OrderController;
+use App\Http\Controllers\Site\SearchController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -41,6 +42,9 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::post('/orders/create', [OrderController::class, 'create'])->name('orders.create');
 Route::get('/new-order/{order_id}', [OrderController::class, 'showNew'])->whereNumber('order_id')->name('new-order');
 Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('page_title', $product->name . ' - ' . config('app.name'))
+
 @section('main_content')
 @include('layout.includes.breadcrumb')
 
@@ -214,7 +216,6 @@
 
 @push('scripts')
     <script src="{{ asset('js/splide.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
 @endpush
 

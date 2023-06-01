@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('page_title', $category->name . ' - ' . config('app.name'))
+@section('page_title', 'Поиск - ' . config('app.name'))
 
 @section('main_content')
     @include('layout.includes.breadcrumb')
@@ -11,8 +11,24 @@
             {{-- --------------- Sidebar ------------------ --}}
 
             <div class="d-none d-lg-block col" id="sidebar">
-                <form method="GET" action="{{ route('category', $category->slug) }}">
+                <form method="GET" action="{{ route('search') }}">
                     <ul class="list-unstyled ps-0">
+
+                        <x-sidebar-section title="Категория" sectionid="category" collapsed="{{ false }}">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal small mt-1 scrollbar-thin">
+                                @foreach($categories as $category)
+                                    <x-sidebar-checkbox filtername="categories"
+                                                        id="{{ $category->id }}"
+                                                        index=""
+                                                        value="{{ $category->name }}"
+                                                        units=""
+                                                        quantity="{{ $category->product_num }}"
+                                                        disabled="{{ $loop->count === 1 }}" />
+                                @endforeach
+                            </ul>
+                        </x-sidebar-section>
+
+
                         <x-sidebar-section title="Цена" sectionid="price_range" collapsed="{{ false }}">
                             <div class="d-flex flex-row small ps-3 mt-2">
                                 <span class="mt-1 me-1">От</span>
@@ -38,40 +54,27 @@
                         <x-sidebar-section title="Брэнд" sectionid="brand" collapsed="{{ false }}">
                             <ul class="btn-toggle-nav list-unstyled fw-normal small mt-1 scrollbar-thin">
                                 @foreach($brands as $brand)
-                                <x-sidebar-checkbox filtername="brands"
-                                                    id="{{ $brand->id }}"
-                                                    index=""
-                                                    value="{{ $brand->name }}"
-                                                    units=""
-                                                    quantity="{{ $brand->product_num }}"
-                                                    disabled="{{ $loop->count === 1 }}" />
+                                    <x-sidebar-checkbox filtername="brands"
+                                                        id="{{ $brand->id }}"
+                                                        index=""
+                                                        value="{{ $brand->name }}"
+                                                        units=""
+                                                        quantity="{{ $brand->product_num }}"
+                                                        disabled="{{ $loop->count === 1 }}" />
                                 @endforeach
                             </ul>
                         </x-sidebar-section>
 
-                        @foreach($filter_specs as $spec)
-                        <x-sidebar-section title="{{ $spec->name }}" sectionid="{{ str($spec->name)->slug() }}" collapsed="{{ $loop->index > 0 && !request('specs.' . $spec->id) }}">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal small mt-1 scrollbar-thin">
-                                @foreach($spec->values as $spec_val => $qty)
-                                <x-sidebar-checkbox filtername="specs"
-                                                    id="{{ $spec->id }}"
-                                                    index="{{ $loop->index }}"
-                                                    value="{{ $spec_val }}"
-                                                    units="{{ $spec->units ?? '' }}"
-                                                    quantity="{{ $qty }}"
-                                                    disabled="{{ $loop->count === 1 }}" />
-                                @endforeach
-                            </ul>
-                        </x-sidebar-section>
-                        @endforeach
+                        <input type="hidden" name="query" value="{{ $query_str }}" />
 
                         <div class="row gx-1 mt-4 pt-2">
                             <button type="submit" class="col btn2 btn2-primary me-1" id="sidebar_submit_btn">Применить</button>
-                            <a href="{{ route('category', $category->slug) }}" class="col btn2 btn2-secondary text-center">Сброс</a>
+                            <a href="{{ route('search', ['query' => $query_str]) }}" class="col btn2 btn2-secondary text-center">Сброс</a>
                         </div>
                     </ul>
                 </form>
             </div>
+
 
 
 
@@ -101,9 +104,9 @@
                         @endif
 
                     @else
-                    <div class="text-center fs-2 lightgrey_text" style="padding: 100px 0">
-                        Товары не найдены
-                    </div>
+                        <div class="text-center fs-2 lightgrey_text" style="padding: 100px 0">
+                            Товары не найдены
+                        </div>
                     @endif
                 </div>
 
@@ -111,28 +114,27 @@
                 {{-- --------------- Pagination ------------------ --}}
 
                 @if($products->total() > 0)
-                {{ $products->links('layout.pagination.results-shown') }}
+                    {{ $products->links('layout.pagination.results-shown') }}
                 @endif
                 @if($products->total() > $layout[1])
-                {{ $products->withQueryString()->links('layout.pagination.page-links') }}
+                    {{ $products->withQueryString()->links('layout.pagination.page-links') }}
                 @endif
                 <div style="height: 46px"></div>
 
 
                 @if($recently_viewed->count())
-                <x-carousel title="Недавно просмотренные" section="crs_recently_viewed">
-                    @foreach($recently_viewed as $item)
-                        <x-product-card type="carousel" :product="$item" />
-                    @endforeach
-                </x-carousel>
-                <script>let carousel_perpage = 4;</script>
+                    <x-carousel title="Недавно просмотренные" section="crs_recently_viewed">
+                        @foreach($recently_viewed as $item)
+                            <x-product-card type="carousel" :product="$item" />
+                        @endforeach
+                    </x-carousel>
+                    <script>let carousel_perpage = 4;</script>
                 @endif
             </div>
 
         </div>
 
-
-    {{--    Prevent submitting empty input field values (min & max prices)  --}}
+        {{--    Prevent submitting empty input field values (min & max prices)  --}}
         <script>
             window.addEventListener('load', function() {
                 let forms = document.getElementsByTagName('form');

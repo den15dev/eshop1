@@ -172,7 +172,6 @@ del {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     overflow-y: auto;
-    padding-bottom: 4px;
 }
 
 
@@ -181,6 +180,7 @@ del {
     width: 100%;
     height: 60px;
     padding: 4px 8px;
+    text-decoration: none;
 }
 
 .search_result_block img {
@@ -198,6 +198,7 @@ del {
     /*background-color: #eecbf0;*/
 }
 
+.search_result_block:hover,
 .search_result_brand_block:hover {
     background-color: #f5f5f5;
 }
@@ -307,6 +308,8 @@ del {
 .mb-45{margin-bottom:2.2rem!important}
 
 .mb-25{margin-bottom:.8rem!important}
+
+.ps-25{padding-left:.85rem!important}
 
 
 

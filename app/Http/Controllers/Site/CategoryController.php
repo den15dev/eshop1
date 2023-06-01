@@ -26,11 +26,15 @@ class CategoryController extends Controller
         $bread_crumb = $categoryService->getBreadCrumb($category);
 
         if ($children->isNotEmpty()) {
-            return view('layout.category', compact('children', 'bread_crumb'));
+            return view('layout.category', compact(
+                'category',
+                'children',
+                'bread_crumb'
+            ));
         }
 
         $filter_specs = $specService->getFilterSpecs($category);
-        $brands = $brandService->getByCategory($category);
+        $brands = $brandService->groupProductsForCategory($category->id);
 
         $layout = $categoryService->getLayoutSettings();
 
@@ -43,7 +47,7 @@ class CategoryController extends Controller
         $recently_viewed = $productService->getRecentlyViewed(json_decode(request()->cookie('rct_viewed')));
 
         return view('layout.products', compact(
-            'category_slug',
+            'category',
             'bread_crumb',
             'layout',
             'brands',

@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('page_title', $brand->name . ' - ' . config('app.name'))
+
 @section('main_content')
     <div class="container pt-3">
 

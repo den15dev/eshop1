@@ -225,26 +225,19 @@ class CategoryService
 
         }
 
-        // Order results
-        switch ($order_by) {
-            case 1:
-                $filter_query = $filter_query->orderBy('final_price', 'asc');
-                break;
-            case 2:
-                $filter_query = $filter_query->orderBy('final_price', 'desc');
-                break;
-            case 3:
-                $filter_query = $filter_query->orderBy('created_at', 'desc');
-                break;
-            case 4:
-                $filter_query = $filter_query->orderBy('vote_num', 'desc');
-                break;
-            case 5:
-                $filter_query = $filter_query->orderBy('discount_prc', 'desc');
-                break;
-        }
+        return self::orderQuery($filter_query, $order_by);
+    }
 
-        return $filter_query;
+
+    public static function orderQuery(HasMany|EBuilder $query, int $order_by): HasMany|EBuilder
+    {
+        return match ($order_by) {
+            1 => $query->orderBy('final_price', 'asc'),
+            2 => $query->orderBy('final_price', 'desc'),
+            3 => $query->orderBy('created_at', 'desc'),
+            4 => $query->orderBy('vote_num', 'desc'),
+            5 => $query->orderBy('discount_prc', 'desc'),
+        };
     }
 
 

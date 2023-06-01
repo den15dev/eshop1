@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('page_title', $category->name . ' - ' . config('app.name'))
+
 @section('main_content')
     @include('layout.includes.breadcrumb')
 

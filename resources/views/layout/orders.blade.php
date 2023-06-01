@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('page_title', 'Заказы - ' . config('app.name'))
+
 @section('main_content')
     <div class="container">
 
@@ -30,7 +32,6 @@
                 @endpush
 
                 @push('scripts')
-                    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
                     <script src="{{ asset('js/splide.min.js') }}"></script>
                     <script src="{{ asset('js/recently_viewed.js') }}"></script>
                 @endpush
