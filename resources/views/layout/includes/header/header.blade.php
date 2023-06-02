@@ -14,6 +14,7 @@
             <form class="head_search_cont ms-auto ms-lg-3 ms-xl-5 me-0 me-lg-auto" method="GET" action="{{ route('search') }}">
                 <div class="search_results_cont" id="search_result_cont"></div>
                 <input class="search_input" name="query" placeholder="Поиск" autocomplete="off" id="search_input">
+                <span class="clear_btn bi-x-lg" id="clear_btn"></span>
                 <button class="search_btn" type="submit"><span class="bi-search"></span></button>
             </form>
 

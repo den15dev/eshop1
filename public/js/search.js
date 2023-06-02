@@ -1,5 +1,6 @@
-let searchResCont = document.getElementById('search_result_cont');
-let searchInput = document.getElementById('search_input');
+const searchResCont = document.getElementById('search_result_cont');
+const searchInput = document.getElementById('search_input');
+const clearBtn = document.getElementById('clear_btn');
 let searchInputTimeOut;
 
 function showSearchResOnInput() {
@@ -14,6 +15,7 @@ function showSearchResOnInput() {
     } else {
         searchResCont.innerHTML = '';
         searchResCont.style.display = 'none';
+        clearBtn.style.display = 'none';
     }
 }
 
@@ -29,6 +31,7 @@ function getSearchResults(query_str) {
         data: {query: query_str},
         success: function(data){
             searchResCont.innerHTML = data;
+            clearBtn.style.display = 'block';
         }
     });
 }
@@ -41,8 +44,16 @@ function keepSearchResOnMouseOut() {
     searchInput.onblur = hideSearchResOnBlur;
 }
 
+function clearSearchRes() {
+    searchInput.value = '';
+    searchResCont.innerHTML = '';
+    searchResCont.style.display = 'none';
+    clearBtn.style.display = 'none';
+}
+
 searchInput.oninput = showSearchResOnInput;
 searchInput.onfocus = showSearchResOnInput;
 searchInput.onblur = hideSearchResOnBlur;
 searchResCont.onmouseover = keepSearchResOnMouseOver;
 searchResCont.onmouseout = keepSearchResOnMouseOut;
+clearBtn.onclick = clearSearchRes;

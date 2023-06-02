@@ -233,7 +233,8 @@ del {
     outline: 0;
 }
 
-.search_btn {
+.search_btn,
+.clear_btn {
     display: block;
     position: absolute;
     z-index: 3;
@@ -248,6 +249,12 @@ del {
     border: 0;
     outline: 0;
     background: none;
+}
+
+.clear_btn {
+    display: none;
+    line-height: 32px;
+    right: 38px;
 }
 
 .dropdown-menu li {
@@ -632,6 +639,14 @@ del {
 
 .cat_block_addbtn:hover {
     color: #5055de;
+}
+
+.cat_block_addbtn span {
+    vertical-align: -1px;
+}
+
+.icon_active {
+    color: #7c7fff;
 }
 
 .addtocart_btn {

@@ -13,35 +13,52 @@ use Illuminate\Database\Eloquent\Collection as ECollection;
 
 class SearchService
 {
-    /**
-     * Counts total search results in brands and products.
-     *
-     * @param string $search_str
-     * @return \stdClass - object with 'brands' and 'products' properties.
-     */
-    public function countResults(string $search_str): \stdClass
+/*
+    public function countResults(string $query_str): \stdClass
     {
         return DB::select(
             'SELECT
-            (SELECT COUNT(*) FROM brands WHERE name LIKE \'%' . $search_str . '%\') AS brands,
-            (SELECT COUNT(*) FROM products WHERE name LIKE \'%' . $search_str . '%\') AS products'
+            (SELECT COUNT(*) FROM brands WHERE name LIKE \'%' . $query_str . '%\') AS brands,
+            (SELECT COUNT(*) FROM products WHERE name LIKE \'%' . $query_str . '%\') AS products'
         )[0];
+    }
+*/
+
+    /**
+     * Counts total search results in brands and products.
+     *
+     * @param string $query_str
+     * @return \stdClass - object with 'brands' and 'products' properties.
+     */
+    public function countResults(string $query_str): \stdClass
+    {
+        $total = new \stdClass();
+
+        $total->brands = DB::table('brands')
+            ->where('name', 'like', '%' . $query_str . '%')
+            ->count();
+
+        $total->products = DB::table('products')
+            ->where('name', 'like', '%' . $query_str . '%')
+            ->count();
+
+        return $total;
     }
 
 
-    public function getBrandsForAutocomplete(string $search_str, int $limit): ECollection
+    public function getBrandsForAutocomplete(string $query_str, int $limit): ECollection
     {
         return Brand::select('id', 'name', 'slug')
-            ->where('name', 'like', '%' . $search_str . '%')
+            ->where('name', 'like', '%' . $query_str . '%')
             ->limit($limit)
             ->get();
     }
 
 
-    public function getProductsForAutocomplete(string $search_str, int $limit): ECollection
+    public function getProductsForAutocomplete(string $query_str, int $limit): ECollection
     {
         return Product::select('id', 'name', 'slug', 'category_id', 'final_price', 'images')
-            ->where('name', 'like', '%' . $search_str . '%')
+            ->where('name', 'like', '%' . $query_str . '%')
             ->limit($limit)
             ->get();
     }
