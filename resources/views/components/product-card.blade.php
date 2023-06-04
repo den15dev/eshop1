@@ -25,13 +25,13 @@
     <livewire:add-to-cart-small-btn wire:click="updateCart" :product_id="$product->id" />
 
     <div class="d-flex flex-row small mb-4">
-        <span class="cat_block_addbtn me-3">
-            <span class="bi-bar-chart me-1"></span>Сравнить
-        </span>
+        <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="small" type="short" />
+
         <span class="cat_block_addbtn">
             <span class="bi-heart me-1"></span>В избранное
         </span>
     </div>
+
 @if($type === 'carousel')
 </li>
 @else

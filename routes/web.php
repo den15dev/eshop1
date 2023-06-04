@@ -10,6 +10,7 @@ use App\Http\Controllers\Site\ReviewController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Site\SearchController;
+use App\Http\Controllers\Site\ComparisonController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -45,6 +46,10 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
+
+Route::get('/comparison', [ComparisonController::class, 'index'])->name('comparison');
+Route::post('/comparison/remove', [ComparisonController::class, 'remove'])->name('comparison.remove');
+Route::post('/comparison/clear', [ComparisonController::class, 'clear'])->name('comparison.clear');
 
 
 require __DIR__.'/auth.php';

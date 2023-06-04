@@ -1,3 +1,9 @@
+function getCookieValue(a, b, c) {
+    b = '; ' + document.cookie;
+    c = b.split('; ' + a + '=');
+    return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+}
+
 /**
  * Shows a message window.
  *
@@ -59,3 +65,23 @@ function showMessage(data) {
 
     message.style.display = 'block';
 }
+
+
+
+/* ----------- Listen for Comparison event if a product from another category added ------------- */
+
+Livewire.on('comparisonCatChangeRequest', productData => {
+    showMessage({
+        'type': 'confirm',
+        'message': 'В списке сравнения находятся товары другой категории. Создать список заново?',
+        'ok': function () {
+            document.cookie = 'compare=' + encodeURIComponent(JSON.stringify([productData[1], [productData[0]]])) + '; path=/;  max-age=2592000';
+            window.location.reload();
+        },
+        'okText': 'Создать',
+    });
+});
+
+Livewire.on('comparisonReloadPage', () => {
+    window.location.reload();
+});

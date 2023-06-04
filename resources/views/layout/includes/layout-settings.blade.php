@@ -30,12 +30,6 @@
 </div>
 
 <script>
-    function getCookieValue(a, b, c) {
-        b = '; ' + document.cookie;
-        c = b.split('; ' + a + '=');
-        return !!(c.length - 1) ? c.pop().split(';').shift() : '';
-    }
-
     function changeLayout(section, value) {
         let layout = JSON.parse(decodeURIComponent(getCookieValue('layout')));
         layout[section] = parseInt(value, 10);

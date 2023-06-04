@@ -111,24 +111,35 @@ del {
     text-decoration-color: #ea3672;
 }
 
-.blue_link {
+.blue_link,
+.black_link,
+.darkgrey_link {
     cursor: pointer;
     text-decoration: none;
+}
+
+.blue_link {
     color: #0d6efd;
+}
+
+.black_link {
+    color: black;
+}
+
+.darkgrey_link {
+    color: #535353;
 }
 
 .blue_link:hover {
     color: #ea3672;
 }
 
-.black_link {
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-}
-
 .black_link:hover {
     color: #0d6efd;
+}
+
+.darkgrey_link:hover {
+    color: black;
 }
 
 .grey_text {
@@ -405,7 +416,8 @@ del {
     position: relative;
 }
 
-.count_label {
+.count_badge_red,
+.count_badge_blue {
     position: absolute;
     top: -8px;
     left: -10px;
@@ -416,7 +428,14 @@ del {
     font-weight: bold;
     line-height: 16px;
     border-radius: 8px;
+}
+
+.count_badge_red {
     background-color: #ea3672;
+}
+
+.count_badge_blue {
+    background-color: #6f72f5;
 }
 
 .user_notify_dot {
@@ -1030,6 +1049,7 @@ del {
 
 .compare_col1 {
     width: 400px;
+    min-width: 200px;
 }
 
 .compare_col {
@@ -1038,6 +1058,10 @@ del {
 
 .compare_img {
     width: 120px;
+}
+
+.compare_head_row {
+    border-bottom-style: hidden;
 }
 
 
@@ -1232,6 +1256,46 @@ del {
 
 
 
+/* --------- Comparison Pop-Up --------- */
+
+.comparison_popup {
+    position: fixed;
+    right: 30px;
+    bottom: 40px;
+    width: 320px;
+    padding: 10px 16px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.comp_popup_item {
+    height: 46px;
+    text-decoration: none;
+}
+
+.comp_popup_link_cont {
+    flex: 1;
+}
+
+.comp_popup_name_cont {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.comp_popup_remove_btn {
+    flex: 0 0 30px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 42px;
+}
+
+.comp_popup_remove_btn:hover {
+    color: #ea3672;
+}
+
 
 
 
@@ -1269,6 +1333,10 @@ del {
 
     .message_win {
         width: 500px;
+    }
+
+    .compare_col1 {
+        min-width: 300px;
     }
 }
 

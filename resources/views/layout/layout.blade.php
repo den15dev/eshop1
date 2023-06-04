@@ -35,15 +35,19 @@
 
     </div>
 
+    @unless(request()->routeIs('comparison'))
+    <livewire:comparison-popup />
+    @endunless
+
     @include('layout.includes.message-client')
 
     @include('layout.includes.loadtime')
 
+    @livewireScripts
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>
     @stack('scripts')
-    @livewireScripts
 </body>
 </html>

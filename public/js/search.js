@@ -49,6 +49,7 @@ function clearSearchRes() {
     searchResCont.innerHTML = '';
     searchResCont.style.display = 'none';
     clearBtn.style.display = 'none';
+    searchInput.focus();
 }
 
 searchInput.oninput = showSearchResOnInput;

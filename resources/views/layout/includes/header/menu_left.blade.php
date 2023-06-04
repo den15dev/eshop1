@@ -7,17 +7,6 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link text-color-main" href="#">
-            <span class="bi-bar-chart-fill me-1 count_label_cont">
-                @if($menu_data['comparison'])
-                <div class="count_label">{{ $menu_data['comparison'] }}</div>
-                @endif
-            </span>
-            Сравнение
-        </a>
-    </li>
-
-    <li class="nav-item">
         <a class="nav-link text-color-main" href="#">Доставка</a>
     </li>
 

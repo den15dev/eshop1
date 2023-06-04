@@ -14,6 +14,7 @@ class EncryptCookies extends Middleware
     protected $except = [
         'rct_viewed', // Recently viewed product ids
         'layout', // Products layout settings
-        'ord' // List of order ids
+        'ord', // List of order ids
+        'compare', // List or product ids for comparison
     ];
 }

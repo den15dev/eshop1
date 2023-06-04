@@ -88,12 +88,11 @@
             <livewire:add-to-cart-big-btn wire:click="updateCart" :product_id="$product->id" :in_cart="$in_cart" />
 
             <div class="d-flex flex-row mb-4">
-            <span class="cat_block_addbtn me-4">
-               <span class="bi-bar-chart me-1"></span>Сравнить
-            </span>
+                <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="big" type="short" />
+
                 <span class="cat_block_addbtn">
-                <span class="bi-heart me-1"></span>В избранное
-            </span>
+                    <span class="bi-heart me-1"></span>В избранное
+                </span>
             </div>
         </div>
     </div>
@@ -122,7 +121,7 @@
         {{-- ----------- Specifications ------------ --}}
 
         <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
-            <table class="table spec_table">
+            <table class="table spec_table mb-4">
                 <tbody>
                 @foreach($product->specifications->sortBy('sort') as $spec)
                     <tr>
@@ -141,6 +140,8 @@
                 @endforeach
                 </tbody>
             </table>
+
+            <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="big" type="extended" />
         </div>
 
 
