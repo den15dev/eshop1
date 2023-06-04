@@ -664,8 +664,12 @@ del {
     vertical-align: -1px;
 }
 
-.icon_active {
+.icon_active_blue {
     color: #7c7fff;
+}
+
+.icon_active_red {
+    color: #ea3672;
 }
 
 .addtocart_btn {
@@ -680,14 +684,11 @@ del {
 }
 
 .price_old {
-    /*float: left;*/
-    /*margin-right: 4px;*/
     margin-top: 3px;
     margin-bottom: -6px;
 }
 
 .price_old_item {
-    /*float: left;*/
     margin-right: 8px;
     margin-top: 6px;
 }

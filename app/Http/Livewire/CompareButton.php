@@ -19,7 +19,7 @@ class CompareButton extends Component
     const ICON_NORMAL = 'bi-bar-chart';
     const ICON_ACTIVE = 'bi-bar-chart-fill';
     const COLOR_NORMAL = '';
-    const COLOR_ACTIVE = ' icon_active';
+    const COLOR_ACTIVE = ' icon_active_blue';
 
     const TEXT_SHORT_NORMAL = 'Сравнить';
     const TEXT_SHORT_ACTIVE = 'В сравнении';
@@ -31,9 +31,7 @@ class CompareButton extends Component
     public function mount()
     {
         $this->isInList = (new ComparisonService())->isInList($this->product_id);
-
         $this->isInList ? $this->makeActive() : $this->makeNormal();
-
     }
 
     public function makeNormal()

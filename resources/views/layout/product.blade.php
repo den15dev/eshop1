@@ -89,10 +89,7 @@
 
             <div class="d-flex flex-row mb-4">
                 <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="big" type="short" />
-
-                <span class="cat_block_addbtn">
-                    <span class="bi-heart me-1"></span>В избранное
-                </span>
+                <livewire:favorites-button :product_id="$product->id" size="big" />
             </div>
         </div>
     </div>

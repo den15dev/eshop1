@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use App\Services\CartService;
-use App\Services\OrderService;
+use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,12 +19,11 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(Request $request): View
+    public function create(Request $request, UserService $userService): View
     {
-        $cart = session('cart');
-        $orders = json_decode($request->cookie('ord'));
+        $guest_settings = $userService->getGuestActivitySettings($request);
 
-        return view('auth.register', compact('cart', 'orders'));
+        return view('auth.register', compact('guest_settings'));
     }
 
     /**
@@ -35,8 +33,7 @@ class RegisteredUserController extends Controller
      */
     public function store(
         Request $request,
-        CartService $cartService,
-        OrderService $orderService
+        UserService $userService
     ): RedirectResponse
     {
         $request->validate([
@@ -55,10 +52,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($request->boolean('move_cart_and_orders')) {
-            $cartService->moveCartFromSessionToDB($user->id);
-            $orderService->moveOrdersFromCookie($user->id, $user->email);
-        }
+        $userService->moveGuestActivitySettings($request);
 
         return redirect(RouteServiceProvider::HOME);
     }

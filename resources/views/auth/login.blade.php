@@ -38,8 +38,8 @@
                 <label class="form-check-label" for="remember_me">Запомнить меня</label>
             </div>
 
-            @if($cart || $orders)
-                <x-move-cart-and-orders :cart="$cart" :orders="$orders" />
+            @if($guest_settings)
+                <x-move-guest-settings :settings="$guest_settings" />
             @endif
 
             <button type="submit" class="btn2 btn2-primary login_btn w-100 mt-3 mb-3">Войти</button>

@@ -13,17 +13,6 @@ use Illuminate\Database\Eloquent\Collection as ECollection;
 
 class SearchService
 {
-/*
-    public function countResults(string $query_str): \stdClass
-    {
-        return DB::select(
-            'SELECT
-            (SELECT COUNT(*) FROM brands WHERE name LIKE \'%' . $query_str . '%\') AS brands,
-            (SELECT COUNT(*) FROM products WHERE name LIKE \'%' . $query_str . '%\') AS products'
-        )[0];
-    }
-*/
-
     /**
      * Counts total search results in brands and products.
      *

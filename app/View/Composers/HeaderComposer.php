@@ -13,8 +13,6 @@ class HeaderComposer
     {
         $menu_data = [
             'menu_catalog' => (new CategoryService())->buildMenu(),
-            'comparison' => 0,
-            'favourites' => 0,
             'orders' => (new OrderService())->checkForUncompleteOrders(),
         ];
 

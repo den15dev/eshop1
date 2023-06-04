@@ -126,7 +126,7 @@ class OrderService
 
         if ($user_id) {
             $orders = Order::select('id', 'status')
-                ->where('user_id', 1)
+                ->where('user_id', $user_id)
                 ->get();
         } else {
             $order_ids = json_decode(request()->cookie('ord'));

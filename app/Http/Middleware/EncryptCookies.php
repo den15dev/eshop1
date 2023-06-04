@@ -16,5 +16,6 @@ class EncryptCookies extends Middleware
         'layout', // Products layout settings
         'ord', // List of order ids
         'compare', // List or product ids for comparison
+        'fav', // List of favorite product ids
     ];
 }

@@ -4,9 +4,7 @@
     <li class="nav-item ms-auto">
         <a class="nav-link text-color-main" href="#">
             <span class="bi-heart me-1 count_label_cont">
-                @if($menu_data['favourites'])
-                    <div class="count_label">{{ $menu_data['favourites'] }}</div>
-                @endif
+                <livewire:favorites-badge />
             </span>
             Избранное
         </a>

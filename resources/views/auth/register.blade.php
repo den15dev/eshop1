@@ -59,8 +59,8 @@
             </div>
 
 
-            @if($cart || $orders)
-                <x-move-cart-and-orders :cart="$cart" :orders="$orders" />
+            @if($guest_settings)
+                <x-move-guest-settings :settings="$guest_settings" />
             @endif
 
             <button type="submit" class="btn2 btn2-primary login_btn mt-4 w-100">Зарегистрироваться</button>

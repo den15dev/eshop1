@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-use App\Services\CartService;
-use App\Services\OrderService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +16,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(Request $request): View
+    public function create(Request $request, UserService $userService): View
     {
-        $cart = session('cart');
-        $orders = json_decode($request->cookie('ord'));
+        $guest_settings = $userService->getGuestActivitySettings($request);
 
-        return view('auth.login', compact('cart', 'orders'));
+        return view('auth.login', compact('guest_settings'));
     }
 
     /**
@@ -30,20 +28,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(
         LoginRequest $request,
-        CartService $cartService,
-        OrderService $orderService
+        UserService $userService
     ): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        if ($request->boolean('move_cart_and_orders')) {
-            $user_id = $request->user()->id;
-            $user_email = $request->user()->email;
-            $cartService->moveCartFromSessionToDB($user_id);
-            $orderService->moveOrdersFromCookie($user_id, $user_email);
-        }
+        $userService->moveGuestActivitySettings($request);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
