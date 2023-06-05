@@ -672,6 +672,10 @@ del {
     color: #ea3672;
 }
 
+.icon_active_red:hover {
+    color: #ff558c;
+}
+
 .addtocart_btn {
     width: 130px;
     margin-bottom: 12px;
@@ -699,6 +703,21 @@ del {
     left: 0;
     padding: 1px 8px;
     color: white;
+}
+
+.card_remove_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    line-height: 32px;
+    color: #c0c0c0;
+}
+
+.card_remove_btn:hover {
+    color: #ea3672;
 }
 
 #pagination {

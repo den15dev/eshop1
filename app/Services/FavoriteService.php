@@ -5,12 +5,14 @@ namespace App\Services;
 
 
 use App\Models\Favorite;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\Collection as ECollection;
 
-class FavoritesService
+class FavoriteService
 {
     private static array|null $favorites = null;
 
@@ -31,6 +33,21 @@ class FavoritesService
         }
 
         return self::$favorites;
+    }
+
+
+    public function getProducts()
+    {
+        $favorites = $this->get();
+
+        if ($favorites) {
+            return Product::select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'rating', 'vote_num', 'images')
+                ->whereIn('id', $favorites)
+                ->orderByRaw('FIELD(id, ' . implode(', ', $favorites) . ')')
+                ->get();
+        }
+
+        return new ECollection([]);
     }
 
 

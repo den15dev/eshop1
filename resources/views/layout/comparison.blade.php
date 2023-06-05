@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr class="fw-semibold">
+                        <tr class="fs-5">
                             <td class="text-start"></td>
                             @foreach($products as $product)
                                 <td class="pb-3">{{ format_price($product->final_price) }} ₽</td>

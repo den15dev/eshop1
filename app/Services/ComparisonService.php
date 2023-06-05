@@ -29,19 +29,13 @@ class ComparisonService
         $comparison_arr = $this->get();
 
         if ($comparison_arr) {
-            $orderByStr = 'FIELD(id';
-            foreach ($comparison_arr[1] as $id) {
-                $orderByStr .= ', ' . $id;
-            }
-            $orderByStr .= ')';
-
             $products = Product::select('id', 'name', 'slug', 'category_id', 'final_price', 'images')
                 ->where('is_active', 1)
                 ->whereIn('id', $comparison_arr[1])
                 ->when($with_specs, function ($query) {
                     $query->with('specifications');
                 })
-                ->orderByRaw($orderByStr)
+                ->orderByRaw('FIELD(id, ' . implode(', ', $comparison_arr[1]) . ')')
                 ->get();
         }
 

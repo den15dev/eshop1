@@ -2,7 +2,7 @@
 
 <ul class="nav col-12 col-lg-5">
     <li class="nav-item ms-auto">
-        <a class="nav-link text-color-main" href="#">
+        <a href="{{ route('favorites') }}" class="nav-link text-color-main">
             <span class="bi-heart me-1 count_label_cont">
                 <livewire:favorites-badge />
             </span>

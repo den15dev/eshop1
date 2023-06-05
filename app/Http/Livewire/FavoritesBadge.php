@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\FavoritesService;
+use App\Services\FavoriteService;
 use Livewire\Component;
 
 class FavoritesBadge extends Component
@@ -13,7 +13,7 @@ class FavoritesBadge extends Component
 
     public function mount()
     {
-        $this->favorites_num = count((new FavoritesService)->get());
+        $this->favorites_num = count((new FavoriteService)->get());
     }
 
     public function updateFavoritesBadge(int $favorites_num)

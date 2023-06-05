@@ -48,13 +48,9 @@ class ProductService
         }
 
         if ($ids) {
-            // Keeping order
-            $orderByStr = 'FIELD(id';
-            foreach ($ids as $id) {
-                $orderByStr .= ', ' . $id;
-            }
-            $orderByStr .= ')';
-            $recently_viewed = Product::whereIn('id', $ids)->orderByRaw($orderByStr)->get();
+            $recently_viewed = Product::whereIn('id', $ids)
+                ->orderByRaw('FIELD(id, ' . implode(', ', $ids) . ')')
+                ->get();
         }
 
         return $recently_viewed;

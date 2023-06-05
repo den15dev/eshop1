@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\CategoryController;
@@ -50,6 +51,8 @@ Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->n
 Route::get('/comparison', [ComparisonController::class, 'index'])->name('comparison');
 Route::post('/comparison/remove', [ComparisonController::class, 'remove'])->name('comparison.remove');
 Route::post('/comparison/clear', [ComparisonController::class, 'clear'])->name('comparison.clear');
+
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites');
 
 
 require __DIR__.'/auth.php';

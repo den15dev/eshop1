@@ -56,6 +56,7 @@ class AddToCartBigBtn extends Component
     {
         $this->btn_color_class = self::BTN_NORMAL_CLASS;
         $this->btn_title = self::BTN_TITLE;
+        $this->title_attr = '';
     }
 
 

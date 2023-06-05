@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\FavoritesService;
+use App\Services\FavoriteService;
 use Livewire\Component;
 
 class FavoritesButton extends Component
@@ -22,9 +22,12 @@ class FavoritesButton extends Component
     const TEXT_NORMAL = 'В избранное';
     const TEXT_ACTIVE = 'В избранном';
 
+    const TITLE_REMOVE_HINT = ' title="Удалить из избранного"';
+    public string $title_attr = '';
+
     public function mount()
     {
-        $this->isInList = (new FavoritesService())->isInList($this->product_id);
+        $this->isInList = (new FavoriteService())->isInList($this->product_id);
         $this->isInList ? $this->makeActive() : $this->makeNormal();
     }
 
@@ -33,6 +36,7 @@ class FavoritesButton extends Component
         $this->icon_class = self::ICON_NORMAL;
         $this->color_class = self::COLOR_NORMAL;
         $this->inner_text = self::TEXT_NORMAL;
+        $this->title_attr = '';
     }
 
     public function makeActive()
@@ -40,11 +44,12 @@ class FavoritesButton extends Component
         $this->icon_class = self::ICON_ACTIVE;
         $this->color_class = self::COLOR_ACTIVE;
         $this->inner_text = self::TEXT_ACTIVE;
+        $this->title_attr = self::TITLE_REMOVE_HINT;
     }
 
     public function updateFavoritesList(): void
     {
-        $favoritesService = new FavoritesService();
+        $favoritesService = new FavoriteService();
 
         if ($this->isInList) {
             $favorites = $favoritesService->remove($this->product_id);

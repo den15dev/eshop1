@@ -27,6 +27,8 @@ class CompareButton extends Component
     const TEXT_EXTENDED_NORMAL = 'Сравнить характеристики';
     const TEXT_EXTENDED_ACTIVE = 'Добавлено в список сравнения';
 
+    const TITLE_REMOVE_HINT = ' title="Удалить из списка сравнения"';
+    public string $title_attr = '';
 
     public function mount()
     {
@@ -38,6 +40,7 @@ class CompareButton extends Component
     {
         $this->icon_class = self::ICON_NORMAL;
         $this->color_class = self::COLOR_NORMAL;
+        $this->title_attr = '';
         if ($this->type === 'short') {
             $this->inner_text = self::TEXT_SHORT_NORMAL;
         } else {
@@ -49,6 +52,7 @@ class CompareButton extends Component
     {
         $this->icon_class = self::ICON_ACTIVE;
         $this->color_class = self::COLOR_ACTIVE;
+        $this->title_attr = self::TITLE_REMOVE_HINT;
         if ($this->type === 'short') {
             $this->inner_text = self::TEXT_SHORT_ACTIVE;
         } else {

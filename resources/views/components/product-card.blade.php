@@ -7,6 +7,11 @@
         @if($product->discount_prc)
         <div class="cat_img_badge small bg-color-red">-{{ $product->discount_prc }}%</div>
         @endif
+
+        @if($type === 'favorites')
+        <livewire:favorites-remove-btn :product_id="$product->id" />
+        @endif
+
         <img src="{{ asset('storage/images/products/temp/' . ($product->id % 20 + 1) . '/' . $product->images[0] . '_242.jpg') }}" alt="{{ $product->name }}">
     </a>
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block cat_block_title">

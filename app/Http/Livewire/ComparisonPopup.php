@@ -28,13 +28,13 @@ class ComparisonPopup extends Component
     public function clearComparisonList()
     {
         (new ComparisonService())->clear();
-        $this->emit('comparisonReloadPage');
+        $this->emit('reloadPageByJS');
     }
 
     public function comparisonRemoveItem(int $product_id)
     {
         (new ComparisonService())->remove($product_id);
-        $this->emit('comparisonReloadPage');
+        $this->emit('reloadPageByJS');
     }
 
     public function render()

@@ -82,6 +82,6 @@ Livewire.on('comparisonCatChangeRequest', productData => {
     });
 });
 
-Livewire.on('comparisonReloadPage', () => {
+Livewire.on('reloadPageByJS', () => {
     window.location.reload();
 });

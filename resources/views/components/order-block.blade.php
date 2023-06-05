@@ -12,7 +12,13 @@
             if ($order->status === 'new' || $order->status === 'accepted') $status_class = ' text-color-main2';
             elseif ($order->status === 'ready' || $order->status === 'sent') $status_class = ' text-color-green';
         @endphp
-        <li><span class="lightgrey_text">Статус:</span> <span class="fw-semibold{{ $status_class }}">{{ $order->status_str }}</span></li>
+        <li><span class="lightgrey_text">Статус:</span>
+            @if($status_class)
+                <span class="fw-semibold{{ $status_class }}">{{ $order->status_str }}</span>
+            @else
+                {{ $order->status_str }}
+            @endif
+        </li>
         <li><span class="lightgrey_text">Способ получения:</span> {{ $order->delivery_type_str }}</li>
         <li><span class="lightgrey_text">Адрес:</span> {{ $order->shop ? $order->shop->address : $order->delivery_address }}</li>
         <li><span class="lightgrey_text">Способ оплаты:</span> {{ $order->payment_method_str }}</li>

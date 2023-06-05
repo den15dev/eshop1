@@ -12,32 +12,26 @@
     <span class="item_review_date" title="{{ \Carbon\Carbon::parse($review->created_at)->isoFormat('D MMMM YYYY, H:mm') }}">{{ \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
     <span class="item_review_usetime mb-4"><span class="lightgrey_text">Срок использования:</span> {{ $review->term }}</span>
 
-    <h6 class="fw-bold">Достоинства</h6>
-    <p class="mb-4">
-        @if($review->pros)
-        {{ $review->pros }}
-        @else
-        <span class="lightgrey_text fst-italic">Не указано</span>
-        @endif
-    </p>
+    @if($review->pros)
+        <h6 class="fw-bold">Достоинства</h6>
+        <p class="mb-4">
+            {{ $review->pros }}
+        </p>
+    @endif
 
-    <h6 class="fw-bold">Недостатки</h6>
-    <p class="mb-4">
-        @if($review->cons)
-        {{ $review->cons }}
-        @else
-        <span class="lightgrey_text fst-italic">Не указано</span>
-        @endif
-    </p>
+    @if($review->cons)
+        <h6 class="fw-bold">Недостатки</h6>
+        <p class="mb-4">
+            {{ $review->cons }}
+        </p>
+    @endif
 
-    <h6 class="fw-bold">Комментарий</h6>
-    <p class="mb-4">
-        @if($review->comnt)
-        {{ $review->comnt }}
-        @else
-        <span class="lightgrey_text fst-italic">Не указано</span>
-        @endif
-    </p>
+    @if($review->comnt)
+        <h6 class="fw-bold">Комментарий</h6>
+        <p class="mb-4">
+            {{ $review->comnt }}
+        </p>
+    @endif
 
     <livewire:reactions :review="$review" :userid="$userid" />
 </div>

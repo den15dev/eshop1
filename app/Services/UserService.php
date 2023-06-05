@@ -45,7 +45,7 @@ class UserService
             (new OrderService())->moveOrdersFromCookie($user_id, $user_email);
         }
         if ($request->boolean('move_favorites')) {
-            (new FavoritesService())->moveFromCookieToDB($user_id);
+            (new FavoriteService())->moveFromCookieToDB($user_id);
         }
     }
 }

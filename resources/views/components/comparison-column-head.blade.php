@@ -1,5 +1,5 @@
 <td class="compare_col px-4 align-top">
-    <div class="blue_link mb-2" onclick="removeFromComparison({{ $product->id }})" title="Удалить из сравнения">
+    <div class="blue_link mb-2" onclick="removeFromComparison({{ $product->id }})" title="Удалить из списка сравнения">
         <span class="bi-x me-1"></span>Удалить
     </div>
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block cat_block_title">
