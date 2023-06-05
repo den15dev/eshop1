@@ -1,6 +1,6 @@
 <div class="col px-0">
     <div class="cat_block">
-        <a href="{{ route('category', $category->slug) }}" class="d-block mb-2 text-center cat_block_title"
+        <a href="{{ $brand ? route('category', ['category' => $category->slug, 'brands[' . $brand->id . ']' => $brand->name]) : route('category', $category->slug) }}" class="d-block mb-2 text-center cat_block_title"
            onmouseover="this.getElementsByTagName('div')[0].style.backgroundPosition = 'right';"
            onmouseout="this.getElementsByTagName('div')[0].style.backgroundPosition = 'left';">
 
