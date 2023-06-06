@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'address',
+        'image',
     ];
 
     /**
@@ -95,5 +98,17 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+
+    public function getThumbnailAttribute()
+    {
+        $thumbnail = 'menu_user_icon.png';
+        if ($this->image) {
+            $thumbnail_arr = explode('.', $this->image);
+            $thumbnail_arr[count($thumbnail_arr) - 2] .= '_thumbnail';
+            $thumbnail = $this->id . '/' . implode('.', $thumbnail_arr);
+        }
+        return $thumbnail;
     }
 }

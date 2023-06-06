@@ -36,10 +36,17 @@
     </div>
 
     @unless(request()->routeIs('comparison'))
-    <livewire:comparison-popup />
+        <livewire:comparison-popup />
     @endunless
 
     @include('layout.includes.message-client')
+
+    @if(session()->has('message'))
+        <x-message-flash
+            type="{{ session('message.type') }}"
+            content="{{ session('message.content') }}"
+            align="{{ session('message.align') }}" />
+    @endif
 
     @include('layout.includes.loadtime')
 

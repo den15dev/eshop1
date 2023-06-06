@@ -17,14 +17,14 @@ class NewOrderRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array
      */
     public function rules(): array
     {
         $rules = [
-            'name' => ['required', 'min:2', 'max:80'],
+            'name' => ['required', 'min:2', 'max:100'],
             'phone' => ['required', 'regex:/^\+?[0-9]{0,3}[\s-]{0,2}\(?[0-9]{3}\)?[\s-]{0,2}[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/'],
-            'email' => ['nullable', 'email'],
+            'email' => ['nullable', 'email:rfc,dns', 'max:100'],
         ];
 
         if ($this->input('delivery_type') === 'delivery') {

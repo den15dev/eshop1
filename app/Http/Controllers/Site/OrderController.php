@@ -20,25 +20,24 @@ class OrderController extends Controller
     {
         $products = $cartService->getCartProducts();
         $cart_cost = $cartService->getCartCost($products);
-        $user_id = Auth::id();
         $order = null;
 
         DB::transaction(function () use (
             $cartService,
             $products,
             $cart_cost,
-            $user_id,
             &$order,
             $request
         ) {
             $orderService = new OrderService();
-            $order = $orderService->storeOrder($request, $user_id, $cart_cost);
+            $order = $orderService->storeOrder($request, $cart_cost);
             $orderService->storeOrderItems($products, $order);
+            $orderService->saveMissingUserData($request);
             $cartService->clearCart();
         }, 3);
 
         // Set cookie with order list if user is not authorized
-        if (!$user_id) {
+        if (!$request->user()) {
             $order_ids = json_decode($request->cookie('ord')) ?? [];
             array_push($order_ids, $order->id);
             Cookie::queue('ord', json_encode($order_ids), 2628000); // 5 years

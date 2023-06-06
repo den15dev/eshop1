@@ -25,19 +25,19 @@
             <div class="user_btn_main_cont ms-1">
                 <div class="user_btn_inner_cont" id="user_btn">
                     <span class="user_btn_name_cont">{{ Auth::user()->name }}</span>
-                    <img class="user_btn_img" src="{{ asset('storage/images/users/' . (Auth::user()->image ?? 'menu_user_icon.png')) }}">
+                    <img class="user_btn_img" src="{{ asset('storage/images/users/' . Auth::user()->thumbnail) }}">
                     <div class="user_notify_dot dot_avatar_pos"></div>
                 </div>
                 <div class="user_btn_menu_cont bg-color-main" id="user_btn_menu">
                     <ul>
                         <li>
-                            <a href="">
+                            <a href="{{ route('profile') }}" class="user_btn_menu_item">
                                 <span class="bi-gear me-1"></span>
-                                Настройки
+                                Профиль
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('notifications') }}" class="user_btn_menu_item">
                             <span class="bi-bell me-1 count_label_cont">
                                 <div class="user_notify_dot dot_icon_pos"></div>
                             </span>
@@ -47,10 +47,10 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <div class="user_btn_menu_item" onclick="this.closest('form').submit();">
                                     <span class="bi-box-arrow-right me-1"></span>
                                     Выход
-                                </a>
+                                </div>
                             </form>
                         </li>
                     </ul>

@@ -5,7 +5,6 @@ namespace App\Services;
 
 use Intervention\Image\Facades\Image;
 
-
 class ImageService
 {
     /**
@@ -14,11 +13,21 @@ class ImageService
      * @param string $source_path - source image path.
      * @param string $out_path - output (destination) image path.
      * @param int|array $sizes - size, or array of sizes, e.g. [600, 242, 80].
+     * @param bool|string $suffix - the string that will be used for file name suffix;
+     *                              by default (empty string) - a resolution number will be used;
+     *                              if false, no suffix will be applied;
      * @param bool $crop - if true, a smallest side will be fitted, a biggest side will be cropped,
      *                     if false, a biggest side will be fitted, gaps will be filled with white.
      * @param int $quality - converting quality, maximum 100.
      */
-    public static function saveToSquare(string $source_path, string $out_path, int|array $sizes, bool $crop = true, int $quality = 85): void
+    public static function saveToSquare(
+        string $source_path,
+        string $out_path,
+        int|array $sizes,
+        bool|string $suffix = '',
+        bool $crop = true,
+        int $quality = 85
+    ): void
     {
         if ($quality > 100) $quality = 100;
 
@@ -32,7 +41,10 @@ class ImageService
 
         foreach ($sizes as $size) {
             // Add resolution suffix
-            $path_arr[count($path_arr) - 2] = $basepath.'_'.$size;
+            if ($suffix !== false) {
+                $path_arr[count($path_arr) - 2] = $suffix === '' ? $basepath.'_'.$size : $basepath.'_'.$suffix;
+            }
+
             $out_path = implode('.', $path_arr);
 
             $image = Image::make($source_path);

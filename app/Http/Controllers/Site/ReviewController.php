@@ -20,7 +20,11 @@ class ReviewController extends Controller
             $message = 'Ваша сессия устарела. Пожалуйста, войдите на сайт заново, чтобы оставить отзыв.';
         }
 
-        $request->session()->flash('message', ['type' => 'info', 'content' => $message]);
+        $request->session()->flash('message', [
+            'type' => 'info',
+            'content' => $message,
+            'align' => 'center',
+        ]);
 
         return back();
     }

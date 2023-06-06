@@ -116,7 +116,7 @@ function validateName(nameInput) {
     let message = '';
     if (nameInput.value.length < 2) {
         message = 'Пожалуйста, укажите ваше имя.';
-    } else if (nameInput.value.length > 80) {
+    } else if (nameInput.value.length > 100) {
         message = 'Пожалуйста, укажите более короткое имя.';
     } else {
         return true;

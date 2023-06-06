@@ -528,17 +528,17 @@ del {
     margin: 0;
     line-height: 38px;
     color: white;
-    /*font-size: 16px;*/
 }
 
-.user_btn_menu_cont ul a {
+.user_btn_menu_item {
     display: block;
+    cursor: pointer;
     padding-left: 16px;
     text-decoration: none;
     color: white;
 }
 
-.user_btn_menu_cont ul a:hover {
+.user_btn_menu_item:hover {
     color: #e0e9fa;
     background-color: #3c40c2;
 }
@@ -1061,6 +1061,7 @@ del {
 
 
 
+
 /* --------- Comparison --------- */
 
 .compare_main_cont {
@@ -1112,7 +1113,7 @@ del {
 
 .user_settings_form {
     display: block;
-    width: 460px;
+    /*width: 460px;*/
     margin-bottom: 42px;
 }
 
@@ -1219,11 +1220,12 @@ del {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 400px;
+    min-width: 300px;
+    max-width: 380px;
     transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 6px;
-    padding: 28px;
+    padding: 28px 40px;
     z-index: 51;
 }
 
@@ -1352,7 +1354,8 @@ del {
     }
 
     .message_win {
-        width: 500px;
+        min-width: 300px;
+        max-width: 480px;
     }
 
     .compare_col1 {

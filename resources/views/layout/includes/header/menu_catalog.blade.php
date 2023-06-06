@@ -16,6 +16,6 @@
             }
         }
 
-        build_cat_menu($menu_data['menu_catalog']);
+        build_cat_menu($header['category_tree']);
     @endphp
 </ul>

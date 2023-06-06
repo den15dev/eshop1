@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\Collection as ECollection;
 
 class OrderService
 {
-    public function storeOrder(NewOrderRequest $request, $user_id, $cart_cost): Order
+    public function storeOrder(NewOrderRequest $request, $cart_cost): Order
     {
         $validated = $request->validated();
 
         $order = new Order();
         $order->status = 'new';
-        if ($user_id) { $order->user_id = $user_id; }
+        if ($request->user()) { $order->user_id = $request->user()->id; }
         $order->name = $validated['name'];
         $order->phone = $validated['phone'];
         if ($validated['email']) { $order->email = $validated['email']; }
@@ -89,12 +89,14 @@ class OrderService
         if ($user_id) {
             $orders = Order::where('user_id', $user_id)
                 ->with(['shop:id,address', 'orderItems', 'orderItems.product:id,name,slug,category_id,images'])
+                ->orderBy('created_at', 'desc')
                 ->get();
         } else {
             $order_ids = json_decode(request()->cookie('ord'));
             if (is_array($order_ids)) {
                 $orders = Order::whereIn('id', $order_ids)
                     ->with(['shop:id,address', 'orderItems', 'orderItems.product:id,name,slug,category_id,images'])
+                    ->orderBy('created_at', 'desc')
                     ->get();
             }
         }
@@ -182,5 +184,29 @@ class OrderService
             }
             Cookie::expire('ord');
         }
+    }
+
+
+    /**
+     * Saves user's phone and email if they are not presented.
+     *
+     * @param NewOrderRequest $request
+     */
+    public function saveMissingUserData(NewOrderRequest $request): void
+    {
+        $user = $request->user();
+        $validated = $request->validated();
+
+        $missing_data = false;
+        if (!$user->phone) {
+            $user->phone = $validated['phone'];
+            $missing_data = true;
+        }
+        if ($request->delivery_type === 'delivery' && !$user->address) {
+            $user->address = $request->delivery_address;
+            $missing_data = true;
+        }
+
+        if ($missing_data) $user->save();
     }
 }

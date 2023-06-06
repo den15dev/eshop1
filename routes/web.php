@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Site\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\CategoryController;
@@ -12,6 +11,9 @@ use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Site\SearchController;
 use App\Http\Controllers\Site\ComparisonController;
+use App\Http\Controllers\Site\FavoriteController;
+use App\Http\Controllers\Site\ProfileController;
+use App\Http\Controllers\Site\NotificationController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -53,6 +55,12 @@ Route::post('/comparison/remove', [ComparisonController::class, 'remove'])->name
 Route::post('/comparison/clear', [ComparisonController::class, 'clear'])->name('comparison.clear');
 
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites');
+
+Route::middleware('auth')->prefix('user')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+});
 
 
 require __DIR__.'/auth.php';

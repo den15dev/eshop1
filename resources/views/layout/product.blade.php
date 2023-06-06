@@ -188,10 +188,6 @@
                 <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Зарегистрируйтесь или войдите, чтобы оставлять отзывы</h4>
             @endif
 
-            @if(session()->has('message'))
-            <x-message-flash type="{{ session('message.type') }}" content="{{ session('message.content') }}" align="center" />
-            @endif
-
         </div>
     </div>
 

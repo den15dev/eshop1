@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 
 class UserService
@@ -47,5 +48,31 @@ class UserService
         if ($request->boolean('move_favorites')) {
             (new FavoriteService())->moveFromCookieToDB($user_id);
         }
+    }
+
+
+    public function saveUserImage(ProfileUpdateRequest $request): void
+    {
+        $user_img_dir = storage_path('app/public/images/users/' . $request->user()->id);
+
+        // If a user image directory doesn't exists create it
+        if (!is_dir($user_img_dir)) {
+            mkdir($user_img_dir);
+        } else {
+            // otherwise clear it.
+            $old_images = array_diff(scandir($user_img_dir), array('..', '.'));
+            foreach ($old_images as $old_image) {
+                unlink($user_img_dir . '/' . $old_image);
+            }
+        }
+
+        $source_path = $request->file('user_image')->path();
+        $orig_name = $request->file('user_image')->getClientOriginalName();
+        $out_path = $user_img_dir . '/' . $orig_name;
+
+        ImageService::saveToSquare($source_path, $out_path, 200, false);
+        ImageService::saveToSquare($source_path, $out_path, 38, 'thumbnail');
+
+        $request->user()->update(['image' => $orig_name]);
     }
 }
