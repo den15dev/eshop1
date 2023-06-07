@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title', 150);
             $table->text('message');
-            $table->boolean('is_read')->default(0);
+            $table->boolean('is_unread')->default(1);
             $table->timestamps();
         });
 

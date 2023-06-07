@@ -453,6 +453,10 @@ del {
     background-color: #46c749;
 }
 
+.dot_red {
+    background-color: #ea3672;
+}
+
 .dot_avatar_pos {
     top: 1px;
     right: 29px;

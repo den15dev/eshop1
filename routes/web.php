@@ -12,8 +12,8 @@ use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Site\SearchController;
 use App\Http\Controllers\Site\ComparisonController;
 use App\Http\Controllers\Site\FavoriteController;
-use App\Http\Controllers\Site\ProfileController;
-use App\Http\Controllers\Site\NotificationController;
+use App\Http\Controllers\Site\UserProfileController;
+use App\Http\Controllers\Site\UserNotificationController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -57,9 +57,9 @@ Route::post('/comparison/clear', [ComparisonController::class, 'clear'])->name('
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites');
 
 Route::middleware('auth')->prefix('user')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
+    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications');
 });
 
 

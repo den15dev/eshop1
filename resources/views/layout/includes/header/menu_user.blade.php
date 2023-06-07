@@ -26,7 +26,7 @@
                 <div class="user_btn_inner_cont" id="user_btn">
                     <span class="user_btn_name_cont">{{ Auth::user()->name }}</span>
                     <img class="user_btn_img" src="{{ asset('storage/images/users/' . Auth::user()->thumbnail) }}">
-                    <div class="user_notify_dot dot_avatar_pos"></div>
+                    <livewire:unread-notification-dot type="avatar" />
                 </div>
                 <div class="user_btn_menu_cont bg-color-main" id="user_btn_menu">
                     <ul>
@@ -39,7 +39,7 @@
                         <li>
                             <a href="{{ route('notifications') }}" class="user_btn_menu_item">
                             <span class="bi-bell me-1 count_label_cont">
-                                <div class="user_notify_dot dot_icon_pos"></div>
+                                <livewire:unread-notification-dot type="icon" />
                             </span>
                                 Уведомления
                             </a>

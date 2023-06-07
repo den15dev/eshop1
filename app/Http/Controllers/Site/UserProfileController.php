@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
-class ProfileController extends Controller
+class UserProfileController extends Controller
 {
     public function show(): View
     {
