@@ -1029,8 +1029,7 @@ del {
 
 /* --------- Login --------- */
 
-.login_form {
-    display: block;
+.login_cont {
     width: 360px;
     padding: 100px 0;
 }

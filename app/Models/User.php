@@ -101,7 +101,7 @@ class User extends Authenticatable
     }
 
 
-    public function getThumbnailAttribute()
+    public function getThumbnailAttribute(): string
     {
         $thumbnail = 'menu_user_icon.png';
         if ($this->image) {
