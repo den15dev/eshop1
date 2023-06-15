@@ -15,7 +15,9 @@ return new class extends Migration
 
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 60);
             $table->string('address', 150);
+            $table->json('location');
             $table->json('opening_hours');
             $table->text('info')->nullable();
             $table->json('images')->nullable();

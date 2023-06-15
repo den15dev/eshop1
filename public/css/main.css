@@ -288,6 +288,10 @@ del {
     display: block;
 }
 
+footer .flex-column a:hover {
+    color: black !important;
+}
+
 
 
 
@@ -324,6 +328,8 @@ del {
 .me-18{margin-right:1.8rem!important}
 
 .mb-45{margin-bottom:2.2rem!important}
+
+.mt-45{margin-top:2.2rem!important}
 
 .mb-25{margin-bottom:.8rem!important}
 
@@ -1323,13 +1329,48 @@ del {
 
 
 
+/* --------- Shops --------- */
+
+.shops_list {
+    padding: 0 12px;
+}
+
+.shops_map {
+    padding: 0 12px;
+}
+
+.shops_map_cont,
+.shop_items_cont {
+    height: 400px;
+}
+
+.shop_items_cont {
+    overflow-y: auto;
+}
+
+.shop_item {
+    min-height: 110px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-bottom: #f5f5ff solid 1px;
+}
+
+.shop_item_active {
+    background-color: #f5f5ff;
+}
+
+.shop_item:hover {
+    background-color: #f5f5ff;
+}
 
 
 
+
+/*
 @media only screen and (max-width: 576px) {
 
 }
-
+*/
 @media only screen and (min-width: 576px) {
 
 }
@@ -1363,6 +1404,11 @@ del {
 
     .compare_col1 {
         min-width: 300px;
+    }
+
+    .shops_map_cont,
+    .shop_items_cont {
+        height: 500px;
     }
 }
 
@@ -1398,6 +1444,19 @@ del {
 
     #add_review_form {
         width: 80%;
+    }
+
+    .shops_list {
+        padding: 0 6px 0 12px;
+    }
+
+    .shops_map {
+        padding: 0 12px 0 6px;
+    }
+
+    .shops_map_cont,
+    .shop_items_cont {
+        height: 600px;
     }
 }
 

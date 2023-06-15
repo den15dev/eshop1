@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Site\DeliveryController;
+use App\Http\Controllers\Site\ShopController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\CategoryController;
@@ -61,6 +63,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
     Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications');
 });
+
+Route::get('/delivery', DeliveryController::class)->name('delivery');
+Route::get('/shops', ShopController::class)->name('shops');
 
 
 require __DIR__.'/auth.php';

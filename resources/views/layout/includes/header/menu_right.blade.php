@@ -1,12 +1,12 @@
 {{--    Data passed from app/View/Composers/MenuComposer.php --}}
 
-<ul class="nav col-12 col-lg-5">
+<ul class="nav col-4 col-lg-6">
     <li class="nav-item ms-auto">
         <a href="{{ route('favorites') }}" class="nav-link text-color-main">
             <span class="bi-heart me-1 count_label_cont">
                 <livewire:favorites-badge />
             </span>
-            Избранное
+            <span class="d-none d-lg-inline">Избранное</span>
         </a>
     </li>
     <li class="nav-item">
@@ -14,11 +14,11 @@
             <span class="bi-cart me-1 count_label_cont">
                 <livewire:cart-badge />
             </span>
-            Корзина
+            <span class="d-none d-lg-inline">Корзина</span>
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('orders') }}" class="nav-link text-color-main">
+        <a href="{{ route('orders') }}" class="nav-link text-color-main" style="padding-right: 12px">
             <span class="bi-receipt me-1 count_label_cont">
                 @if($header['orders'] === 1)
                     <div class="user_notify_dot dot_blue dot_icon_pos"></div>
@@ -26,7 +26,7 @@
                     <div class="user_notify_dot dot_green dot_icon_pos"></div>
                 @endif
             </span>
-            Заказы
+            <span class="d-none d-lg-inline">Заказы</span>
         </a>
     </li>
 </ul>
