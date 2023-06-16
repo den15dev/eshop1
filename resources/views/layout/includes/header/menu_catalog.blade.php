@@ -42,6 +42,9 @@
                     echo '<li class="sub-menu">' . "\n";
                     echo '<div class="sub-menu-btn" style="padding-left: ' . (15 + 8*$nest_level) . 'px' . $grey_text . '">' . "\n";
                     echo $item[0] . $products_num . "\n";
+                    if ($nest_level > 0) {
+                        echo '<div class="fa bi-chevron-right right" style="font-size: 0.6rem"></div>';
+                    }
                     echo '</div>' . "\n";
                     echo '<ul>' . "\n";
 

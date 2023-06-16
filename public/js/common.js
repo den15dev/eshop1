@@ -15,6 +15,7 @@ $('.sub-menu ul').hide();
 $('.sub-menu-btn').click(function () {
     $(this).parent('.sub-menu').children('ul').slideToggle(100);
     $(this).toggleClass('subm-btn-active');
+    $(this).find('.right').toggleClass('bi-chevron-right bi-chevron-down');
 });
 
 
