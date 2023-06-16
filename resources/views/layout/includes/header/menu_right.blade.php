@@ -1,7 +1,17 @@
 {{--    Data passed from app/View/Composers/MenuComposer.php --}}
 
-<ul class="nav col-4 col-lg-6">
-    <li class="nav-item ms-auto">
+<ul class="nav justify-content-end col-8 col-md-6" id="right_menu">
+    <li class="nav-item d-inline d-md-none">
+        <a href="{{ route('delivery') }}" class="nav-link text-color-main">
+            <span class="bi-truck me-1"></span>
+        </a>
+    </li>
+    <li class="nav-item d-inline d-md-none">
+        <a href="{{ route('shops') }}" class="nav-link text-color-main">
+            <span class="bi-geo-alt me-1"></span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('favorites') }}" class="nav-link text-color-main">
             <span class="bi-heart me-1 count_label_cont">
                 <livewire:favorites-badge />

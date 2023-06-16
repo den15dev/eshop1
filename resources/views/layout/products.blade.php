@@ -85,7 +85,7 @@
                     @if($products->isNotEmpty())
 
                         @if($layout[2] == 1)
-                            <div class="row row-cols-2 row-cols-xl-3 row-cols-xxl-4">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4">
                                 @foreach($products as $item)
                                     <div class="col px-0 pb-1">
                                         <x-product-card type="catalog" :product="$item" />

@@ -163,6 +163,10 @@ del {
     height: 38px;
 }
 
+.nav-link {
+    padding: 8px 12px;
+}
+
 .search_results_cont {
     position: absolute;
     left: 0;
@@ -483,7 +487,7 @@ footer .flex-column a:hover {
 
 #usermenu .nav-item {
     white-space: nowrap;
-    margin-left: 24px;
+    margin-left: 6px;
 }
 
 #catalog_btn {
@@ -553,6 +557,10 @@ footer .flex-column a:hover {
     background-color: #3c40c2;
 }
 
+#right_menu a {
+    font-size: 18px;
+}
+
 
 
 
@@ -577,6 +585,10 @@ footer .flex-column a:hover {
 .cat_block {
     width: 242px;
     background-color: white;
+}
+
+#catalog .cat_block {
+    width: 100%;
 }
 
 .cat_block_title {
@@ -761,14 +773,10 @@ footer .flex-column a:hover {
 .item_badge {
     padding: 3px 8px;
     color: white;
-    vertical-align: 6px;
+    vertical-align: 4px;
     margin-left: 6px;
     font-size: 14px;
     text-decoration: none;
-}
-
-.item_badge:hover {
-    color: white;
 }
 
 .item_specs {
@@ -1339,13 +1347,14 @@ footer .flex-column a:hover {
     padding: 0 12px;
 }
 
-.shops_map_cont,
-.shop_items_cont {
+.shops_map_cont {
     height: 400px;
 }
 
 .shop_items_cont {
+    height: auto;
     overflow-y: auto;
+
 }
 
 .shop_item {
@@ -1363,16 +1372,83 @@ footer .flex-column a:hover {
     background-color: #f5f5ff;
 }
 
+[class*="gototech"] {
+    display: none !important;
+}
 
 
 
+/* ---------- Catalog Dropdown Menu 2 ---------- */
+
+#accordion_dropdown {
+    position: relative;
+    max-width: 360px;
+    border: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+#accordion_dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dd-menu-btn,
+.sub-menu-btn {
+    display: block;
+    cursor: pointer;
+    padding: 4px 15px;
+    color: #212529;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    -ms-transition: 0.2s linear;
+    -o-transition: 0.2s linear;
+    transition: 0.2s linear;
+}
+
+.dd-menu-btn:hover,
+.sub-menu-btn:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+.subm-btn-active {
+    background: #e9ecef;
+}
+
+.sub-menu-btn .fa {
+    width: 16px;
+    text-align: center;
+    margin-top: 2px;
+    float:right;
+}
 /*
-@media only screen and (max-width: 576px) {
-
+#accordion_dropdown .sub-menu li {
+    background: #f5f6f8;
 }
 */
-@media only screen and (min-width: 576px) {
 
+
+
+
+
+@media only screen and (min-width: 425px) {
+    .nav-link {
+        padding: 8px 16px;
+    }
+
+    .item_badge {
+        vertical-align: 6px;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    #catalog .cat_block {
+        width: 242px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -1414,7 +1490,11 @@ footer .flex-column a:hover {
 
 @media only screen and (min-width: 992px) {
     #usermenu .nav-item {
-        margin-left: 16px;
+        margin-left: 12px;
+    }
+
+    #right_menu a {
+        font-size: 16px;
     }
 
     .spec_table {

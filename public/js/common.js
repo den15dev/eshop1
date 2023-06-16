@@ -4,6 +4,23 @@ function getCookieValue(a, b, c) {
     return !!(c.length - 1) ? c.pop().split(';').shift() : '';
 }
 
+
+/* ----------- Catalog Dropdown Menu 2 ------------- */
+
+$('#accordion_dropdown').click(function(e){
+    e.stopPropagation();
+});
+
+$('.sub-menu ul').hide();
+$('.sub-menu-btn').click(function () {
+    $(this).parent('.sub-menu').children('ul').slideToggle(100);
+    $(this).toggleClass('subm-btn-active');
+});
+
+
+
+/* ----------- Modal window ------------- */
+
 /**
  * Shows a message window.
  *

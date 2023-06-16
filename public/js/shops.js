@@ -25,31 +25,28 @@ let tabBtnArr = Array.from(tabCont.getElementsByClassName('nav-link'));
 });
 
 
-function showInactiveTabs(state) {
+function showHideInactivePage(mediaQuery) {
     [...tabBtnArr].forEach(function(tabBtn) {
         if (tabBtn.className !== 'nav-link active') {
             tabBtn.className = 'nav-link blue_link';
             let tabId = tabBtn.getAttribute('data-pageid');
-            let tabCont = document.getElementById(tabId + '_page');
-            tabCont.style.display = state ? 'block' : 'none';
+
+            let pageCont = document.getElementById(tabId + '_page');
+            if(mediaQuery.matches) {
+                pageCont.style.display = 'block';
+                mapZoom = 11;
+            } else {
+                pageCont.style.display = 'none';
+                mapZoom = 10;
+            }
         }
     });
 }
 
-function widthChangeCallback(mediaQuery) {
-    if(mediaQuery.matches) {
-        showInactiveTabs(true);
-        mapZoom = 11;
-    } else {
-        showInactiveTabs(false);
-        mapZoom = 10;
-    }
-}
-
 let mapZoom = 11;
 let lgMedia = window.matchMedia('(min-width: 992px)');
-widthChangeCallback(lgMedia);
-lgMedia.addEventListener('change', widthChangeCallback);
+showHideInactivePage(lgMedia);
+lgMedia.addEventListener('change', showHideInactivePage);
 
 
 
@@ -59,6 +56,12 @@ lgMedia.addEventListener('change', widthChangeCallback);
 const list_win = document.getElementById('shop_list_page');
 const shop_items = list_win.getElementsByClassName('shop_item');
 
+/**
+ * Auto-scrolls shop item list inside a div when they not fully visible.
+ *
+ * @param parent
+ * @param child
+ */
 function scrollParentToChild(parent, child) {
     let parentRect = parent.getBoundingClientRect();
     let parentViewableArea = {
@@ -100,7 +103,7 @@ function hilightListItem(shop_id) {
     });
 }
 
-function init(){
+function mapInit(){
     let eshopMap = new ymaps.Map("map", {
         center: [55.75, 37.62],
         zoom: mapZoom
@@ -125,6 +128,14 @@ function init(){
             hilightListItem(shops_data[i][0]);
         });
 
+        placemark.events.add('balloonopen', function (e) {
+            e.get('target').options.set('preset', 'islands#redIcon');
+        });
+
+        placemark.events.add('balloonclose', function (e) {
+            e.get('target').options.set('preset', 'islands#blueIcon');
+        });
+
         shops_data[i].push(placemark);
     }
 
@@ -137,22 +148,24 @@ function init(){
             const item_id = event.currentTarget.getAttribute('data-shopid');
             hilightListItem(item_id);
 
-            let current_shop = [];
-            for (let i=0; i<shops_data.length; i++) {
-                if (shops_data[i][0] === parseInt(item_id, 10)) {
-                    current_shop = shops_data[i];
+            if (lgMedia.matches) {
+                let current_shop = [];
+                for (let i = 0; i < shops_data.length; i++) {
+                    if (shops_data[i][0] === parseInt(item_id, 10)) {
+                        current_shop = shops_data[i];
+                    }
                 }
-            }
 
-            const center = current_shop[2];
-            const placemark = current_shop[3];
+                const center = current_shop[2];
+                const placemark = current_shop[3];
 
-            eshopMap.setCenter(center, 14, {
-                duration: 500,
-                timingFunction: 'ease',
-            }).then(function () {
-                placemark.balloon.open();
-            });
+                eshopMap.setCenter(center, 14, {
+                    duration: 500,
+                    timingFunction: 'ease',
+                }).then(function () {
+                    placemark.balloon.open();
+                });
+           }
         }
     });
 
@@ -161,5 +174,5 @@ function init(){
     eshopMap.controls.remove('trafficControl');
 }
 
-ymaps.ready(init);
+ymaps.ready(mapInit);
 

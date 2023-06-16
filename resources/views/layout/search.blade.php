@@ -6,6 +6,9 @@
     @include('layout.includes.breadcrumb')
 
     <div class="container">
+        {{--  Breadcrumb for mobiles  --}}
+        <div class="d-md-none grey_text mb-4 ms-1">{{ $bread_crumb[0][0] }}</div>
+
         <div class="row">
 
             {{-- --------------- Sidebar ------------------ --}}
@@ -88,7 +91,7 @@
                     @if($products->isNotEmpty())
 
                         @if($layout[2] == 1)
-                            <div class="row row-cols-2 row-cols-xl-3 row-cols-xxl-4">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4">
                                 @foreach($products as $item)
                                     <div class="col px-0 pb-1">
                                         <x-product-card type="catalog" :product="$item" />

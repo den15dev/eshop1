@@ -1,5 +1,5 @@
 <div class="d-flex flex-row cat_top_cont mb-2" id="cat_top_menu">
-    <label for="sort_results" class="mt-1 me-2">Сортировать:</label>
+    <label for="sort_results" class="d-none d-md-inline mt-1 me-2">Сортировать:</label>
     <select class="form-select form-select-sm cat_sort_select" id="sort_results" onchange="changeLayout(0, this.value)">
         <option value="1"{{ $layout[0] == 1 ? ' selected' : '' }}>сначала дешёвые</option>
         <option value="2"{{ $layout[0] == 2 ? ' selected' : '' }}>сначала дорогие</option>

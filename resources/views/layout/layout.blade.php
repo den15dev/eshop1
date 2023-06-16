@@ -25,11 +25,9 @@
 
         @include('layout.includes.header.header')
 
-
         <main class="flex-grow-1">
             @yield('main_content')
         </main>
-
 
         @include('layout.includes.footer')
 
