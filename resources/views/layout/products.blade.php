@@ -110,12 +110,8 @@
 
                 {{-- --------------- Pagination ------------------ --}}
 
-                @if($products->total() > 0)
                 {{ $products->links('layout.pagination.results-shown') }}
-                @endif
-                @if($products->total() > $layout[1])
-                {{ $products->withQueryString()->links('layout.pagination.page-links') }}
-                @endif
+                {{ $products->onEachSide(1)->withQueryString()->links('layout.pagination.page-links') }}
                 <div style="height: 46px"></div>
 
 

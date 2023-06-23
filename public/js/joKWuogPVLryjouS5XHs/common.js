@@ -1,3 +1,10 @@
+function getCookieValue(a, b, c) {
+    b = '; ' + document.cookie;
+    c = b.split('; ' + a + '=');
+    return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+}
+
+
 
 /* -------------------- Adjust height of all textareas ----------------------- */
 
@@ -17,6 +24,58 @@ for (let i=0; i<txt_area_arr.length; i++) {
     }, false);
 }
 
+
+
+
+/* ------------------- Index table -------------------- */
+
+/**
+ * Set table rows clickable and assign them urls.
+ */
+function setTableRowsClickable() {
+    let index_table = document.getElementById('index_table');
+
+    if (index_table) {
+        let index_name = index_table.getAttribute('data-id');
+        let tr_arr = Array.from(index_table.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+        [...tr_arr].forEach(function (trElem) {
+            trElem.onmouseover = function () {
+                trElem.style.backgroundColor = '#f5f5f5';
+                trElem.style.cursor = 'pointer';
+            };
+            trElem.onmouseout = function () {
+                trElem.style.backgroundColor = 'transparent';
+                trElem.style.cursor = 'default';
+            };
+            trElem.onclick = function () {
+                let model_id = trElem.getElementsByTagName('td')[0].innerText;
+                location.href = index_name + '/' + model_id + '/edit';
+            };
+        });
+    }
+}
+
+setTableRowsClickable();
+
+
+
+
+/* -------------------- Reduce pagination font size for mobiles ----------------------- */
+
+let xsMedia = window.matchMedia('(min-width: 425px)');
+
+function fixPaginationSize() {
+    const paginationCont = document.querySelector('.pagination');
+    if (paginationCont) {
+        if (xsMedia.matches) {
+            paginationCont.className = 'pagination';
+        } else {
+            paginationCont.className = 'pagination pagination-sm';
+        }
+    }
+}
+fixPaginationSize();
 
 
 

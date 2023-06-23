@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Site;
 
 use App\Models\Reaction;
 use Illuminate\Support\Facades\DB;

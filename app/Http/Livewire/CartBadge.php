@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\CartService;
+use App\Services\Site\CartService;
 use Livewire\Component;
 
 class CartBadge extends Component

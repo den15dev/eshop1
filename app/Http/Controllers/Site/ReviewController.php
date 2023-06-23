@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Services\ReviewService;
+use App\Services\Site\ReviewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

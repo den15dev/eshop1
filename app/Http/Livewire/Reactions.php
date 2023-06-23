@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\ReactionService;
+use App\Services\Site\ReactionService;
 use Livewire\Component;
 
 class Reactions extends Component

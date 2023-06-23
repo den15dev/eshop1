@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Services\BrandService;
-use App\Services\CategoryService;
-use App\Services\ProductService;
-use App\Services\SpecificationService;
+use App\Services\Site\BrandService;
+use App\Services\Site\CategoryService;
+use App\Services\Site\ProductService;
+use App\Services\Site\SpecificationService;
 use Illuminate\View\View;
 
 class CategoryController extends Controller

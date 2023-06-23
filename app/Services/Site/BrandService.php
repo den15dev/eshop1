@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Site;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;

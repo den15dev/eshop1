@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\ComparisonService;
+use App\Services\Site\ComparisonService;
 use Livewire\Component;
 
 class ComparisonPopup extends Component

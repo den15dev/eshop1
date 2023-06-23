@@ -3,8 +3,8 @@
 
 namespace App\View\Composers;
 
-use App\Services\CategoryService;
-use App\Services\OrderService;
+use App\Services\Site\CategoryService;
+use App\Services\Site\OrderService;
 use Illuminate\View\View;
 
 class HeaderComposer

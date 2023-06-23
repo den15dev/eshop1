@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\FavoriteService;
+use App\Services\Site\FavoriteService;
 use Livewire\Component;
 
 class FavoritesButton extends Component

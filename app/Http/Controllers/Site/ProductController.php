@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Services\CartService;
-use App\Services\CategoryService;
-use App\Services\ProductService;
-use App\Services\ReviewService;
+use App\Services\Site\CartService;
+use App\Services\Site\CategoryService;
+use App\Services\Site\ProductService;
+use App\Services\Site\ReviewService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 

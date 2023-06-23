@@ -16,6 +16,7 @@ use App\Http\Controllers\Site\ComparisonController;
 use App\Http\Controllers\Site\FavoriteController;
 use App\Http\Controllers\Site\UserProfileController;
 use App\Http\Controllers\Site\UserNotificationController;
+use App\Http\Controllers\Admin\IndexController as AdmIndexController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
@@ -74,7 +75,16 @@ require __DIR__.'/auth.php';
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', [AdmHomeController::class, 'index'])->name('home');
-    Route::get('/products', [AdmProductController::class, 'index'])->name('products');
+
+    Route::get('/search', AdmIndexController::class)->name('search');
+
+    Route::get('/products', AdmIndexController::class)->name('products');
+    Route::get('/products/create', [AdmProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [AdmProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{id}/edit', [AdmProductController::class, 'edit'])->whereNumber('id')->name('products.edit');
+    Route::put('/products/{id}', [AdmProductController::class, 'update'])->whereNumber('id')->name('products.update');
+    Route::delete('/products/{id}', [AdmProductController::class, 'destroy'])->whereNumber('id')->name('products.destroy');
+
     Route::get('/categories', [AdmCategoryController::class, 'index'])->name('categories');
     Route::get('/brands', [AdmBrandController::class, 'index'])->name('brands');
     Route::get('/users', [AdmUserController::class, 'index'])->name('users');

@@ -86,6 +86,24 @@ function showMessage(data) {
 
 
 
+/* -------------------- Reduce pagination font size for mobiles ----------------------- */
+
+let xsMedia = window.matchMedia('(min-width: 425px)');
+
+function fixPaginationSize() {
+    const paginationCont = document.querySelector('.pagination');
+    if (paginationCont) {
+        if (xsMedia.matches) {
+            paginationCont.className = 'pagination';
+        } else {
+            paginationCont.className = 'pagination pagination-sm';
+        }
+    }
+}
+fixPaginationSize();
+
+
+
 /* ----------- Listen for Comparison event if a product from another category added ------------- */
 
 Livewire.on('comparisonCatChangeRequest', productData => {

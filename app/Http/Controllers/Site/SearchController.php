@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Services\CategoryService;
-use App\Services\ProductService;
-use App\Services\SearchService;
+use App\Services\Site\CategoryService;
+use App\Services\Site\ProductService;
+use App\Services\Site\SearchService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 

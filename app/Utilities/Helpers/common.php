@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+
 if (!function_exists('active_link')) {
     /**
      * Appends css class name for active navigation items, according to route name.
@@ -10,7 +13,7 @@ if (!function_exists('active_link')) {
      */
     function active_link(string $name, string $css_class = 'active'): string
     {
-        return Route::is($name) ? $css_class : '';
+        return (Route::is($name) || Route::is($name . '.create') || Route::is($name . '.edit')) ? $css_class : '';
     }
 }
 

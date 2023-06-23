@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Site;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;

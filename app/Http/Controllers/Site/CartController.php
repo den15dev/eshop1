@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shop;
-use App\Services\CartService;
-use App\Services\ProductService;
+use App\Services\Site\CartService;
+use App\Services\Site\ProductService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;

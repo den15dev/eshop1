@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\UserNotificationService;
+use App\Services\Site\UserNotificationService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 

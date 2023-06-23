@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Services\CartService;
+use App\Services\Site\CartService;
 
 class CartItemQuantity extends Component
 {

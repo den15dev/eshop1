@@ -12,17 +12,13 @@
     <link rel="apple-touch-icon" href="{{ asset('img/electro_logo_152.png') }}" sizes="152x152">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/eiWah4ah.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/iMBQgaznrXNiJxzvihSn.css') }}" rel="stylesheet">
 </head>
 <body>
-
-@include('layout.includes.header.svgs')
 
 <div class="d-flex flex-column justify-content-between min-vh-100">
 
     @include('admin.includes.header')
-
 
     <main class="flex-grow-1">
         <div class="container">
@@ -39,16 +35,16 @@
         </div>
     </main>
 
-
     @include('admin.includes.footer')
 
 </div>
 
 @include('layout.includes.loadtime')
 
+<script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/search.js') }}"></script>
-<script src="{{ asset('js/j7vGe83.js') }}"></script>
+<script src="{{ asset('js/joKWuogPVLryjouS5XHs/search.js') }}"></script>
+<script src="{{ asset('js/joKWuogPVLryjouS5XHs/common.js') }}"></script>
 
 </body>
 </html>

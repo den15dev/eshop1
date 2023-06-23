@@ -8,8 +8,34 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public static function index(): View
+    public static function create(): View
     {
-        return view('admin.products.index');
+        return view('admin.products.create');
+    }
+
+
+    public static function store()
+    {
+        // return
+    }
+
+
+    public static function edit(string $id): View
+    {
+        $product_id = $id;
+
+        return view('admin.products.edit', compact('product_id'));
+    }
+
+
+    public static function update()
+    {
+        // return
+    }
+
+
+    public static function destroy()
+    {
+        // return
     }
 }

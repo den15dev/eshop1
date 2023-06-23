@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Site;
 
 use App\Http\Requests\NewOrderRequest;
 use App\Models\Order;

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewOrderRequest;
-use App\Services\CartService;
-use App\Services\OrderService;
-use App\Services\ProductService;
+use App\Services\Site\CartService;
+use App\Services\Site\OrderService;
+use App\Services\Site\ProductService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;

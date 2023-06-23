@@ -17,5 +17,6 @@ class EncryptCookies extends Middleware
         'ord', // List of order ids
         'compare', // List or product ids for comparison
         'fav', // List of favorite product ids
+        'tbl_ppage', // Number of table rows per page in admin panel
     ];
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use App\Services\BrandService;
+use App\Services\Site\BrandService;
 use Illuminate\View\View;
 
 class BrandController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Services\FavoriteService;
-use App\Services\ProductService;
+use App\Services\Site\FavoriteService;
+use App\Services\Site\ProductService;
 use Illuminate\View\View;
 
 class FavoriteController extends Controller

@@ -1,3 +1,217 @@
+/* --------------- Main ------------------ */
+
+.bg-color-main {
+    background-color: #5055de;
+}
+
+.bg-color-red {
+    background-color: #ea3672;
+}
+
+.bg-color-action {
+    background-color: #a433f5;
+}
+
+.fill-color-main {
+    fill: #5055de;
+}
+
+.text-color-main {
+    color: #232323;
+}
+
+.text-color-main:hover {
+    color: #5055de;
+}
+
+.text-color-main2 {
+    color: #5055de;
+}
+
+.text-color-green {
+    color: #38ad4f;
+}
+
+.text-color-red {
+    color: #ea3672 !important;
+}
+
+.btn2 {
+    display: block;
+    width: fit-content;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn2-primary {
+    color: white;
+    background-color: #5055de;
+}
+
+.btn2-primary:hover {
+    color: white;
+    background-color: #4045d2;
+}
+
+.btn2-secondary {
+    color: white;
+    background-color: #9597a5;
+}
+
+.btn2-secondary:hover {
+    color: white;
+    background-color: #8b8d9e;
+}
+
+.btn2-red {
+    color: white;
+    background-color: #ea3672;
+}
+
+.btn2-red:hover {
+    color: white;
+    background-color: #dc2c64;
+}
+
+.btn2-green {
+    color: white;
+    background-color: #80d635;
+}
+
+.btn2-green:hover {
+    color: white;
+    background-color: #72c429;
+}
+
+.btn2-inactive {
+    cursor: default;
+    color: #929292;
+    background-color: #e8e8e8;
+}
+
+select {
+    cursor: pointer;
+}
+
+.pagination .active span {
+    background-color: #5055de;
+    border: 1px solid #5055de;
+}
+
+.blue_link,
+.black_link,
+.darkgrey_link,
+.lightgrey_link {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.blue_link {
+    color: #0d6efd;
+}
+
+.black_link {
+    color: black;
+}
+
+.darkgrey_link {
+    color: #535353;
+}
+
+.lightgrey_link {
+    color: #acacac;
+}
+
+.blue_link:hover {
+    color: #ea3672;
+}
+
+.black_link:hover {
+    color: #0d6efd;
+}
+
+.darkgrey_link:hover {
+    color: black;
+}
+
+.lightgrey_link:hover {
+    color: #8e8e8e;
+}
+
+.grey_text {
+    color: #787878;
+}
+
+.lightgrey_text {
+    color: #acacac;
+}
+
+.required:after {
+    content:" *";
+    color: #ea3672;
+}
+
+
+
+
+/* ----------- Bootstrap extras ------------ */
+
+.w-80 {
+    width: 80% !important;
+}
+
+.w-70 {
+    width: 70% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.w-45 {
+    width: 45% !important;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.w-20 {
+    width: 20% !important;
+}
+
+
+.me-18{margin-right:1.8rem!important}
+
+.mb-45{margin-bottom:2.2rem!important}
+
+.mt-45{margin-top:2.2rem!important}
+
+.mb-25{margin-bottom:.8rem!important}
+
+.ps-25{padding-left:.85rem!important}
+
+
+
+
+/* ------------ Common ---------------- */
+
+header .nav-link {
+    color: white;
+}
+
+header .nav-link:hover {
+    color: #e0e9fa;
+}
+
 .adm_cont {
     display: block;
 }
@@ -28,11 +242,9 @@
     padding-left: 12px;
 }
 
-/*
 .adm_sidebar_list a:hover {
     background-color: #f5f5f5;
 }
-*/
 
 .adm_sidebar_active {
     padding-left: 12px;
@@ -42,37 +254,16 @@
 .adm_sidebar_chevron {
     display: block;
     float: right;
-    margin-right: 8px;
+    margin-right: 10px;
+    margin-top: 1px;
 }
 
 
 
 
 
-/* --------- Goods --------- */
+/* ----------- Search section ----------- */
 
-
-.adm_top_cont {
-    margin-bottom: 36px;
-}
-
-.adm_add_btn_cont {
-    float: none;
-}
-
-.adm_search_form {
-
-}
-
-.adm_search_form .form-check-input,
-.adm_search_form .form-check-label {
-    cursor: pointer;
-}
-
-.adm_add_btn {
-    padding: 8px 16px 8px 12px;
-    text-decoration: none;
-}
 
 .adm_search_input_cont {
     clear: left;
@@ -83,6 +274,66 @@
 
 .adm_search_input_cont input {
     border: 1px solid #e8e8e8;
+}
+
+.search_input {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 38px;
+    padding-left: 14px;
+    padding-right: 44px;
+    border-radius: 6px;
+    border: 0;
+    outline: 0;
+}
+
+.search_btn,
+.clear_btn {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    right: 6px;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    text-align: center;
+    cursor: pointer;
+    color: #a0a0a0;
+    border: 0;
+    outline: 0;
+    background: none;
+}
+
+.clear_btn {
+    display: none;
+    line-height: 32px;
+}
+
+
+
+
+
+/* --------- Index page (table) --------- */
+
+
+.adm_add_btn_cont {
+    float: none;
+}
+
+.form-check-input,
+.form-check-label {
+    cursor: pointer;
+}
+
+.adm_add_btn {
+    padding: 8px 16px 8px 12px;
+    text-decoration: none;
+}
+
+#index_table img {
+    height: 40px;
 }
 
 .adm_btns_col {
@@ -321,8 +572,7 @@
 
 
 
-
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 425px) {
 
 }
 
@@ -336,7 +586,7 @@
     }
 
     .adm_search_input_cont {
-        width: 70%;
+        width: 60%;
     }
 
     .adm_brandlist_cont {
@@ -364,7 +614,7 @@
 
 @media only screen and (min-width: 1200px) {
     .adm_search_input_cont {
-        width: 60%;
+        width: 50%;
     }
 
     .adm_brandlist_cont {

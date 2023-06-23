@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Site;
 
 use App\Models\Notification;
 use Illuminate\Database\Eloquent\Collection as ECollection;

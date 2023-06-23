@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\UserNotificationService;
+use App\Services\Site\UserNotificationService;
 use Livewire\Component;
 
 class UnreadNotificationHead extends Component
