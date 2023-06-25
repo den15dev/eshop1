@@ -39,12 +39,13 @@
 
 </div>
 
+@include('admin.includes.message-client')
+
 @include('layout.includes.loadtime')
 
 <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/joKWuogPVLryjouS5XHs/search.js') }}"></script>
 <script src="{{ asset('js/joKWuogPVLryjouS5XHs/common.js') }}"></script>
-
+@stack('scripts')
 </body>
 </html>

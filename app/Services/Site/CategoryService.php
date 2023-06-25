@@ -121,7 +121,7 @@ class CategoryService
      * Gets Categories from DB, creates an array of nested categories according
      * their "parent_id" column values, and sorts by "sort" column values.
      *
-     * @return array - like [[name, slug, <array of children>], ...].
+     * @return array - like [[id, name, slug, <array of children>], ...].
      */
     public function buildMenu(): array
     {
@@ -135,7 +135,7 @@ class CategoryService
 
         function menuLoop($categories, $menu_arr, $category, $sortCmp): array
         {
-            $cur_arr = [$category->sort, $category->name, $category->slug, $category->products_total];
+            $cur_arr = [$category->sort, $category->id, $category->name, $category->slug, $category->products_total];
 
             $children = [];
             foreach ($categories as $child) {

@@ -31,17 +31,17 @@
 
         function build_cat_menu($menu_arr, $nest_level) {
             foreach ($menu_arr as $item) {
-                $products_num = $item[2] ? ' <span class="lightgrey_text" style="font-size: 14px">' . $item[2] . '</span>' : '';
+                $products_num = $item[3] ? ' <span class="lightgrey_text" style="font-size: 14px">' . $item[3] . '</span>' : '';
                 $grey_text = $nest_level ? '; color: #787878;' : '';
-                if (count($item) < 4) {
+                if (count($item) < 5) {
 
-                    echo '<li><a href="' . route('category', [$item[1]]) . '" class="dd-menu-btn" style="padding-left: ' . (15 + 8*$nest_level) . 'px' . $grey_text . '">' . $item[0] . $products_num . '</a></li>' . "\n";
+                    echo '<li><a href="' . route('category', [$item[2]]) . '" class="dd-menu-btn" style="padding-left: ' . (15 + 8*$nest_level) . 'px' . $grey_text . '">' . $item[1] . $products_num . '</a></li>' . "\n";
 
                 } else {
 
                     echo '<li class="sub-menu">' . "\n";
                     echo '<div class="sub-menu-btn" style="padding-left: ' . (15 + 8*$nest_level) . 'px' . $grey_text . '">' . "\n";
-                    echo $item[0] . $products_num . "\n";
+                    echo $item[1] . $products_num . "\n";
                     if ($nest_level > 0) {
                         echo '<div class="fa bi-chevron-right right" style="font-size: 0.6rem"></div>';
                     }
@@ -49,7 +49,7 @@
                     echo '<ul>' . "\n";
 
                     $nest_level++;
-                    build_cat_menu($item[3], $nest_level);
+                    build_cat_menu($item[4], $nest_level);
                     $nest_level--;
 
                     echo '</ul>' . "\n";

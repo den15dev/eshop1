@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('slug', 150);
             $table->dateTime('until');
-            $table->string('image');
+            $table->string('image', 200);
             $table->text('description');
             $table->boolean('is_active')->default(1);
             $table->timestamps();

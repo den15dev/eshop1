@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('page_title', 'Товары | Администрирование')
+@section('page_title', 'Товары - Администрирование')
 
 @section('main_content')
 
@@ -53,3 +53,7 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/joKWuogPVLryjouS5XHs/search.js') }}"></script>
+@endpush

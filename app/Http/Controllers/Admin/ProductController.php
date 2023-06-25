@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -22,9 +23,9 @@ class ProductController extends Controller
 
     public static function edit(string $id): View
     {
-        $product_id = $id;
+        $product = Product::with('specifications')->find($id);
 
-        return view('admin.products.edit', compact('product_id'));
+        return view('admin.products.edit', compact('product'));
     }
 
 

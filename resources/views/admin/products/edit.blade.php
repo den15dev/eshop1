@@ -1,9 +1,11 @@
 @extends('admin.layout')
 
-@section('page_title', 'Редактирование товара | Администрирование')
+@section('page_title', 'Редактирование - ' . $product->name)
 
 @section('main_content')
 
-    Редактирование товара {{ $product_id }}
+    <h3 class="mb-3">{{ $product->name }}</h3>
+
+    <div class="mb-3">id: {{ $product->id }}</div>
 
 @endsection

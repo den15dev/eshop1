@@ -6,6 +6,72 @@ function getCookieValue(a, b, c) {
 
 
 
+/* ----------- Modal window ------------- */
+
+/**
+ * Shows a message window.
+ *
+ * @param data - {
+ *     'type' - one of 'info', 'confirm', or 'warning';
+ *     'message' - text or html message;
+ *     'ok' - a callback for an 'ok' button;
+ *     'okText' - text for 'ok' button (default is 'ok');
+ * }
+ */
+function showMessage(data) {
+    const message = document.getElementById('client_message');
+    const textCont = document.getElementById('cm_content');
+    const okBtn = document.getElementById('cm_ok_btn');
+    const closeBtn = document.getElementById('cm_close_btn');
+    const cancelBtn = document.getElementById('cm_cancel_btn');
+
+    const infoIcon = document.getElementById('cm_icon_info');
+    const warningIcon = document.getElementById('cm_icon_warning');
+    const confirmIcon = document.getElementById('cm_icon_confirm');
+
+    textCont.innerHTML = data.message;
+
+    closeBtn.onclick = function () { message.style.display = 'none'; }
+
+    if (data.type === 'info') {
+
+        okBtn.onclick = function () { message.style.display = 'none'; }
+        cancelBtn.style.display = 'none';
+        infoIcon.style.display = 'block';
+        confirmIcon.style.display = 'none';
+        warningIcon.style.display = 'none';
+
+    } else if (data.type === 'confirm') {
+
+        okBtn.onclick = function () {
+            message.style.display = 'none';
+            data.ok();
+        }
+        cancelBtn.onclick = function () { message.style.display = 'none'; }
+        infoIcon.style.display = 'none';
+        confirmIcon.style.display = 'block';
+        warningIcon.style.display = 'none';
+
+    } else if (data.type === 'warning') {
+
+        okBtn.onclick = function () { message.style.display = 'none'; }
+        cancelBtn.style.display = 'none';
+        infoIcon.style.display = 'none';
+        confirmIcon.style.display = 'none';
+        warningIcon.style.display = 'block';
+
+    }
+
+    okBtn.innerText = 'Ok';
+    if (data.okText !== undefined) {
+        okBtn.innerText = data.okText;
+    }
+
+    message.style.display = 'block';
+}
+
+
+
 /* -------------------- Adjust height of all textareas ----------------------- */
 
 let txt_area_arr = document.getElementsByTagName('textarea');
@@ -27,36 +93,21 @@ for (let i=0; i<txt_area_arr.length; i++) {
 
 
 
-/* ------------------- Index table -------------------- */
 
-/**
- * Set table rows clickable and assign them urls.
- */
-function setTableRowsClickable() {
-    let index_table = document.getElementById('index_table');
+/* ----------------- Category tree ------------------- */
 
-    if (index_table) {
-        let index_name = index_table.getAttribute('data-id');
-        let tr_arr = Array.from(index_table.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+$('.dd-menu-btn, .sub-menu-btn')
+    .on('mouseover', function () {
+        $(this).find('.cat_add_btn').show();
+    })
+    .on('mouseout', function () {
+        $(this).find('.cat_add_btn').hide();
+    });
 
-        [...tr_arr].forEach(function (trElem) {
-            trElem.onmouseover = function () {
-                trElem.style.backgroundColor = '#f5f5f5';
-                trElem.style.cursor = 'pointer';
-            };
-            trElem.onmouseout = function () {
-                trElem.style.backgroundColor = 'transparent';
-                trElem.style.cursor = 'default';
-            };
-            trElem.onclick = function () {
-                let model_id = trElem.getElementsByTagName('td')[0].innerText;
-                location.href = index_name + '/' + model_id + '/edit';
-            };
-        });
-    }
-}
-
-setTableRowsClickable();
+$('.cat_add_btn').on('click', function (event) {
+    event.preventDefault();
+    alert('Hello!');
+});
 
 
 
@@ -76,6 +127,8 @@ function fixPaginationSize() {
     }
 }
 fixPaginationSize();
+
+
 
 
 

@@ -8,8 +8,22 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public function index(): View
+    public static function edit(string $id): View
     {
-        return view('admin.orders.index');
+        $order_id = $id;
+
+        return view('admin.orders.edit', compact('order_id'));
+    }
+
+
+    public static function update()
+    {
+        // return
+    }
+
+
+    public static function destroy()
+    {
+        // return
     }
 }

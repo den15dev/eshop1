@@ -7,31 +7,58 @@
             <x-admin.column-title
                 :column="$column[0]"
                 :title="$column[1]"
-                :sortable="$column[2]"
-                :orderby="$column[3]" />
+                :sortable="$column[3]"
+                :orderby="$column[4]" />
         @endforeach
     </tr>
     </thead>
     <tbody>
-    @foreach($table_data as $record)
-        <tr>
-            @foreach($record as $column => $value)
-                @if($column === 'image')
-                    <td><img src="{{ asset('storage/images/' . $table_name . '/' . $value) }}"></td>
-                @elseif($column === 'images')
-                    <td><img src="{{ asset('storage/images/' . $table_name . '/temp/' . ($record->id % 20 + 1) . '/' . json_decode($value)[0] . '_80.jpg') }}"></td>
-                @elseif($column === 'name')
-                    <td class="text-start">{{ $value }}</td>
-                @elseif(preg_match('/price/', $column))
-                    <td>{{ format_price($value) }} ₽</td>
-                @elseif($column === 'is_active')
-                    <td>{!! $value ? 'да' : '<span class="lightgrey_text">нет</span>' !!}</td>
-                @else
-                    <td>{{ $value }}</td>
-                @endif
-            @endforeach
-        </tr>
-    @endforeach
+        @foreach($table_data as $record)
+            <tr>
+                @foreach($columns as $column)
+                    @php
+                    $col_name = $column[0];
+                    $value = $record->$col_name;
+                    $td_content = match ($col_name) {
+                        'image' => $value ? '<img src="' . asset('storage/images/' . $table_name . '/' . $record->id . '/' . $value) . '">' : '',
+                        'images' => '<img src="' . asset('storage/images/' . $table_name . '/temp/' . ($record->id % 20 + 1) . '/' . $value[0] . '_80.jpg') . '">',
+                        'slug' => '<img src="' . get_any_image('storage/images/' . $table_name . '/' . $value) . '" style="height: 16px">',
+                        'price', 'final_price', 'total_cost' => format_price($value),
+                        'is_active' => $value ? 'да' : '<span class="lightgrey_text">нет</span>',
+                        'role' => $value === 'admin' || $value === 'boss' ?
+                            '<span class="text-color-red">' . $value . '</span>' :
+                            '<span class="lightgrey_text">' . $value . '</span>',
+                        'status' => match ($value) {
+                            'new' => '<span class="text-color-red">' . $record->status_str . '</span>',
+                            'completed' => '<span class="lightgrey_text">' . $record->status_str . '</span>',
+                            'cancelled' => '<span class="lightgrey_text fst-italic">' . $record->status_str . '</span>',
+                            'ready', 'sent' => '<span class="text-color-green">' . $record->status_str . '</span>',
+                            default => $record->status_str,
+                        },
+                        'delivery_type' => match ($value) {
+                            'self' => '<span class="lightgrey_text">' . $record->delivery_type_str . '</span>',
+                            default => $record->delivery_type_str,
+                        },
+                        'payment_status' => $value ? '<span class="lightgrey_text">оплачен</span>' : 'не оплачен',
+                        'until' => \Carbon\Carbon::parse($value)->isoFormat('D MMMM YYYY'),
+                        default => $value,
+                    };
+
+                    $td_class = match ($column[2]) {
+                        'start' => 'class="text-start"',
+                        'end' => 'class="text-end"',
+                        default => '',
+                    };
+
+                    if ($loop->index < 3) {
+                        $td_content = '<a href="' . route('admin.' . $table_name . '.edit', $record->id) . '" class="dark_link">' . $td_content . '</a>';
+                    }
+                    @endphp
+
+                    <td {!! $td_class !!}>{!! $td_content !!}</td>
+                @endforeach
+            </tr>
+        @endforeach
     </tbody>
 </table>
 

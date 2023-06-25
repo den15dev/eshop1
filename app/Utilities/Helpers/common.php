@@ -92,8 +92,9 @@ if (!function_exists('get_any_image')) {
     /**
      * Looks if any of *.svg, *.png, or *.jpg image exists.
      *
-     * @param $image_path_base - base path starting from 'storage/...' without dot and file extension.
-     *                          For example: 'storage/images/brands/amd'.
+     * @param $image_path_base - base path starting from 'storage/...'
+     *                          ending with filename without dot and file extension,
+     *                          for example: 'storage/images/brands/amd'.
      * @return string - path to asset or empty string
      */
     function get_any_image(string $image_path_base): string

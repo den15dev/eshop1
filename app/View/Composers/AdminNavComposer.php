@@ -15,6 +15,7 @@ class AdminNavComposer
             ['Товары', 'products', 'box'],
             ['Категории', 'categories', 'list-check'],
             ['Бренды', 'brands', 'star'],
+            ['Акции', 'promos', 'percent'],
             ['Пользователи', 'users', 'person'],
             ['Заказы', 'orders', 'basket'],
         ];

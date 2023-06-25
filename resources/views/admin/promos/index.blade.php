@@ -1,18 +1,25 @@
 @extends('admin.layout')
 
-@section('page_title', 'Пользователи - Администрирование')
+@section('page_title', 'Акции - Администрирование')
 
 @section('main_content')
 
-    <h2 class="mb-4">Пользователи</h2>
+    <h2 class="mb-4">Акции</h2>
 
     <div class="mb-4">
+        <div class="adm_add_btn_cont">
+            <a href="{{ route('admin.' . $table_name . '.create') }}" class="btn2 btn2-red mb-4 adm_add_btn">
+                <span class="bi-plus"></span>
+                Добавить акцию
+            </a>
+        </div>
+
         <div>
             @php
-                $is_active_col = false;
-                foreach ($columns as $col) {
-                    if ($col[0] === 'is_active') $is_active_col = true;
-                }
+            $is_active_col = false;
+            foreach ($columns as $col) {
+                if ($col[0] === 'is_active') $is_active_col = true;
+            }
             @endphp
             @if($is_active_col)
                 <div class="mb-2">

@@ -37,12 +37,18 @@ function getSearchResults(query_str, page = null) {
         success: function(data){
             tableCont.innerHTML = data;
             if (query_str && query_str.length > 1) clearBtn.style.display = 'block';
-            setTableRowsClickable();
             fixPaginationLinks();
             fixPaginationSize();
+        },
+        error: function (jqXHR) {
+            showMessage({
+                'type': 'warning',
+                'message': 'Ошибка сервера:<br>' + jqXHR.status + ' (' + jqXHR.statusText + ')',
+            });
         }
     });
 }
+
 
 function showSearchResOnInput() {
     clearTimeout(searchInputTimeOut);
