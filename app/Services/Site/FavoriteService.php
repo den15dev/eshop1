@@ -41,7 +41,7 @@ class FavoriteService
         $favorites = $this->get();
 
         if ($favorites) {
-            return Product::select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'rating', 'vote_num', 'images')
+            return Product::select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'rating', 'vote_num', 'images', 'is_active', 'promo_id')
                 ->whereIn('id', $favorites)
                 ->orderByRaw('FIELD(id, ' . implode(', ', $favorites) . ')')
                 ->get();

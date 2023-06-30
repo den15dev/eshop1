@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Promo;
 use Illuminate\View\View;
 
@@ -18,6 +19,14 @@ class PromoController extends Controller
 
         $bread_crumb = [['Промо-акции']];
 
-        return view('layout.promo', compact('promo', 'bread_crumb'));
+        $products = Product::where('promo_id', $slug_id[1])
+            ->where('is_active', 1)
+            ->get();
+
+        return view('layout.promo', compact(
+            'promo',
+            'bread_crumb',
+            'products'
+        ));
     }
 }

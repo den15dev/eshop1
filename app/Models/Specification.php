@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Specification extends Model
 {
+    protected $guarded = [];
+
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

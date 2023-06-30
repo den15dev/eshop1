@@ -1,7 +1,7 @@
 <footer class="container pt-5 mt-4 pb-3 border-top">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5">
         <div class="col mb-3">
-            <a href="{{ route('home') }}" class="d-flex align-items-center mb-3 h2 text-color-main text-decoration-none">
+            <a href="{{ route('home') }}" class="d-flex align-items-center mb-3 h2 link-dark text-decoration-none">
                 <svg class="bi me-2 fill-color-main" style="min-width: 30px" width="32" height="32"><use xlink:href="#electro-shop-logo"/></svg>
                 Электроника
             </a>

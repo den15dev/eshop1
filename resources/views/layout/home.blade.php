@@ -23,8 +23,8 @@
         </x-carousel>
 
         <x-carousel title="Новинки" section="crs_new">
-            @foreach($latest as $latest_item)
-                <x-product-card type="carousel" :product="$latest_item" />
+            @foreach($newest as $newest_item)
+                <x-product-card type="carousel" :product="$newest_item" />
             @endforeach
         </x-carousel>
 

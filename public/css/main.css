@@ -15,11 +15,7 @@
 }
 
 .text-color-main {
-    color: #232323;
-}
-
-.text-color-main:hover {
-    color: #5055de;
+    color: #212529;
 }
 
 .text-color-main2 {
@@ -126,6 +122,10 @@ del {
     color: black;
 }
 
+.dark_link {
+    color: #212529;
+}
+
 .darkgrey_link {
     color: #535353;
 }
@@ -134,8 +134,9 @@ del {
     color: #ea3672;
 }
 
+.dark_link:hover,
 .black_link:hover {
-    color: #0d6efd;
+    color: #5055de;
 }
 
 .darkgrey_link:hover {
@@ -719,10 +720,15 @@ footer .flex-column a:hover {
     margin-top: 6px;
 }
 
-.cat_img_badge {
+.cat_badge_cont {
     position: absolute;
     top: 0;
     left: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.cat_img_badge {
     padding: 1px 8px;
     color: white;
 }
@@ -770,12 +776,18 @@ footer .flex-column a:hover {
     height: auto;
 }
 
-.item_badge {
-    padding: 3px 8px;
-    color: white;
+.item_badge_cont {
+    display: inline-flex;
+    flex-direction: row;
+    margin-left: 2px;
     vertical-align: 4px;
-    margin-left: 6px;
+}
+
+.item_badge {
+    padding: 4px 8px;
+    color: white;
     font-size: 14px;
+    margin-right: 2px;
     text-decoration: none;
 }
 
@@ -1097,11 +1109,11 @@ footer .flex-column a:hover {
 .compare_img {
     width: 120px;
 }
-
+/*
 .compare_head_row {
     border-bottom-style: hidden;
 }
-
+*/
 
 
 
@@ -1444,10 +1456,6 @@ footer .flex-column a:hover {
     .nav-link {
         padding: 8px 16px;
     }
-
-    .item_badge {
-        vertical-align: 6px;
-    }
 }
 
 @media only screen and (min-width: 576px) {
@@ -1459,6 +1467,10 @@ footer .flex-column a:hover {
 @media only screen and (min-width: 768px) {
     .head_search_cont {
         width: 60%;
+    }
+
+    .item_badge_cont {
+        vertical-align: 6px;
     }
 
     .spec_table {

@@ -76,20 +76,23 @@ function showMessage(data) {
 
 let txt_area_arr = document.getElementsByTagName('textarea');
 
-for (let i=0; i<txt_area_arr.length; i++) {
-    let txtarea = txt_area_arr[i];
+function adjustTextAreas() {
+    for (let i = 0; i < txt_area_arr.length; i++) {
+        let txtarea = txt_area_arr[i];
 
-    txtarea.style.overflow = 'hidden';
-    txtarea.style.height = '0';
-    txtarea.style.height = txtarea.scrollHeight + 'px';
+        txtarea.style.overflow = 'hidden';
+        txtarea.style.height = '0';
+        txtarea.style.height = txtarea.scrollHeight + 'px';
 
-    txtarea.addEventListener('keyup', function() {
-        this.style.overflow = 'hidden';
-        this.style.height = '0';
-        this.style.height = this.scrollHeight + 'px';
-    }, false);
+        txtarea.addEventListener('keyup', function () {
+            this.style.overflow = 'hidden';
+            this.style.height = '0';
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+    }
 }
 
+adjustTextAreas();
 
 
 
@@ -128,217 +131,6 @@ function fixPaginationSize() {
 }
 fixPaginationSize();
 
-
-
-
-
-
-/* -------------------- Edit item images ----------------------- */
-
-
-/*
-function addImg() {
-    let loaderDiv = document.createElement('div');
-    loaderDiv.className = 'adm_img_loader';
-    img_cont.appendChild(loaderDiv);
-
-    setTimeout(function() {
-        img_cont.removeChild(loaderDiv);
-
-        let newImgBlock = img_cont.children[0].cloneNode(true);
-        newImgBlock.getElementsByTagName('img')[0].src = 'resources/catalog/1/1_004_thumbnail.jpg';
-        newImgBlock.getElementsByTagName('img')[0].title = '1_004_thumbnail.jpg';
-        newImgBlock.style.display = 'flex';
-        img_cont.appendChild(newImgBlock);
-
-        rebuildButtons();
-    }, 1000);
-}
-*/
-
-
-function moveUp(btnElem) {
-    let curBlock = btnElem.parentNode.parentNode;
-    let prevBlock = curBlock.previousElementSibling;
-
-    img_cont.insertBefore(curBlock, prevBlock);
-    rebuildButtons();
-}
-
-
-function moveDown(btnElem) {
-    let curBlock = btnElem.parentNode.parentNode;
-    let nextBlock = curBlock.nextElementSibling;
-
-    img_cont.insertBefore(nextBlock, curBlock);
-    rebuildButtons();
-}
-
-
-function moveTop(btnElem) {
-    let curBlock = btnElem.parentNode.parentNode;
-    let firstBlock = img_cont.getElementsByClassName('adm_img_block')[0];
-
-    img_cont.insertBefore(curBlock, firstBlock);
-    rebuildButtons();
-}
-
-
-function moveBottom(btnElem) {
-    let curBlock = btnElem.parentNode.parentNode;
-    let blockArr = img_cont.getElementsByClassName('adm_img_block');
-    let blockNum = blockArr.length;
-    let lastBlock = blockArr[blockNum-1];
-
-    lastBlock.after(curBlock);
-    rebuildButtons();
-}
-
-
-function confirmDelImg(btnElem) {
-    let curBlock = btnElem.parentNode.parentNode;
-    let curImg = curBlock.getElementsByTagName('img')[0];
-    let blockId = curImg.getAttribute('data-id');
-    let blockTitle = curImg.title;
-    showConfirmMessage('Вы действительно хотите удалить "' + blockTitle + '"? Эту операцию нельзя будет отменить.', 'warning', 'ajaxDeleteImg(' + "'" + blockId + "'" + ')');
-}
-
-
-/*
-function deleteImg(imgInd) {
-    hideConfirmMessage();
-    let blockArr = img_cont.getElementsByClassName('adm_img_block');
-    let blockNum = blockArr.length;
-    blockArr[imgInd].remove();
-    rebuildButtons();
-}
-*/
-
-
-function ajaxDeleteImg(blockId) {
-    hideConfirmMessage();
-    let imgContId = img_cont.id;
-    console.log('Deleting in ' + imgContId + ":\n" + blockId);
-}
-
-
-function rebuildButtons() {
-    let blockArr = img_cont.getElementsByClassName('adm_img_block');
-    let blockNum = blockArr.length;
-    let imgOrderArr = [];
-
-    for (let i=0; i<blockNum; i++) {
-        let btnCont = blockArr[i].getElementsByClassName('adm_img_b_btns')[0];
-        let upBtn = btnCont.getElementsByTagName('div')[0];
-        let downBtn = btnCont.getElementsByTagName('div')[1];
-        let topBtn = btnCont.getElementsByTagName('div')[2];
-        let bottomBtn = btnCont.getElementsByTagName('div')[3];
-
-        upBtn.className = 'adm_img_ctrl-btn';
-        downBtn.className = 'adm_img_ctrl-btn';
-        topBtn.className = 'adm_img_ctrl-btn';
-        bottomBtn.className = 'adm_img_ctrl-btn';
-
-        upBtn.setAttribute('title', 'Поднять выше');
-        downBtn.setAttribute('title', 'Опустить ниже');
-        topBtn.setAttribute('title', 'Поднять наверх');
-        bottomBtn.setAttribute('title', 'Опустить вниз');
-
-        upBtn.setAttribute('onclick', 'moveUp(this)');
-        downBtn.setAttribute('onclick', 'moveDown(this)');
-        topBtn.setAttribute('onclick', 'moveTop(this)');
-        bottomBtn.setAttribute('onclick', 'moveBottom(this)');
-
-        // Insert number
-        blockArr[i].getElementsByClassName('adm_img_b_num')[0].innerHTML = (i+1).toString();
-
-        if (i === 0) {
-            upBtn.className = 'adm_img_ctrl-btn_disabled';
-            upBtn.removeAttribute('title');
-            upBtn.removeAttribute('onclick');
-            topBtn.className = 'adm_img_ctrl-btn_disabled';
-            topBtn.removeAttribute('title');
-            topBtn.removeAttribute('onclick');
-        }
-
-        if (i === blockNum-1) {
-            downBtn.className = 'adm_img_ctrl-btn_disabled';
-            downBtn.removeAttribute('title');
-            downBtn.removeAttribute('onclick');
-            bottomBtn.className = 'adm_img_ctrl-btn_disabled';
-            bottomBtn.removeAttribute('title');
-            bottomBtn.removeAttribute('onclick');
-        }
-
-        // Get block id
-        let blockId = blockArr[i].getElementsByTagName('img')[0].getAttribute('data-id');
-        imgOrderArr.push([(i+1), blockId]);
-    }
-
-    ajaxUpdateOrder(JSON.stringify(imgOrderArr));
-}
-
-
-
-function ajaxUpdateOrder(orderData) {
-    let imgContId = img_cont.id;
-    console.log('Updating order for ' + imgContId + "\n" + orderData);
-}
-
-
-
-function showConfirmMessage(text, icon, onclickAction) {
-    let mainCont = document.createElement('div');
-    mainCont.setAttribute('id', 'message_cont');
-
-    let messbg = document.createElement('div');
-    messbg.className = 'message_bg';
-    mainCont.appendChild(messbg);
-
-    let messwin = document.createElement('div');
-    messwin.className = 'message_win';
-
-    // Icon image
-    let iconcont = document.createElement('div');
-    let iconspan = document.createElement('span');
-    if (icon === 'info') {
-        iconcont.className = 'message_icon message_icon_info';
-        iconspan.className = 'bi-info-circle';
-    } else if (icon === 'warning') {
-        iconcont.className = 'message_icon message_icon_warning';
-        iconspan.className = 'bi-exclamation-triangle';
-    }
-    iconcont.appendChild(iconspan);
-    messwin.appendChild(iconcont);
-
-    // Text
-    let textP = document.createElement('p');
-    textP.appendChild(document.createTextNode(text));
-    messwin.appendChild(textP);
-
-    // Buttons
-    let btnCont = document.createElement('div');
-    btnCont.className = 'message_btns_cont';
-    let okBtn = document.createElement('div');
-    okBtn.className = 'btn2 btn2-primary message_main_btn';
-    okBtn.appendChild(document.createTextNode('OK'));
-    okBtn.setAttribute('onclick', onclickAction);
-    btnCont.appendChild(okBtn);
-
-    let cancelBtn = document.createElement('div');
-    cancelBtn.className = 'btn2 btn2-secondary message_main_btn';
-    cancelBtn.appendChild(document.createTextNode('Отмена'));
-    cancelBtn.setAttribute('onclick', 'hideConfirmMessage()');
-    btnCont.appendChild(cancelBtn);
-
-    messwin.appendChild(btnCont);
-    mainCont.appendChild(messwin);
-    document.body.appendChild(mainCont);
-}
-
-function hideConfirmMessage() {
-    document.getElementById('message_cont').remove();
-}
 
 
 

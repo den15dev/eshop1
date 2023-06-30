@@ -42,7 +42,7 @@
     @if(session()->has('message'))
         <x-message-flash
             type="{{ session('message.type') }}"
-            content="{{ session('message.content') }}"
+            content="{!! session('message.content') !!}"
             align="{{ session('message.align') }}" />
     @endif
 

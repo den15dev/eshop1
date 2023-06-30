@@ -185,7 +185,7 @@ class CategoryService
         $req_brands = request('brands') ? array_keys(request('brands')) : [];
 
         $filter_query = $category->products()
-            ->select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'rating', 'vote_num', 'images')
+            ->select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'rating', 'vote_num', 'images', 'is_active', 'promo_id')
             ->when($price_min, function (EBuilder $query, string $price_min) {
                 $query->where('final_price', '>=', $price_min);
             })

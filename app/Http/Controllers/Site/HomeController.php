@@ -14,9 +14,9 @@ class HomeController extends Controller
         $promos = Promo::all();
 
         $discounted = Product::discount()->get();
-        $latest = Product::latest()->limit(10)->get();
+        $newest = Product::newest()->get();
         $popular = Product::popular()->get();
 
-        return view('layout.home', compact('promos', 'discounted', 'latest', 'popular'));
+        return view('layout.home', compact('promos', 'discounted', 'newest', 'popular'));
     }
 }

@@ -7,13 +7,13 @@
     </li>
 
     <li class="nav-item d-none d-md-inline">
-        <a href="{{ route('delivery') }}" class="nav-link text-color-main">
+        <a href="{{ route('delivery') }}" class="nav-link dark_link">
             Доставка
         </a>
     </li>
 
     <li class="nav-item d-none d-md-inline">
-        <a href="{{ route('shops') }}" class="nav-link text-color-main">
+        <a href="{{ route('shops') }}" class="nav-link dark_link">
             Магазины
         </a>
     </li>

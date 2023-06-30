@@ -11,7 +11,7 @@
             <div class="container compare_main_cont px-0 mb-5">
                 <table class="table w-auto text-center">
                     <thead>
-                    <tr class="compare_head_row">
+                    <tr>
                         <td class="compare_col1 align-top text-start">
                             <div class="blue_link" style="width: fit-content" onclick="clearComparisonList()">
                                 <span class="bi-x me-1"></span>Очистить список
@@ -24,16 +24,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr class="fs-5">
-                            <td class="text-start"></td>
-                            @foreach($products as $product)
-                                <td class="pb-3">{{ format_price($product->final_price) }} ₽</td>
-                            @endforeach
-                        </tr>
-
                         @foreach($specs as $spec)
                         <tr>
-                            <td class="text-start">{{ $spec->name }}</td>
+                            <td class="text-start">{{ $spec->name }}{{ $spec->units ? ', ' . $spec->units : '' }}</td>
                             @foreach($products as $product)
                                 @php $product_spec = $product->specifications->firstWhere('id', $spec->id); @endphp
                                 <td>{{ $product_spec ? $product_spec->pivot->spec_value : '-' }}</td>

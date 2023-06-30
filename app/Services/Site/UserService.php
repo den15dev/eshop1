@@ -3,7 +3,7 @@
 
 namespace App\Services\Site;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
 class UserService
@@ -51,7 +51,7 @@ class UserService
     }
 
 
-    public function saveUserImage(ProfileUpdateRequest $request): void
+    public function saveUserImage(UpdateProfileRequest $request): void
     {
         $user_img_dir = storage_path('app/public/images/users/' . $request->user()->id);
 

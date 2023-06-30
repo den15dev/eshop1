@@ -2,17 +2,17 @@
 
 <ul class="nav justify-content-end col-8 col-md-6" id="right_menu">
     <li class="nav-item d-inline d-md-none">
-        <a href="{{ route('delivery') }}" class="nav-link text-color-main">
+        <a href="{{ route('delivery') }}" class="nav-link dark_link">
             <span class="bi-truck me-1"></span>
         </a>
     </li>
     <li class="nav-item d-inline d-md-none">
-        <a href="{{ route('shops') }}" class="nav-link text-color-main">
+        <a href="{{ route('shops') }}" class="nav-link dark_link">
             <span class="bi-geo-alt me-1"></span>
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('favorites') }}" class="nav-link text-color-main">
+        <a href="{{ route('favorites') }}" class="nav-link dark_link">
             <span class="bi-heart me-1 count_label_cont">
                 <livewire:favorites-badge />
             </span>
@@ -20,7 +20,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('cart') }}" class="nav-link text-color-main">
+        <a href="{{ route('cart') }}" class="nav-link dark_link">
             <span class="bi-cart me-1 count_label_cont">
                 <livewire:cart-badge />
             </span>
@@ -28,7 +28,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('orders') }}" class="nav-link text-color-main" style="padding-right: 12px">
+        <a href="{{ route('orders') }}" class="nav-link dark_link" style="padding-right: 12px">
             <span class="bi-receipt me-1 count_label_cont">
                 @if($header['orders'] === 1)
                     <div class="user_notify_dot dot_blue dot_icon_pos"></div>

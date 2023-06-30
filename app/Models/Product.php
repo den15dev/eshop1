@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Site\CategoryService;
+use App\Services\Site\PromoService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,8 @@ class Product extends Model
     ];
 
     protected $appends = ['category_slug'];
+
+    protected $guarded = [];
 
 
 
@@ -74,20 +77,50 @@ class Product extends Model
     public function scopeDiscount(Builder $query): void
     {
         $query->where('discount_prc', '>', 0)
+            ->where('is_active', 1)
             ->orderBy('discount_prc', 'desc')
             ->orderBy('created_at', 'desc')
             ->limit(10);
     }
 
 
+    public function scopeNewest(Builder $query): void
+    {
+        $query->latest()
+            ->where('is_active', 1)
+            ->limit(10);
+    }
+
+
     public function scopePopular(Builder $query): void
     {
-        $query->where('rating', '>', '3')->orderBy('vote_num', 'desc')->limit(10);
+        $query->where('rating', '>', '3')
+            ->where('is_active', 1)
+            ->orderBy('vote_num', 'desc')
+            ->limit(10);
     }
 
 
     public function getCategorySlugAttribute()
     {
-        return (new CategoryService())->getCategories()->firstWhere('id', $this->category_id)->slug;
+        return $this->category_id
+            ? (new CategoryService())->getCategories()->firstWhere('id', $this->category_id)->slug
+            : null;
+    }
+
+
+    public function getPromoNameAttribute()
+    {
+        return $this->promo_id
+            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)->name
+            : null;
+    }
+
+
+    public function getPromoSlugAttribute()
+    {
+        return $this->promo_id
+            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)->slug
+            : null;
     }
 }

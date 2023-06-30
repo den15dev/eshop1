@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug', 150);
             $table->unsignedInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('set null');
-            $table->string('sku');
+            $table->string('sku', 150)->nullable();
             $table->unsignedInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onUpdate('cascade')->onDelete('set null');
             $table->string('short_descr', 200)->nullable();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Services\Site\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +20,7 @@ class UserProfileController extends Controller
 
 
     public function update(
-        ProfileUpdateRequest $request,
+        UpdateProfileRequest $request,
         UserService $userService
     )
     {

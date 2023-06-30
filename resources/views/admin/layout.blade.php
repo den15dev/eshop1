@@ -4,15 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('page_title', config('app.name'))</title>
-    <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_16.png') }}" sizes="16x16">
-    <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_64.png') }}" sizes="64x64">
-    <link rel="apple-touch-icon" href="{{ asset('img/electro_logo_76.png') }}" sizes="76x76">
-    <link rel="apple-touch-icon" href="{{ asset('img/electro_logo_120.png') }}" sizes="120x120">
-    <link rel="apple-touch-icon" href="{{ asset('img/electro_logo_152.png') }}" sizes="152x152">
+    <link rel="icon" type="image/png" href="{{ asset('img/a_logo_16.png') }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ asset('img/a_logo_32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('img/a_logo_64.png') }}" sizes="64x64">
+    <link rel="apple-touch-icon" href="{{ asset('img/a_logo_76.png') }}" sizes="76x76">
+    <link rel="apple-touch-icon" href="{{ asset('img/a_logo_120.png') }}" sizes="120x120">
+    <link rel="apple-touch-icon" href="{{ asset('img/a_logo_152.png') }}" sizes="152x152">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/iMBQgaznrXNiJxzvihSn.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 <body>
 
@@ -40,6 +41,13 @@
 </div>
 
 @include('admin.includes.message-client')
+
+@if(session()->has('message'))
+    <x-message-flash
+        type="{{ session('message.type') }}"
+        content="{{ session('message.content') }}"
+        align="{{ session('message.align') }}" />
+@endif
 
 @include('layout.includes.loadtime')
 

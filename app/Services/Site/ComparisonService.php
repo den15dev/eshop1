@@ -19,7 +19,9 @@ class ComparisonService
      */
     public function get(): array|null
     {
-        return json_decode(Request::cookie('compare'));
+        $comparison_cookie = Request::cookie('compare');
+
+        return $comparison_cookie ? json_decode($comparison_cookie) : null;
     }
 
 
@@ -54,7 +56,8 @@ class ComparisonService
 
     public function isInList(int $product_id): bool
     {
-        $comparison_arr = json_decode(Request::cookie('compare'));
+        $comparison_cookie = Request::cookie('compare');
+        $comparison_arr = $comparison_cookie ? json_decode($comparison_cookie) : null;
 
         if (is_array($comparison_arr) && in_array($product_id, $comparison_arr[1])) {
             return true;

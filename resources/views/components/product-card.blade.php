@@ -4,9 +4,14 @@
 <div class="cat_block">
 @endif
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block position-relative mb-2">
-        @if($product->discount_prc)
-        <div class="cat_img_badge small bg-color-red">-{{ $product->discount_prc }}%</div>
-        @endif
+        <div class="cat_badge_cont">
+            @if($type !== 'promo' && $product->promo_id)
+            <div class="cat_img_badge small bg-color-action" title="{{ $product->promo_name }}">Акция</div>
+            @endif
+            @if($product->discount_prc)
+            <div class="cat_img_badge small bg-color-red">-{{ $product->discount_prc }}%</div>
+            @endif
+        </div>
 
         @if($type === 'favorites')
         <livewire:favorites-remove-btn :product_id="$product->id" />

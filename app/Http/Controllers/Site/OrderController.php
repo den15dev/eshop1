@@ -19,6 +19,19 @@ class OrderController extends Controller
     )
     {
         $products = $cartService->getCartProducts();
+
+        // Check if all products still active (in stock)
+        $inactive_list = $cartService->getInactive($products);
+        if (count($inactive_list)) {
+            $request->session()->flash('message', [
+                'type' => 'info',
+                'content' => 'К сожалению, следующие товары закончились:<br>' . implode('<br>', $inactive_list),
+                'align' => 'start',
+            ]);
+
+            return back();
+        }
+
         $cart_cost = $cartService->getCartCost($products);
         $order = null;
 

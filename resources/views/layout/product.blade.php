@@ -9,9 +9,14 @@
 
     <h2 class="mb-3">
         {{ $product->name }}
-        @if($product->discount_prc)
-        <span class="item_badge fw-normal bg-color-red">-{{ $product->discount_prc }}%</span>
-        @endif
+        <div class="item_badge_cont">
+            @if($product->promo_id)
+            <a href="{{ route('promo', $product->promo_slug . '-' . $product->promo_id) }}" class="item_badge link-light fw-normal bg-color-action" title="{{ $product->promo_name }}">Акция</a>
+            @endif
+            @if($product->discount_prc)
+            <span class="item_badge fw-normal bg-color-red">-{{ $product->discount_prc }}%</span>
+            @endif
+        </div>
     </h2>
 
     <div class="d-flex flex-row mb-3">
@@ -68,29 +73,35 @@
 
             <a href="#specifications" class="d-block blue_link mb-5" style="width: fit-content" id="all_specs_link">Все характеристики</a>
 
-            <a href="{{ route('brand', $product->brand_slug) }}" class="d-block mb-4" style="width: fit-content">
-                <img style="width: 120px" src="{{ get_any_image('storage/images/brands/' . $product->brand_slug) }}" alt="{{ $product->brand_name }}">
+            <a href="{{ route('brand', $product->brand->slug) }}" class="d-block mb-4" style="width: fit-content">
+                <img style="width: 120px" src="{{ get_any_image('storage/images/brands/' . $product->brand->slug) }}" alt="{{ $product->brand->name }}">
             </a>
         </div>
 
         <div class="col-xl-3 col-md-5 col-12 px-4" id="item_order_block">
-            @if($product->discount_prc)
-            <span class="d-block text-secondary fs-5 price_old_item"><del>{{ format_price($product->price) }} ₽</del></span>
+            @if($product->is_active)
+                @if($product->discount_prc)
+                <span class="d-block text-secondary fs-5 price_old_item"><del>{{ format_price($product->price) }} ₽</del></span>
+                @endif
+                <span class="d-block text-dark fw-semibold fs-2 lh-1 mb-4">{{ format_price($product->final_price) }} ₽</span>
+
+                <div class="item_qty_cont">
+                    <button class="item-decrease-btn">-</button>
+                    <input type="text" class="item-qty-input" id="item_qty_input" value="{{ $in_cart ?? 1 }}">
+                    <button class="item-increase-btn">+</button>
+                </div>
+
+                <livewire:add-to-cart-big-btn wire:click="updateCart" :product_id="$product->id" :in_cart="$in_cart" />
+
+                <div class="d-flex flex-row mb-4">
+                    <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="big" type="short" />
+                    <livewire:favorites-button :product_id="$product->id" size="big" />
+                </div>
+            @else
+                <div class="text-center fs-3 lightgrey_text my-2">
+                    Нет в продаже
+                </div>
             @endif
-            <span class="d-block text-dark fw-semibold fs-2 lh-1 mb-4">{{ format_price($product->final_price) }} ₽</span>
-
-            <div class="item_qty_cont">
-                <button class="item-decrease-btn">-</button>
-                <input type="text" class="item-qty-input" id="item_qty_input" value="{{ $in_cart ?? 1 }}">
-                <button class="item-increase-btn">+</button>
-            </div>
-
-            <livewire:add-to-cart-big-btn wire:click="updateCart" :product_id="$product->id" :in_cart="$in_cart" />
-
-            <div class="d-flex flex-row mb-4">
-                <livewire:compare-button :product_id="$product->id" :category_id="$product->category_id" size="big" type="short" />
-                <livewire:favorites-button :product_id="$product->id" size="big" />
-            </div>
         </div>
     </div>
 

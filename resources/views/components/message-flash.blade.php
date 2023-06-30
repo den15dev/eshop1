@@ -7,8 +7,8 @@
         @elseif($type === 'warning')
         <div class="message_icon message_icon_warning"><span class="bi-exclamation-triangle"></span></div>
         @endif
-        <p class="py-2{{ $align === 'center' ? ' text-center' : '' }}">
-            {{ $content }}
+        <p class="py-2 {{ 'text-' . $align }}">
+            {!! $content !!}
         </p>
         <div class="message_btns_cont">
             <div class="btn2 btn2-primary message_main_btn" onclick="document.getElementById('flash_message').remove();">OK</div>

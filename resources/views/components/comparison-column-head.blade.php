@@ -10,4 +10,5 @@
             {{ $product->name }}
         </div>
     </a>
+    <div class="grey_text my-1">{{ format_price($product->final_price) }} ₽</div>
 </td>

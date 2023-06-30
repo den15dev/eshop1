@@ -129,3 +129,27 @@ if (!function_exists('to_paragraphs')) {
         return '<p>' . $text . '</p>';
     }
 }
+
+
+if (!function_exists('camel_case')) {
+    /**
+     * Converts snake_case to camelCase.
+     *
+     * @param string $snake_case
+     * @return string
+     */
+    function camel_case(string $snake_case): string
+    {
+        if ($snake_case) {
+            $snake_case_arr = explode('_', $snake_case);
+            for ($i = 0; $i < count($snake_case_arr); $i++) {
+                if ($i > 0) {
+                    $snake_case_arr[$i] = ucfirst($snake_case_arr[$i]);
+                }
+            }
+            return implode($snake_case_arr);
+        }
+
+        return '';
+    }
+}

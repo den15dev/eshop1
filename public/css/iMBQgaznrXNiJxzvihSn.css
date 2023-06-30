@@ -17,11 +17,7 @@
 }
 
 .text-color-main {
-    color: #232323;
-}
-
-.text-color-main:hover {
-    color: #5055de;
+    color: #212529;
 }
 
 .text-color-main2 {
@@ -137,7 +133,7 @@ select {
 
 .dark_link:hover,
 .black_link:hover {
-    color: #0d6efd;
+    color: #5055de;
 }
 
 .darkgrey_link:hover {
@@ -429,13 +425,7 @@ header .nav-link:hover {
 .adm_btns_col {
     width: 40px;
 }
-/*
-.adm_row_btns_cont {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-}
-*/
+
 .adm_btns {
     display: block;
     width: 26px;
@@ -490,17 +480,7 @@ header .nav-link:hover {
 .adm_out_inactive {
     background-color: #e0e0e0;
 }
-/*
-.adm_block {
-    width: 242px;
-    margin: 8px auto 8px 0;
-}
 
-.adm_block .adm_row_btns_cont {
-    width: fit-content;
-    margin-bottom: 16px;
-}
-*/
 
 
 
@@ -547,14 +527,19 @@ header .nav-link:hover {
     max-width: 704px;
 }
 
+.adm_field_cont {
+    margin-bottom: 16px;
+}
+
 .adm_main_form {
     display: block;
     margin-bottom: 46px;
 }
 
-.adm_main_form_btn {
+.submit_btn {
     padding-left: 20px;
     padding-right: 20px;
+    margin-top: 20px;
 }
 
 .adm_del_btn {
@@ -626,10 +611,12 @@ header .nav-link:hover {
     clear: both;
 }
 
-.adm_img_loader {
-    height: 80px;
+.img_loader_cont {
+    width: 28px;
+    height: 28px;
     background: url("../img/preloader_01.gif") center no-repeat;
-    background-size: 40px;
+    background-size: 28px;
+    margin: 4px auto auto 10px;
 }
 
 .adm_spec_tarea {
@@ -666,6 +653,10 @@ header .nav-link:hover {
 .brandlist_maxheight {
     max-height: 500px;
     overflow-y: auto;
+}
+
+.fancybox__backdrop {
+    opacity: 0.5 !important;
 }
 
 

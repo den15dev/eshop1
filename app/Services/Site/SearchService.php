@@ -29,6 +29,7 @@ class SearchService
 
         $total->products = DB::table('products')
             ->where('name', 'like', '%' . $query_str . '%')
+            ->where('is_active', 1)
             ->count();
 
         return $total;
@@ -48,6 +49,7 @@ class SearchService
     {
         return Product::select('id', 'name', 'slug', 'category_id', 'final_price', 'images')
             ->where('name', 'like', '%' . $query_str . '%')
+            ->where('is_active', 1)
             ->limit($limit)
             ->get();
     }

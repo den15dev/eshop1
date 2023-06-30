@@ -13,20 +13,14 @@ use Illuminate\Support\Facades\Request;
 class ProductService
 {
     /**
-     * Builds a query to get a Product with brand_name and brand_slug.
+     * Gets a product with brand data.
      *
      * @param int $product_id
      * @return Product
      */
     public function getProduct(int $product_id): Product
     {
-        return Product::select(
-            'products.*',
-            'brands.name as brand_name',
-            'brands.slug as brand_slug'
-        )->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
-            ->where('products.id', $product_id)
-            ->firstOrFail();
+        return Product::with('brand:id,name,slug')->find($product_id);
     }
 
 

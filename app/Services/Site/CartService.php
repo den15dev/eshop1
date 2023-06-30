@@ -6,6 +6,7 @@ namespace App\Services\Site;
 use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection as ECollection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -153,7 +154,7 @@ class CartService
         $cart = self::getCart();
 
         if ($cart) {
-            $products = Product::select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'images')
+            $products = Product::select('id', 'name', 'slug', 'category_id', 'short_descr', 'price', 'discount_prc', 'final_price', 'images', 'is_active')
                 ->whereIn('id', array_keys($cart))
                 ->get();
 
@@ -207,5 +208,24 @@ class CartService
         });
 
         return $cost;
+    }
+
+
+    /**
+     * Gets a list of names of inactive products (out of stock)
+     *
+     * @param ECollection|Collection $products
+     * @return array - array of strings (product names)
+     */
+    public function getInactive(ECollection|Collection $products): array
+    {
+        $inactive_list = [];
+        foreach ($products as $product) {
+            if (!$product->is_active) {
+                array_push($inactive_list, $product->name);
+            }
+        }
+
+        return $inactive_list;
     }
 }

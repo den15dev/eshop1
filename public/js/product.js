@@ -1,26 +1,30 @@
 /* ---------- Cart quantity buttons ------------ */
 
-let qty_input = document.getElementById('item_qty_input');
-let qty_minus_btn = qty_input.parentNode.getElementsByTagName('button')[0];
-let qty_plus_btn = qty_input.parentNode.getElementsByTagName('button')[1];
-qty_minus_btn.onclick = function () {
-    if (qty_input.value > 1) {
-        qty_input.value = parseInt(qty_input.value, 10) - 1;
+const qty_input = document.getElementById('item_qty_input');
+if (qty_input) {
+    const qty_minus_btn = qty_input.parentNode.getElementsByTagName('button')[0];
+    const qty_plus_btn = qty_input.parentNode.getElementsByTagName('button')[1];
+
+    qty_minus_btn.onclick = function () {
+        if (qty_input.value > 1) {
+            qty_input.value = parseInt(qty_input.value, 10) - 1;
+            Livewire.emit('updateQuantity', qty_input.value);
+        }
+    }
+    qty_plus_btn.onclick = function () {
+        qty_input.value = parseInt(qty_input.value, 10) + 1;
         Livewire.emit('updateQuantity', qty_input.value);
     }
-}
-qty_plus_btn.onclick = function () {
-    qty_input.value = parseInt(qty_input.value, 10) + 1;
-    Livewire.emit('updateQuantity', qty_input.value);
-}
-qty_input.oninput = function () {
-    let qty = parseInt(qty_input.value, 10);
-    if (!qty) {
-        qty = 1;
-        qty_input.value = 1;
+    qty_input.oninput = function () {
+        let qty = parseInt(qty_input.value, 10);
+        if (!qty) {
+            qty = 1;
+            qty_input.value = 1;
+        }
+        Livewire.emit('updateQuantity', qty);
     }
-    Livewire.emit('updateQuantity', qty);
 }
+
 
 
 
