@@ -2,8 +2,10 @@
     'layout' => 'normal',
     'name' => $name,
     'label' => $label,
-    'data' => $data,
-    'selected' => $selected,
+    'collection' => $collection,
+    'value' => 'id',
+    'option' => 'name',
+    'selected' => false,
     'note' => false,
     'nullable' => true,
 ])
@@ -14,9 +16,9 @@
         <div class="small grey_text fst-italic mb-2" style="margin-top: -6px">{{ $note }}</div>
     @endif
     <select name="{{ $name }}" class="form-select @if ($errors->get($name)) is-invalid @endif" id="{{ $name . '_select' }}">
-        <option {{ $nullable ? '' : ' disabled hidden' }}{{ $selected ? '' : ' selected' }}>Нет</option>
-        @foreach($data as $item)
-        <option value="{{ $item->id }}"{{ $item->id === $selected ? ' selected' : '' }}>{{ $item->name }}</option>
+        <option value="" {{ $nullable ? '' : ' disabled hidden' }}{{ $selected ? '' : ' selected' }}>Нет</option>
+        @foreach($collection as $item)
+        <option value="{{ $item->$value }}"{{ $item->$value == $selected ? ' selected' : '' }}>{{ $item->$option }}</option>
         @endforeach
     </select>
 

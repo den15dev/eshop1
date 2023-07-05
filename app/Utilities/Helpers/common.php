@@ -88,7 +88,7 @@ if (!function_exists('parse_price')) {
 }
 
 
-if (!function_exists('get_any_image')) {
+if (!function_exists('getImageByNameBase')) {
     /**
      * Looks if any of *.svg, *.png, or *.jpg image exists.
      *
@@ -97,7 +97,7 @@ if (!function_exists('get_any_image')) {
      *                          for example: 'storage/images/brands/amd'.
      * @return string - path to asset or empty string
      */
-    function get_any_image(string $image_path_base): string
+    function getImageByNameBase(string $image_path_base): string
     {
         $path_base = str_replace('storage', config('filesystems.disks.public.root'), $image_path_base);
 
@@ -111,6 +111,25 @@ if (!function_exists('get_any_image')) {
             return asset($image_path_base . '.jpg');
         }
         return '';
+    }
+}
+
+
+if (!function_exists('get_image')) {
+    /**
+     * Looks if an image exists, if it doesn't returns a placeholder.
+     *
+     * @param string $image_path
+     * @param int $placeholder_resolution
+     * @return string
+     */
+    function get_image(string $image_path, int $placeholder_resolution): string
+    {
+        if (file_exists($image_path)) {
+            return asset($image_path);
+        }
+
+        return asset('storage/images/default/no-image_' . $placeholder_resolution . '.jpg');
     }
 }
 

@@ -34,19 +34,23 @@ class StoreProductRequest extends FormRequest
             $rules['discount_prc'] = ['required', 'integer'];
             $rules['final_price'] = ['required', 'numeric'];
             $rules['description'] = ['required', 'min:30'];
-            $rules['promo_id'] = ['nullable'];
+            $rules['promo_id'] = ['nullable', 'integer'];
         }
 
+        $image_rules = ['nullable', 'max:5120', 'dimensions:min_width=1400,min_height=1400,max_width=5000,max_height=5000'];
+
         if ($this->has('images') || $this->hasFile('new_image')) {
-            $rules = [
-                'new_image' => ['nullable', 'max:5120', 'dimensions:max_width=5000,max_height=5000'],
-                'images' => ['nullable'],
-            ];
+            $rules['new_image'] = $image_rules;
+            $rules['images'] = ['nullable'];
+        }
+
+        if ($this->hasFile('image_files')) {
+            $rules['image_files.*'] = $image_rules;
         }
 
         if ($this->has('specs')) {
             $rules['specs'] = ['required', 'min:3'];
-            $rules['category_id'] = ['required'];
+            $rules['category_id'] = ['required', 'integer'];
         }
 
         return $rules;
@@ -60,6 +64,7 @@ class StoreProductRequest extends FormRequest
             'discount_prc' => 'Скидка',
             'price' => 'Цена',
             'final_price' => 'Итоговая цена',
+            'image_files.*' => ':index',
         ];
     }
 }

@@ -1,7 +1,7 @@
 <div class="adm_img_block">
     <div class="adm_img_b_num">{{ $loop->index + 1 }}</div>
     <div class="adm_img_b_img">
-        <a href="{{ asset('storage/images/products/' . $itemid . '/' . $filename . '_600.jpg') }}" data-fancybox="product_635">
+        <a href="{{ asset('storage/images/products/' . $itemid . '/' . $filename . '_1400.jpg') }}" data-fancybox="product_{{ $itemid }}">
             <img src="{{ asset('storage/images/products/' . $itemid . '/' . $filename . '_80.jpg') }}" title="{{ $filename }}" data-id="{{ $filename }}">
         </a>
     </div>

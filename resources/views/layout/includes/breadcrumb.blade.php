@@ -1,4 +1,4 @@
-<nav class="d-none d-md-block container mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav class="d-none d-md-block container mb-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}" class="black_link">Главная</a></li>
         @foreach($bread_crumb as $item)

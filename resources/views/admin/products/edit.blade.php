@@ -20,20 +20,32 @@
             <x-admin.textarea name="short_descr" label="Краткое описание" :value="$product->short_descr" />
 
             <div class="row adm_field_cont">
-                <x-admin.select layout="column" name="brand_id" label="Бренд" :data="$brands" :selected="$product->brand_id" />
+                <x-admin.select layout="column"
+                                name="brand_id"
+                                label="Бренд"
+                                :collection="$brands"
+                                value="id"
+                                option="name"
+                                :selected="old('brand_id', $product->brand_id)"
+                                :nullable="false" />
                 <x-admin.input layout="column" name="sku" label="Код производителя" :value="$product->sku" />
             </div>
 
             <div class="row adm_field_cont">
                 <x-admin.input layout="column" name="price" label="Цена" :value="$product->price" />
                 <x-admin.input layout="column" name="discount_prc" label="Скидка, %" :value="$product->discount_prc" />
-                <x-admin.input layout="column" name="final_price_pretty" label="Итоговая цена" :value="format_price($product->final_price) . ' ₽'" :disabled="true" />
+                <x-admin.input layout="column" name="final_price_pretty" label="Итоговая цена" :value="format_price($product->final_price) . ' ₽'" :readonly="true" />
                 <input type="hidden" name="final_price" id="final_price_input" value="{{ $product->final_price }}" />
             </div>
 
             <x-admin.textarea name="description" label="Полное описание" :value="$product->description" />
 
-            <x-admin.select name="promo_id" label="Участвует в акции" :data="$promos" :selected="$product->promo_id" />
+            <x-admin.select name="promo_id"
+                            label="Участвует в акции"
+                            :collection="$promos"
+                            value="id"
+                            option="name"
+                            :selected="old('promo_id', $product->promo_id)" />
 
             <button type="submit" class="btn2 btn2-primary submit_btn">Сохранить</button>
         </form>
@@ -44,7 +56,7 @@
         <form class="mb-45" method="POST" enctype="multipart/form-data" action="{{ route('admin.products.update', $product->id) }}" id="image_form" novalidate>
             @method('PUT')
             @csrf
-            <div class="grey_text mb-3">Изображения:</div>
+            <div class="grey_text mb-2">Изображения:</div>
 
             <div class="adm_img_cont" id="item_edit_img_cont">
                 @if($product->images)
@@ -53,25 +65,32 @@
                 @endforeach
                 @endif
 
-                <input class="mb-3 mt-2" name="new_image" type="file" accept=".jpg" id="img_select_input">
+                <input class="mb-2 mt-3" name="new_image" type="file" accept=".jpg" id="img_select_input">
                 <input type="hidden" name="images" id="images_input" value="{{ $product->images ? json_encode($product->images) : '' }}" />
+            </div>
 
-                <div class="d-flex">
-                    <button type="submit" class="btn2 btn2-primary submit_btn" style="display: none; margin-top: 0" id="img_submit_btn">Сохранить</button>
-                    <div class="btn2 btn2-inactive submit_btn" style="margin-top: 0" id="img_inactive_btn">Сохранить</div>
-                    <div class="img_loader_cont" style="display: none" id="loader_cont"></div>
-                </div>
+            <div class="small grey_text fst-italic mb-25">Изображения будут преобразованы в квадрат, образовавшиеся пустые области будут залиты белым цветом. Минимальное разрешение по любой из сторон 1400 px, максимальное — 5000 px.</div>
+
+            <div class="d-flex">
+                <button type="submit" class="btn2 btn2-primary submit_btn" style="display: none; margin-top: 0" id="img_submit_btn">Сохранить</button>
+                <div class="btn2 btn2-inactive submit_btn" style="margin-top: 0" id="img_inactive_btn">Сохранить</div>
+                <div class="img_loader_cont" style="display: none" id="loader_cont"></div>
             </div>
         </form>
 
 
         {{-- ----------------- Specifications ----------------- --}}
 
-        <form class="mb-45" method="POST" action="{{ route('admin.products.update', $product->id) }}" novalidate>
+        <form class="mb-5" method="POST" action="{{ route('admin.products.update', $product->id) }}" novalidate>
             @method('PUT')
             @csrf
-            <x-admin.select name="category_id" label="Категория" :data="$categories" :selected="$product->category_id" :nullable="false" />
-            <input type="hidden" name="old_category_id" id="old_category_id_input" value="{{ $product->category_id }}" />
+            <x-admin.select name="category_id"
+                            label="Категория"
+                            :collection="$categories"
+                            value="id"
+                            option="name"
+                            :selected="old('category_id', $product->category_id)"
+                            :nullable="false" />
             <script>const product_id = {{ $product->id }};</script>
 
             <div class="adm_field_cont" style="margin-top: -9px">
@@ -92,15 +111,31 @@
 
             <button type="submit" class="btn2 btn2-primary submit_btn">Сохранить</button>
         </form>
+
+
+        {{-- ----------------- Deleting ----------------- --}}
+
+        <form class="mb-5" method="POST" action="{{ route('admin.products.destroy', $product->id) }}" onsubmit="return confirmDeleting(this, 'удалить товар {{ $product->name }}?')" novalidate>
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="btn2 btn2-red px-4" style="width: fit-content;">Удалить товар</button>
+            <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Вместе с товаром будут безвозвратно удалены характеристики и изображения товара, все отзывы к нему вместе с лайками, товар будет удалён из всех корзин пользователей, во всех заказах позиции с этим товаром станут неопределены.<br>Если же вы хотите просто изъять товар из продажи, сделайте его неактивным, воспользовавшись переключателем вверху этой страницы.</div>
+        </form>
     </div>
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <link rel="stylesheet" href="{{ asset('css/fancyapps5/fancybox.css') }}" />
 @endpush
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-    <script>Fancybox.bind("[data-fancybox]", {});</script>
+    <script src="{{ asset('js/fancyapps5/fancybox.umd.js') }}"></script>
+    <script>Fancybox.bind("[data-fancybox]", {
+            wheel: 'slide',
+            Thumbs: {
+                type: "classic",
+            },
+        });
+    </script>
     <script src="{{ asset('js/joKWuogPVLryjouS5XHs/product.js') }}"></script>
 @endpush

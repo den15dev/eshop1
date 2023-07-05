@@ -71,18 +71,43 @@ class CategoryService
     }
 
 
-
     /**
      * Gets children categories (without sub-children) for a given category.
      *
-     * @param Category $category - parent category
+     * @param int $category_id
      * @return Collection
      */
-    public function getChildren(Category $category): Collection
+    public function getChildren(int $category_id): Collection
     {
-        return $this->getCategories()->filter(function ($child) use ($category) {
-            return $child->parent_id === $category->id;
-        });
+        return $this->getCategories()->filter(function ($child) use ($category_id) {
+            return $child->parent_id === $category_id;
+        })->sortBy('sort');
+    }
+
+
+    /**
+     * Gets all children categories including sub-children for a given category.
+     *
+     * @param int $category_id
+     * @return Collection
+     */
+    public function getBranchFrom(int $category_id): Collection
+    {
+        function collectChildren($category_id, $categoryService, $branch_members) {
+            $children = $categoryService->getChildren($category_id);
+            if ($children->count()) {
+                foreach ($children as $child) {
+                    $branch_members->push($child);
+                    collectChildren($child->id, $categoryService, $branch_members);
+                }
+            }
+
+            return $branch_members;
+        }
+
+        $branch_members = new Collection([]);
+
+        return collectChildren($category_id, $this, $branch_members);
     }
 
 

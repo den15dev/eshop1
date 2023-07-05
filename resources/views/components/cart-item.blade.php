@@ -1,7 +1,11 @@
 <div class="cart_block border-bottom">
     <div class="cart_order">{{ $index + 1 }}</div>
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="cart_img">
-        <img src="{{ asset('storage/images/products/temp/' . ($product->id % 20 + 1) . '/' . $product->images[0] . '_242.jpg') }}" alt="{{ $product->name }}">
+        @if($product->images)
+        <img src="{{ get_image('storage/images/products/' . $product->id . '/' . $product->images[0] . '_242.jpg', 242) }}" alt="{{ $product->name }}">
+        @else
+        <img src="{{ asset('storage/images/default/no-image_242.jpg') }}" alt="{{ $product->name }}">
+        @endif
     </a>
     <div class="cart_descr">
         <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block fw-semibold mb-1 cat_block_title">

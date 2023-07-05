@@ -26,7 +26,8 @@ $('.sub-menu-btn').click(function () {
  * Shows a message window.
  *
  * @param data - {
- *     'type' - one of 'info', 'confirm', or 'warning';
+ *     'type' - one of 'note', or 'confirm';
+ *     'icon' - one of 'info', 'question', or 'warning';
  *     'message' - text or html message;
  *     'ok' - a callback for an 'ok' button;
  *     'okText' - text for 'ok' button (default is 'ok');
@@ -41,44 +42,51 @@ function showMessage(data) {
 
     const infoIcon = document.getElementById('cm_icon_info');
     const warningIcon = document.getElementById('cm_icon_warning');
-    const confirmIcon = document.getElementById('cm_icon_confirm');
+    const questionIcon = document.getElementById('cm_icon_question');
 
     textCont.innerHTML = data.message;
 
     closeBtn.onclick = function () { message.style.display = 'none'; }
 
-    if (data.type === 'info') {
-
-        okBtn.onclick = function () { message.style.display = 'none'; }
-        cancelBtn.style.display = 'none';
-        infoIcon.style.display = 'block';
-        confirmIcon.style.display = 'none';
-        warningIcon.style.display = 'none';
-
-    } else if (data.type === 'confirm') {
-
+    if (data.type === 'confirm') {
         okBtn.onclick = function () {
             message.style.display = 'none';
             data.ok();
         }
         cancelBtn.onclick = function () { message.style.display = 'none'; }
-        infoIcon.style.display = 'none';
-        confirmIcon.style.display = 'block';
-        warningIcon.style.display = 'none';
 
-    } else if (data.type === 'warning') {
-
+    } else {
         okBtn.onclick = function () { message.style.display = 'none'; }
         cancelBtn.style.display = 'none';
+    }
+
+    if (data.icon === 'question') {
         infoIcon.style.display = 'none';
-        confirmIcon.style.display = 'none';
+        questionIcon.style.display = 'block';
+        warningIcon.style.display = 'none';
+
+    } else if (data.icon === 'warning') {
+        infoIcon.style.display = 'none';
+        questionIcon.style.display = 'none';
         warningIcon.style.display = 'block';
 
+    } else {
+        infoIcon.style.display = 'block';
+        questionIcon.style.display = 'none';
+        warningIcon.style.display = 'none';
     }
 
     okBtn.innerText = 'Ok';
     if (data.okText !== undefined) {
         okBtn.innerText = data.okText;
+    }
+
+    if (data.type === 'confirm' && data.icon === 'warning') {
+        okBtn.classList.remove("btn2-primary");
+        okBtn.classList.add("btn2-red");
+    } else if (okBtn.classList.contains("btn2-red")) {
+        okBtn.classList.remove("btn2-red");
+        okBtn.classList.add("btn2-primary");
     }
 
     message.style.display = 'block';

@@ -2,7 +2,11 @@
     <td>{{ $index + 1 }}</td>
     <td>
         <a href="{{ route('product', [$orderitem->product->category_slug, $orderitem->product->slug . '-' . $orderitem->product->id]) }}">
-            <img src="{{ asset('storage/images/products/temp/' . ($orderitem->product->id % 20 + 1) . '/' . $orderitem->product->images[0] . '_80.jpg') }}" alt="{{ $orderitem->product->name }}">
+            @if($orderitem->product->images)
+                <img src="{{ get_image('storage/images/products/' . $orderitem->product->id . '/' . $orderitem->product->images[0] . '_80.jpg', 80) }}" alt="{{ $orderitem->product->name }}">
+            @else
+                <img src="{{ asset('storage/images/default/no-image_80.jpg') }}" alt="{{ $orderitem->product->name }}">
+            @endif
         </a>
     </td>
     <td class="text-start">

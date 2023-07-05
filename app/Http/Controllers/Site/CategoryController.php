@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $category = $categoryService->getCategories()->where('slug', $category_slug)->first();
         if (!$category) abort(404);
 
-        $children = $categoryService->getChildren($category);
+        $children = $categoryService->getChildren($category->id);
         $bread_crumb = $categoryService->getBreadCrumb($category);
 
         if ($children->isNotEmpty()) {

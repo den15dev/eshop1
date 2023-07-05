@@ -17,6 +17,7 @@ class AdminNavComposer
             ['Бренды', 'brands', 'star'],
             ['Акции', 'promos', 'percent'],
             ['Пользователи', 'users', 'person'],
+            ['Отзывы', 'reviews', 'chat-left'],
             ['Заказы', 'orders', 'basket'],
         ];
 

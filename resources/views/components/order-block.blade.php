@@ -25,7 +25,7 @@
         <li><span class="lightgrey_text">Статус оплаты:</span> {!! $order->payment_status ? 'оплачен' : '<span class="text-color-red">не оплачен</span>' !!}</li>
     </ul>
 
-    <table class="table table-borderless order_table text-center w-auto @if($type === 'new') mb-4 @endif">
+    <table class="table table-borderless order_table text-center w-auto align-middle @if($type === 'new') mb-4 @endif">
         <thead>
         <tr class="lightgrey_text small">
             <td>№</td>

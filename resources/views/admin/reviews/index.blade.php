@@ -1,10 +1,10 @@
 @extends('admin.layout')
 
-@section('page_title', 'Пользователи - Администрирование')
+@section('page_title', 'Отзывы - Администрирование')
 
 @section('main_content')
 
-    <h2 class="mb-4">Пользователи</h2>
+    <h2 class="mb-4">Отзывы</h2>
 
     <div class="mb-4">
         <div>

@@ -9,7 +9,7 @@ const chbInactive = document.getElementById('chb_inactive');
 
 let searchInputTimeOut;
 
-function getSearchResults(query_str, page = null) {
+function getSearchResults(query_str = '', page = null) {
     let data = {
         table: tableName,
         query: query_str
@@ -36,13 +36,14 @@ function getSearchResults(query_str, page = null) {
         data: data,
         success: function(data){
             tableCont.innerHTML = data;
-            if (query_str && query_str.length > 1) clearBtn.style.display = 'block';
+            if (query_str && query_str.length) clearBtn.style.display = 'block';
             fixPaginationLinks();
             fixPaginationSize();
         },
         error: function (jqXHR) {
             showMessage({
-                'type': 'warning',
+                'type': 'note',
+                'icon': 'warning',
                 'message': 'Ошибка сервера:<br>' + jqXHR.status + ' (' + jqXHR.statusText + ')',
             });
         }
@@ -54,18 +55,19 @@ function showSearchResOnInput() {
     clearTimeout(searchInputTimeOut);
 
     let str = searchInput.value;
-    if (str.length > 1) {
+    if (str.length) {
         searchInputTimeOut = setTimeout(function () {
             getSearchResults(str);
         }, 300);
     } else {
+        getSearchResults();
         clearBtn.style.display = 'none';
     }
 }
 
 function clearSearchRes() {
     searchInput.value = '';
-    getSearchResults('');
+    getSearchResults();
     clearBtn.style.display = 'none';
     searchInput.focus();
 }
@@ -133,10 +135,10 @@ function changeOrder(column_id) {
 
             if (col_id === column_id) {
                 if (orderby === 'asc') {
-                    icon_cont.className = 'bi-caret-up-fill small';
+                    icon_cont.className = 'bi-caret-up-fill';
                     head_btn.setAttribute('data-orderby', 'desc');
                 } else {
-                    icon_cont.className = 'bi-caret-down-fill small';
+                    icon_cont.className = 'bi-caret-down-fill';
                     icon_cont.style.display = 'inline';
                     head_btn.setAttribute('data-orderby', 'asc');
                 }

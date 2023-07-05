@@ -11,60 +11,6 @@ use Illuminate\Support\Str;
 class IndexService
 {
     /**
-     * @var array|array[] - [
-     *     <column>,
-     *     <title>,
-     *     <align - start/end/center(default)>,
-     *     <is sortable>,
-     *     <current order>,
-     *     <is searchable>
-     * ]
-     */
-    private static array $products = [
-        ['id', 'id', '', true, false, true],
-        ['images', '', '', false, false, false],
-        ['name', 'Наименование', 'start', true, false, true],
-        ['is_active', 'Активно', '', true, false, false],
-        ['discount_prc', 'Скидка %', '', true, false, false],
-        ['final_price', 'Цена, ₽', '', true, false, false],
-    ];
-
-    private static array $brands = [
-        ['id', 'id', '', true, false, true],
-        ['name', 'Название', '', true, false, true],
-        ['slug', '', '', false, false, false], // An image with a name by the slug will be output
-    ];
-
-    private static array $promos = [
-        ['id', 'id', '', true, false, true],
-        ['image', '', '', false, false, false],
-        ['name', 'Название', 'start', true, false, true],
-        ['until', 'Дата окончания', '', true, false, false],
-        ['is_active', 'Активно', '', true, false, false],
-    ];
-
-    private static array $users = [
-        ['id', 'id', '', true, false, true],
-        ['image', '', '', false, false, false],
-        ['name', 'Имя', '', true, false, true],
-        ['role', 'Роль', '', true, false, false],
-        ['email', 'Email', '', true, false, true],
-        ['is_active', 'Активно', '', true, false, false],
-    ];
-
-    private static array $orders = [
-        ['id', 'id', '', true, false, true],
-        ['status', 'Статус', '', true, false, false],
-        ['name', 'Имя', '', true, false, true],
-//        ['phone', 'Телефон', '', false, false, true],
-//        ['payment_status', 'Статус оплаты', '', false, false, false],
-        ['delivery_type', 'Способ получения', '', false, false, false],
-        ['total_cost', 'Стоимость, ₽', '', true, false, false],
-    ];
-
-
-
-    /**
      * Gets given table settings, updates current sorting order
      *
      * @param string $table
@@ -73,13 +19,14 @@ class IndexService
      */
     public static function getTableSettings(string $table, Request $request): array
     {
-        $settings = self::$$table;
+        $serviceClass = 'App\\Services\\Admin\\' . Str::studly(Str::singular($table)) . 'Service';
+        $settings = $serviceClass::$table_settings;
 
         if ($request->query('order_by')) {
             foreach ($settings as &$column) {
-                if ($column[0] === $request->query('order_by')) {
-                    $column[4] = $request->query('order_dir');
-                }
+                $column['order_dir'] = $column['column'] === $request->query('order_by')
+                    ? $request->query('order_dir')
+                    : false;
             }
         }
 
@@ -103,13 +50,22 @@ class IndexService
 
         $col_list = [];
         foreach ($table_settings as $column) {
-            array_push($col_list, $column[0]);
+            array_push($col_list, $column['column']);
         }
 
         $model_name = 'App\\Models\\' . Str::studly(Str::singular($table));
         $result_query = $model_name::select($col_list);
 
         $order_by = ['id', 'desc'];
+
+        // For reviews: show only not empty reviews
+        if ($table === 'reviews') {
+            $result_query = $result_query->where(function(EBuilder $query) {
+                $query = $query->whereNotNull('pros')
+                    ->orWhereNotNull('cons')
+                    ->orWhereNotNull('comnt');
+            });
+        }
 
         if ($request) {
             $is_active = $request->query('is_active');
@@ -123,12 +79,14 @@ class IndexService
 
                     $col_index = 0;
                     foreach ($table_settings as $column) {
-                        if ($column[5]) {
+                        if ($column['is_searchable']) {
+
+                            $pattern = mb_strlen($search_query) === 1 ? $search_query : '%' . $search_query . '%';
 
                             if ($col_index) {
-                                $query = $query->orWhere($column[0], 'like', '%' . $search_query . '%');
+                                $query = $query->orWhere($column['column'], 'like', $pattern);
                             } else {
-                                $query = $query->where($column[0], 'like', '%' . $search_query . '%');
+                                $query = $query->where($column['column'], 'like', $pattern);
                             }
 
                         }

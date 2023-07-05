@@ -18,7 +18,7 @@
             @php
             $is_active_col = false;
             foreach ($columns as $col) {
-                if ($col[0] === 'is_active') $is_active_col = true;
+                if ($col['column'] === 'is_active') $is_active_col = true;
             }
             @endphp
             @if($is_active_col)

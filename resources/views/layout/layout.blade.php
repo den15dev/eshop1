@@ -13,8 +13,8 @@
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     @stack('css')
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
 <body>

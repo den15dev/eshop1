@@ -3,7 +3,7 @@
     'name' => $name,
     'label' => $label,
     'value' => $value,
-    'disabled' => false,
+    'readonly' => false,
     'note' => false,
 ])
 
@@ -12,7 +12,7 @@
     @if($note)
         <div class="small grey_text fst-italic mb-2" style="margin-top: -6px">{{ $note }}</div>
     @endif
-    <input type="text" name="{{ $name }}" class="form-control @if ($errors->get($name)) is-invalid @endif" id="{{ $name . '_input' }}" value="{{ old($name, $value) }}" {{ $disabled ? 'disabled' : '' }}>
+    <input type="text" name="{{ $name }}" class="form-control @if ($errors->get($name)) is-invalid @endif" id="{{ $name . '_input' }}" value="{{ old($name, $value) }}" {{ $readonly ? 'readonly' : '' }}>
     @if ($errors->get($name))
         <div class="invalid-feedback">
             {{ $errors->get($name)[0] }}

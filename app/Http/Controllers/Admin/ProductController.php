@@ -14,15 +14,39 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public static function create(): View
+    public static function create(
+        CategoryService $categoryService,
+        ProductService $productService,
+    ): View
     {
-        return view('admin.products.create');
+        $brands = Brand::select('id', 'name')->orderBy('name')->get();
+        $promos = Promo::select('id', 'name')->orderBy('created_at')->get();
+        $categories = $categoryService->getEndCategories();
+        $spec_list = $productService->getProductSpecList($categories[0]->id);
+
+        return view('admin.products.create', compact(
+            'brands',
+            'promos',
+            'categories',
+            'spec_list',
+        ));
     }
 
 
-    public static function store(StoreProductRequest $request)
+    public static function store(StoreProductRequest $request, ProductService $productService)
     {
-        // return
+
+        $product = $productService->saveProduct($request);
+        $productService->saveImages($request, $product->id);
+        $productService->saveSpecifications($request->input('specs'), $product->category_id, $product->id);
+
+        $request->session()->flash('message', [
+            'type' => 'info',
+            'content' => 'Товар ' . $product->id . ' успешно создан.',
+            'align' => 'center',
+        ]);
+
+        return redirect()->route('admin.products');
     }
 
 
@@ -33,6 +57,7 @@ class ProductController extends Controller
     ): View
     {
         $product = Product::find($id);
+        if (!$product) abort(404);
         $brands = Brand::select('id', 'name')->orderBy('name')->get();
         $promos = Promo::select('id', 'name')->orderBy('created_at')->get();
         $categories = $categoryService->getEndCategories();
@@ -62,46 +87,15 @@ class ProductController extends Controller
         }
 
         if ($request->has('images')) {
-            $images_json = $request->input('images') ?: null;
-            $images_arr = $images_json ? json_decode($images_json) : [];
-            $images_db = $productService->getImages($id);
-
-            $productService->removeImageFiles($id, $images_db, $images_arr);
-
-            if ($request->hasFile('new_image')) {
-                $new_name_base = $productService->getNewImageNameBase($images_db);
-                $productService->saveImage($request, $id, $new_name_base);
-
-                array_push($images_arr, $new_name_base);
-                $images_json = json_encode($images_arr);
-            }
-
-            if (json_encode($images_db) !== $images_json) {
-                Product::where('id', $id)->update(['images' => $images_json]);
-            }
+            $productService->updateImages($request, $id);
 
             $message = 'Изображения успешно обновлены.';
         }
 
         if ($request->has('specs')) {
-            $new_category_id = $request->input('category_id');
-            $old_category_id = $request->input('old_category_id');
-
-            if ($new_category_id !== $old_category_id) {
-                Product::where('id', $id)->update(['category_id' => $new_category_id]);
-            }
-
-            $input_specs = $productService->getInputSpecs(trim($request->input('specs')));
-
-            // Check if a given input specification exists in the category. If not, remove it.
-            $category_specs = $productService->getCategorySpecs($new_category_id);
-            $input_specs = $input_specs->filter(function ($input_spec) use ($category_specs) {
-                return $category_specs->contains('id', $input_spec->specification_id);
-            });
-
-            $current_specs = $productService->getProductSpecs($id);
-
-            $productService->updateSpecs($id, $input_specs, $current_specs);
+            $category_id = $request->input('category_id');
+            $productService->updateCategoryId($id, $category_id);
+            $productService->saveSpecifications($request->input('specs'), $category_id, $id);
 
             $message = 'Характеристики успешно обновлены.';
         }
@@ -118,9 +112,23 @@ class ProductController extends Controller
     }
 
 
-    public static function destroy()
+    public static function destroy(
+        Request $request,
+        ProductService $productService,
+        int $id
+    )
     {
-        // return
+        $product = Product::find($id);
+        $product->delete();
+        $productService->deleteImages($id);
+
+        $request->session()->flash('message', [
+            'type' => 'info',
+            'content' => 'Товар ' . $id . ' успешно удалён.',
+            'align' => 'center',
+        ]);
+
+        return redirect()->route('admin.products');
     }
 
 

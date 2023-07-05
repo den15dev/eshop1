@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
 use App\Http\Controllers\Admin\BrandController as AdmBrandController;
 use App\Http\Controllers\Admin\PromoController as AdmPromoController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
+use App\Http\Controllers\Admin\ReviewController as AdmReviewController;
 use App\Http\Controllers\Admin\OrderController as AdmOrderController;
 
 
@@ -50,6 +51,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/users/{id}/edit', [AdmUserController::class, 'edit'])->whereNumber('id')->name('users.edit');
     Route::put('/users/{id}', [AdmUserController::class, 'update'])->whereNumber('id')->name('users.update');
     Route::delete('/users/{id}', [AdmUserController::class, 'destroy'])->whereNumber('id')->name('users.destroy');
+
+    Route::get('/reviews', AdmIndexController::class)->name('reviews');
+    Route::get('/reviews/{id}/edit', [AdmReviewController::class, 'edit'])->whereNumber('id')->name('reviews.edit');
+    Route::put('/reviews/{id}', [AdmReviewController::class, 'update'])->whereNumber('id')->name('reviews.update');
+    Route::delete('/reviews/{id}', [AdmReviewController::class, 'destroy'])->whereNumber('id')->name('reviews.destroy');
 
     Route::get('/orders', AdmIndexController::class)->name('orders');
     Route::get('/orders/{id}/edit', [AdmOrderController::class, 'edit'])->whereNumber('id')->name('orders.edit');

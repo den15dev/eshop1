@@ -5,10 +5,10 @@
     <tr class="lightgrey_text">
         @foreach($columns as $column)
             <x-admin.column-title
-                :column="$column[0]"
-                :title="$column[1]"
-                :sortable="$column[3]"
-                :orderby="$column[4]" />
+                :column="$column['column']"
+                :title="$column['title']"
+                :sortable="$column['is_sortable']"
+                :orderdir="$column['order_dir'] ?? false" />
         @endforeach
     </tr>
     </thead>
@@ -17,12 +17,19 @@
             <tr>
                 @foreach($columns as $column)
                     @php
-                    $col_name = $column[0];
+                    $col_name = $column['column'];
                     $value = $record->$col_name;
+
+                    $length_limit = 70;
+                    $value = (gettype($value) === 'string' && mb_strlen($value) > $length_limit)
+                        ? mb_substr($value, 0, $length_limit).'...'
+                        : $value;
+
                     $td_content = match ($col_name) {
                         'image' => $value ? '<img src="' . asset('storage/images/' . $table_name . '/' . $record->id . '/' . $value) . '">' : '',
-                        'images' => '<img src="' . asset('storage/images/' . $table_name . '/temp/' . ($record->id % 20 + 1) . '/' . $value[0] . '_80.jpg') . '">',
-                        'slug' => '<img src="' . get_any_image('storage/images/' . $table_name . '/' . $value) . '" style="height: 16px">',
+                        'images' => $value ? '<img src="' . get_image('storage/images/' . $table_name . '/' . $record->id . '/' . $value[0] . '_80.jpg', 80) . '">'
+                                            : '<img src="' . asset('storage/images/default/no-image_80.jpg') . '">',
+                        'slug' => '<img src="' . getImageByNameBase('storage/images/' . $table_name . '/' . $value) . '" style="height: 16px">',
                         'price', 'final_price', 'total_cost' => format_price($value),
                         'is_active' => $value ? 'да' : '<span class="lightgrey_text">нет</span>',
                         'role' => $value === 'admin' || $value === 'boss' ?
@@ -44,7 +51,7 @@
                         default => $value,
                     };
 
-                    $td_class = match ($column[2]) {
+                    $td_class = match ($column['align']) {
                         'start' => 'class="text-start"',
                         'end' => 'class="text-end"',
                         default => '',

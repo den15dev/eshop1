@@ -542,13 +542,8 @@ header .nav-link:hover {
     margin-top: 20px;
 }
 
-.adm_del_btn {
-    cursor: pointer;
-}
-
 .adm_img_cont {
     width: 338px;
-    margin-bottom: 16px;
 }
 
 .adm_img_block {

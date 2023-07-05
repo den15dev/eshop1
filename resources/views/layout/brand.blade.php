@@ -7,7 +7,7 @@
 
         <div class="brand_head_cont mb-5">
             <div class="brand_logo mb-4">
-                <img src="{{ get_any_image('storage/images/brands/' . $brand->slug) }}" alt="{{ $brand->name }}">
+                <img src="{{ getImageByNameBase('storage/images/brands/' . $brand->slug) }}" alt="{{ $brand->name }}">
             </div>
 
             {!! to_paragraphs($brand->description) !!}

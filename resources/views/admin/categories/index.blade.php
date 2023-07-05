@@ -3,7 +3,7 @@
 @section('page_title', 'Категории - Администрирование')
 
 @section('main_content')
-    <h2 class="mb-45 mb-md-4">Категории</h2>
+    <h2 class="mb-4">Категории</h2>
 
     <div class="d-md-flex flex-row-reverse justify-content-between">
         <a href="{{ route('admin.categories.create') }}" class="btn2 btn2-red mb-4 adm_add_btn" style="height: 40px">

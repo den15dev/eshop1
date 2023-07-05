@@ -9,7 +9,8 @@ function removeFromCart(product_id) {
         },
         error: function () {
             showMessage({
-                'type': 'warning',
+                'type': 'note',
+                'icon': 'warning',
                 'message': '<b>Ошибка!</b><br>Не удалось удалить товар из корзины.<br>Пожалуйста, попробуйте ещё раз позднее.',
             });
         }
@@ -20,6 +21,7 @@ function removeFromCart(product_id) {
 function clearCart() {
     showMessage({
         'type': 'confirm',
+        'icon': 'question',
         'message': 'Вы действительно хотите очистить корзину?',
         'ok': function () {
             $.ajax({
@@ -32,7 +34,8 @@ function clearCart() {
                 },
                 error: function () {
                     showMessage({
-                        'type': 'warning',
+                        'type': 'note',
+                        'icon': 'warning',
                         'message': '<b>Ошибка!</b><br>Не удалось очистить корзину.<br>Пожалуйста, попробуйте ещё раз позднее.',
                     });
                 }

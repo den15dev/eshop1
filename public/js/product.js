@@ -28,37 +28,31 @@ if (qty_input) {
 
 
 
-/* --------------- Images ------------------ */
+/* --------------- Images (Fancybox) ------------------ */
 
-document.addEventListener( 'DOMContentLoaded', function () {
-    var main = new Splide( '#item_img_main', {
-        type      : 'fade',
-        rewind    : true,
-        pagination: false,
-        arrows    : false,
-    } );
-
-    var thumbnails = new Splide( '#item_thumbnails', {
-        fixedWidth  : 80,
-        fixedHeight : 80,
-        gap         : 4,
-        arrows      : false,
-        rewind      : true,
-        pagination  : false,
-        cover       : true,
-        isNavigation: true,
-        breakpoints : {
-            576: {
-                fixedWidth : 60,
-                fixedHeight: 60,
-            },
+const container = document.getElementById("item_img_carousel");
+const options = {
+    infinite: false,
+    Dots: false,
+    Navigation: false,
+    Thumbs: {
+        type: "classic",
+        Carousel: {
+            center: false,
         },
-    } );
+    },
+};
 
-    main.sync( thumbnails );
-    main.mount();
-    thumbnails.mount();
+new Carousel(container, options, { Thumbs });
+
+Fancybox.bind('[data-fancybox="item_gallery"]', {
+    wheel: 'slide',
+    Thumbs: {
+        type: "classic",
+    },
 });
+
+
 
 
 

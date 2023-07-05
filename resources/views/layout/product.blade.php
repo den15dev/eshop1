@@ -30,28 +30,14 @@
 
     <div class="row mb-4" id="item_top_section">
         <div class="col-xl-5 col-md-7 col-12 mb-4" id="item_img_block">
-            <div class="splide mb-2" id="item_img_main">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        @foreach($product->images as $image)
-                        <li class="splide__slide">
-                            <img src="{{ asset('storage/images/products/temp/' . ($product->id % 20 + 1) . '/' . $image . '_600.jpg') }}">
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
-            <div class="splide" id="item_thumbnails">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        @foreach($product->images as $image)
-                            <li class="splide__slide thumb_slide">
-                                <img src="{{ asset('storage/images/products/temp/' . ($product->id % 20 + 1) . '/' . $image . '_80.jpg') }}">
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="f-carousel" id="item_img_carousel">
+                @if($product->images)
+                    @foreach($product->images as $image)
+                    <x-product-image :id="$product->id" :imgname="$image" />
+                    @endforeach
+                @else
+                    <img src="{{ asset('storage/images/default/no-image_600.jpg') }}" alt="">
+                @endif
             </div>
         </div>
 
@@ -74,7 +60,7 @@
             <a href="#specifications" class="d-block blue_link mb-5" style="width: fit-content" id="all_specs_link">Все характеристики</a>
 
             <a href="{{ route('brand', $product->brand->slug) }}" class="d-block mb-4" style="width: fit-content">
-                <img style="width: 120px" src="{{ get_any_image('storage/images/brands/' . $product->brand->slug) }}" alt="{{ $product->brand->name }}">
+                <img style="width: 120px" src="{{ getImageByNameBase('storage/images/brands/' . $product->brand->slug) }}" alt="{{ $product->brand->name }}">
             </a>
         </div>
 
@@ -217,10 +203,16 @@
 
 @push('css')
     <link href="{{ asset('css/splide.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fancyapps5/carousel.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/fancyapps5/carousel.thumbs.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/fancyapps5/fancybox.css') }}" rel="stylesheet" />
 @endpush
 
 @push('scripts')
     <script src="{{ asset('js/splide.min.js') }}"></script>
+    <script src="{{ asset('js/fancyapps5/carousel.umd.js') }}"></script>
+    <script src="{{ asset('js/fancyapps5/carousel.thumbs.umd.js') }}"></script>
+    <script src="{{ asset('js/fancyapps5/fancybox.umd.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
 @endpush
 

@@ -149,11 +149,22 @@ function rebuildButtons() {
     imagesInput.value = imgOrderArr.length ? JSON.stringify(imgOrderArr) : '';
 }
 
-selectImgInput.onchange = makeBtnActive;
+if (selectImgInput) selectImgInput.onchange = makeBtnActive;
 
-imageForm.onsubmit = function () {
-    loaderCont.style.display = 'block';
+if (imageForm) {
+    imageForm.onsubmit = function () {
+        loaderCont.style.display = 'block';
+    }
 }
+
+/* -------------------- Add image input ----------------------- */
+
+function addImageInput(btn) {
+    const lastDiv = btn.previousElementSibling;
+    const newDiv = lastDiv.cloneNode(true);
+    lastDiv.after(newDiv);
+}
+
 
 
 
@@ -169,6 +180,13 @@ let currentSpecs = specsTextArea.value;
 function updateSpecs() {
     const category_id = categorySelect.value;
 
+    let data = {
+        action: 'get_product_spec_list',
+        category_id: category_id
+    };
+
+    if (product_id) data.product_id = product_id;
+
     if (category_id) {
         if (category_id === currentCategoryId) {
             // Return saved specs
@@ -179,18 +197,15 @@ function updateSpecs() {
                 url: '/admin/products/ajax',
                 method: 'get',
                 dataType: 'text',
-                data: {
-                    action: 'get_product_spec_list',
-                    category_id: category_id,
-                    product_id: product_id
-                },
+                data: data,
                 success: function (data) {
                     specsTextArea.value = data;
                     adjustTextAreas();
                 },
                 error: function (jqXHR) {
                     showMessage({
-                        'type': 'warning',
+                        'type': 'note',
+                        'icon': 'warning',
                         'message': 'Ошибка:<br>' + jqXHR.status + ' (' + jqXHR.statusText + ')',
                     });
                 }

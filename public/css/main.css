@@ -776,6 +776,23 @@ footer .flex-column a:hover {
     height: auto;
 }
 
+/* ------ Item Fancybox ------ */
+
+#item_img_carousel img {
+    width: 100%;
+}
+
+.f-carousel__thumbs {
+    --f-thumb-width: 80px;
+    --f-thumb-height: 80px;
+}
+
+.fancybox__backdrop {
+    opacity: 0.5 !important;
+}
+
+/* ----------------- */
+
 .item_badge_cont {
     display: inline-flex;
     flex-direction: row;
