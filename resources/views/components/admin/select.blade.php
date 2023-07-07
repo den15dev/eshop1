@@ -8,6 +8,7 @@
     'selected' => false,
     'note' => false,
     'nullable' => true,
+    'novalue' => '',
 ])
 
 <div class="{{ $layout == 'column' ? 'col' : 'adm_field_cont' }}">
@@ -16,7 +17,7 @@
         <div class="small grey_text fst-italic mb-2" style="margin-top: -6px">{{ $note }}</div>
     @endif
     <select name="{{ $name }}" class="form-select @if ($errors->get($name)) is-invalid @endif" id="{{ $name . '_select' }}">
-        <option value="" {{ $nullable ? '' : ' disabled hidden' }}{{ $selected ? '' : ' selected' }}>Нет</option>
+        <option value="{{ $novalue }}" {{ $nullable ? '' : ' disabled hidden' }}{{ $selected ? '' : ' selected' }}>Нет</option>
         @foreach($collection as $item)
         <option value="{{ $item->$value }}"{{ $item->$value == $selected ? ' selected' : '' }}>{{ $item->$option }}</option>
         @endforeach

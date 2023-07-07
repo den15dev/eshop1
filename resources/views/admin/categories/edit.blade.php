@@ -46,12 +46,12 @@
 
 
     <div class="adm_form_cont">
-        <form class="mb-5" method="POST" action="{{ route('admin.categories.update', $category->id) }}" novalidate>
+        <form class="mb-45" method="POST" action="{{ route('admin.categories.update', $category->id) }}" novalidate>
             @method('PUT')
             @csrf
             <x-admin.input name="name" label="Название" :value="$category->name" />
 
-            <x-admin.input name="slug" label="Slug (только латинские буквы, цифры и дефис)" :value="$category->slug" />
+            <x-admin.input name="slug" label="Slug" :value="$category->slug" note="Только латинские буквы, цифры и дефис." />
 
             <div class="row adm_field_cont">
                 <x-admin.select layout="column"
@@ -60,34 +60,67 @@
                                 :collection="$excluding_branch"
                                 value="id"
                                 option="name"
-                                :selected="$category->parent_id" />
+                                :selected="old('parent_id', $category->parent_id)"
+                                novalue="0" />
                 <x-admin.select layout="column"
                                 name="sort"
                                 label="Порядок в списке"
                                 :collection="$siblings"
                                 value="sort"
                                 option="sort"
-                                :selected="$category->sort"
+                                :selected="old('sort', $category->sort)"
                                 :nullable="false" />
+                <input type="hidden" name="parent_id_old" value="{{ $category->parent_id }}" />
+                <input type="hidden" name="sort_old" value="{{ $category->sort }}" />
+                <script>
+                    const creating_new_category = false;
+                    const old_parent_id = {{ $category->parent_id }};
+                    const old_sort = {{ $category->sort }};
+                </script>
             </div>
 
-            @unless($children->count())
+            <button type="submit" class="btn2 btn2-primary submit_btn">Сохранить</button>
+        </form>
+
+        @unless($children->count())
+            <form class="mb-45" method="POST" action="{{ route('admin.categories.update', $category->id) }}" novalidate>
+                @method('PUT')
+                @csrf
                 @php
-                    $specs_note = 'Каждая характеристика должна быть на отдельной строке. Звёздочка в начале строки ' .
-                    'означает, что эта характеристика будет использоваться в фильтрах в каталоге. Единицы указываются в конце строки и заключаются в символы &lt; и &gt;.';
+                    $specs_note = '<span class="fw-semibold text-color-main">Внимание!</span> Каждая характеристика должна быть на отдельной строке. ' .
+                    'У имеющихся характеристик цифры слева (идентификаторы) изменять нельзя. При удалении существующей характеристики, её значение будет удалено у всех товаров данной категории.<br>' .
+                    'Звёздочка в начале строки означает, что эта характеристика будет использоваться в фильтрах в каталоге, — её можно удалять или добавлять. ' .
+                    'Единицы указываются в конце строки и заключаются в символы &lt; и &gt;. Характеристики можно менять местами и добавлять новые куда угодно — порядок учитывается.';
                 @endphp
                 <x-admin.textarea name="specs" label="Характеристики" :value="$spec_list" :note="$specs_note" />
-            @endunless
 
+                <button type="submit" class="btn2 btn2-primary submit_btn">Сохранить</button>
+            </form>
+        @endunless
+
+
+        <form class="mb-5" method="POST" enctype="multipart/form-data" action="{{ route('admin.categories.update', $category->id) }}" novalidate>
+            @method('PUT')
+            @csrf
             <div class="grey_text mb-1">Изображение:</div>
             <div class="small grey_text fst-italic mb-2">Спрайт, 484х242 px</div>
             @php
                 $image_path = 'storage/images/categories/' . $category->slug . '.jpg';
             @endphp
             @if(file_exists($image_path))
-                <img src="{{ asset($image_path) }}" alt="" />
+                <img class="mb-3" src="{{ asset($image_path) }}" alt="" />
             @endif
-            <input class="mt-3" name="image" type="file" accept=".jpg">
+
+            <div>
+                <input type="file" name="image" class="form-control @if ($errors->get('image')) is-invalid @endif" accept=".jpg">
+                @if ($errors->get('image'))
+                    <div class="invalid-feedback">
+                        {{ $errors->get('image')[0] }}
+                    </div>
+                @endif
+            </div>
+            <input type="hidden" name="image_form" value="image" />
+            <input type="hidden" name="slug" value="{{ $category->slug }}" />
 
             <button type="submit" class="btn2 btn2-primary submit_btn">Сохранить</button>
         </form>
@@ -102,8 +135,12 @@
                 <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Удалить можно только пустую категорию. Сначала удалите из категории все товары и дочерние категории.</div>
             @else
                 <button type="submit" class="btn2 btn2-red px-4" style="width: fit-content;">Удалить категорию</button>
-                <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Вместе с категорией будут безвозвратно удалены характеристики и изображение.</div>
+                <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Вместе с категорией будут безвозвратно удалены её характеристики и изображение.</div>
             @endif
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/joKWuogPVLryjouS5XHs/category.js') }}"></script>
+@endpush

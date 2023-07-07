@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrderItem extends Model
 {
     protected $guarded = [];
-
     public $timestamps = false;
 
     public function product(): BelongsTo

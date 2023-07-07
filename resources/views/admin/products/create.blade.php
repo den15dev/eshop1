@@ -62,10 +62,10 @@
                 @endif
 
                 <div class="mb-2">
-                    <input name="image_files[]" type="file" accept=".jpg,.jpeg">
+                    <input name="image_files[]" class="form-control" type="file" accept=".jpg,.jpeg">
                 </div>
 
-                <div class="btn2 btn2-secondary" style="padding: 4px 14px 4px 8px; margin-top: 12px" onclick="addImageInput(this)"><span class="bi-plus me-1"></span>Добавить</div>
+                <div class="btn2 btn2-secondary" style="padding: 6px 14px 6px 8px; margin-top: 12px" onclick="addImageInput(this)"><span class="bi-plus me-1"></span>Добавить</div>
                 <input type="hidden" name="images_num" value="" id="images_num">
             </div>
 

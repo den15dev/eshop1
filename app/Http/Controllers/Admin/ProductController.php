@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BaseRequest;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Promo;
 use App\Services\Admin\ProductService;
 use App\Services\Admin\CategoryService;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -35,16 +35,11 @@ class ProductController extends Controller
 
     public static function store(StoreProductRequest $request, ProductService $productService)
     {
-
         $product = $productService->saveProduct($request);
         $productService->saveImages($request, $product->id);
         $productService->saveSpecifications($request->input('specs'), $product->category_id, $product->id);
 
-        $request->session()->flash('message', [
-            'type' => 'info',
-            'content' => 'Товар ' . $product->id . ' успешно создан.',
-            'align' => 'center',
-        ]);
+        $request->flashMessage('Товар ' . $product->id . ' успешно создан.');
 
         return redirect()->route('admin.products');
     }
@@ -100,20 +95,14 @@ class ProductController extends Controller
             $message = 'Характеристики успешно обновлены.';
         }
 
-        if ($message) {
-            $request->session()->flash('message', [
-                'type' => 'info',
-                'content' => $message,
-                'align' => 'center',
-            ]);
-        }
+        $request->flashMessage($message);
 
         return back();
     }
 
 
     public static function destroy(
-        Request $request,
+        BaseRequest $request,
         ProductService $productService,
         int $id
     )
@@ -122,29 +111,8 @@ class ProductController extends Controller
         $product->delete();
         $productService->deleteImages($id);
 
-        $request->session()->flash('message', [
-            'type' => 'info',
-            'content' => 'Товар ' . $id . ' успешно удалён.',
-            'align' => 'center',
-        ]);
+        $request->flashMessage('Товар ' . $id . ' успешно удалён.');
 
         return redirect()->route('admin.products');
-    }
-
-
-    public function ajax(Request $request, ProductService $productService)
-    {
-        if ($request->has('action')) {
-            $action = camel_case($request->query('action'));
-
-            if (method_exists($productService, $action)) {
-                $query_arr = $request->query();
-                unset($query_arr['action']);
-
-                return call_user_func_array(array($productService, $action), $query_arr);
-            }
-        }
-
-        return response(404);
     }
 }

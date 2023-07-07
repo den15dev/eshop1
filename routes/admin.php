@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PromoController as AdmPromoController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
 use App\Http\Controllers\Admin\ReviewController as AdmReviewController;
 use App\Http\Controllers\Admin\OrderController as AdmOrderController;
+use App\Http\Controllers\Admin\AjaxController;
 
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
@@ -17,6 +18,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdmHomeController::class, 'index'])->name('home');
 
     Route::get('/search', AdmIndexController::class)->name('search');
+    Route::get('/ajax', AjaxController::class)->name('ajax');
 
     Route::get('/products', AdmIndexController::class)->name('products');
     Route::get('/products/create', [AdmProductController::class, 'create'])->name('products.create');
@@ -24,7 +26,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/products/{id}/edit', [AdmProductController::class, 'edit'])->whereNumber('id')->name('products.edit');
     Route::put('/products/{id}', [AdmProductController::class, 'update'])->whereNumber('id')->name('products.update');
     Route::delete('/products/{id}', [AdmProductController::class, 'destroy'])->whereNumber('id')->name('products.destroy');
-    Route::get('/products/ajax', [AdmProductController::class, 'ajax'])->name('products.ajax');
 
     Route::get('/categories', [AdmCategoryController::class, 'index'])->name('categories');
     Route::get('/categories/create', [AdmCategoryController::class, 'create'])->name('categories.create');

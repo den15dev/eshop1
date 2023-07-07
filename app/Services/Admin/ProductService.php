@@ -277,7 +277,7 @@ class ProductService
 
 
     /**
-     * Converts specs from user input to a collection.
+     * Converts product specs from user input to a collection.
      *
      * @param string $specs_input - raw input from a form;
      * @return Collection

@@ -64,10 +64,18 @@
                     <x-admin.image-block :loop="$loop" :itemid="$product->id" :filename="$filename" />
                 @endforeach
                 @endif
-
-                <input class="mb-2 mt-3" name="new_image" type="file" accept=".jpg" id="img_select_input">
-                <input type="hidden" name="images" id="images_input" value="{{ $product->images ? json_encode($product->images) : '' }}" />
             </div>
+
+            <div class="mb-2 mt-3">
+                <input type="file" name="new_image" class="form-control @if ($errors->get('new_image')) is-invalid @endif" accept=".jpg" id="img_select_input">
+                @if ($errors->get('new_image'))
+                    <div class="invalid-feedback">
+                        {{ $errors->get('new_image')[0] }}
+                    </div>
+                @endif
+            </div>
+
+            <input type="hidden" name="images" id="images_input" value="{{ $product->images ? json_encode($product->images) : '' }}" />
 
             <div class="small grey_text fst-italic mb-25">Изображения будут преобразованы в квадрат, образовавшиеся пустые области будут залиты белым цветом. Минимальное разрешение по любой из сторон 1400 px, максимальное — 5000 px.</div>
 

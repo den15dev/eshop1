@@ -181,6 +181,7 @@ function updateSpecs() {
     const category_id = categorySelect.value;
 
     let data = {
+        service: 'product',
         action: 'get_product_spec_list',
         category_id: category_id
     };
@@ -194,7 +195,7 @@ function updateSpecs() {
             adjustTextAreas();
         } else {
             $.ajax({
-                url: '/admin/products/ajax',
+                url: '/admin/ajax',
                 method: 'get',
                 dataType: 'text',
                 data: data,

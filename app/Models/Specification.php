@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Specification extends Model
 {
+    public $timestamps = false;
     protected $guarded = [];
-
 
     public function category(): BelongsTo
     {
