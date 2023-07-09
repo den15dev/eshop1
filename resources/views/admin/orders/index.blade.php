@@ -8,28 +8,27 @@
 
     <div class="mb-4">
         <div>
-            @php
-                $is_active_col = false;
-                foreach ($columns as $col) {
-                    if ($col['column'] === 'is_active') $is_active_col = true;
-                }
-            @endphp
-            @if($is_active_col)
-                <div class="mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="show_active" value="" id="chb_active" checked>
-                        <label class="form-check-label" for="chb_active">
-                            Активные
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="show_inactive" value="" id="chb_inactive" checked>
-                        <label class="form-check-label" for="chb_inactive">
-                            Не активные
-                        </label>
-                    </div>
+            <div class="d-flex gap-4 mb-2" id="order_status_filter">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="show_orders" value="all" id="orders_all" checked>
+                    <label class="form-check-label" for="orders_all">
+                        Все
+                    </label>
                 </div>
-            @endif
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="show_orders" value="new" id="orders_new">
+                    <label class="form-check-label" for="orders_new">
+                        Новые
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="show_orders" value="ready" id="orders_ready">
+                    <label class="form-check-label" for="orders_ready">
+                        Готовые
+                    </label>
+                </div>
+            </div>
+
 
             <div class="adm_search_input_cont">
                 <input class="search_input" name="search" placeholder="Поиск" autocomplete="off" id="search_input">

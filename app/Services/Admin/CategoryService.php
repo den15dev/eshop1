@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Specification;
 use Illuminate\Database\Eloquent\Collection as ECollection;
 use Illuminate\Support\Collection;
-use Intervention\Image\Facades\Image;
 
 class CategoryService
 {
@@ -256,30 +255,6 @@ class CategoryService
             if (!$input_spec) {
                 Specification::where('id', $cur_spec->id)->delete();
             }
-        }
-    }
-
-
-    public function saveImage(StoreCategoryRequest $request): void
-    {
-        $path = 'storage/images/categories/' . $request->input('slug') . '.jpg';
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
-
-        $source_path = $request->file('image')->path();
-        $image = Image::make($source_path);
-        $image->save($path, 85);
-    }
-
-
-    public function deleteImage(string $slug): void
-    {
-        $path = 'storage/images/categories/' . $slug . '.jpg';
-
-        if (file_exists($path)) {
-            unlink($path);
         }
     }
 

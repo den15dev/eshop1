@@ -31,6 +31,7 @@ $('.sub-menu-btn').click(function () {
  *     'message' - text or html message;
  *     'ok' - a callback for an 'ok' button;
  *     'okText' - text for 'ok' button (default is 'ok');
+ *     'cancelText' - text for 'Cancel' button (default is 'Cancel');
  * }
  */
 function showMessage(data) {
@@ -52,6 +53,10 @@ function showMessage(data) {
         okBtn.onclick = function () {
             message.style.display = 'none';
             data.ok();
+        }
+        cancelBtn.innerText = 'Отмена';
+        if (data.cancelText !== undefined) {
+            cancelBtn.innerText = data.cancelText;
         }
         cancelBtn.onclick = function () { message.style.display = 'none'; }
 

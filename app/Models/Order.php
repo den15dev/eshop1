@@ -33,7 +33,7 @@ class Order extends Model
     {
         return match ($this->status) {
             'new' => 'новый',
-            'accepted' => 'подтверждён',
+            'accepted' => 'принят',
             'ready' => 'готов к получению',
             'sent' => 'отправлен',
             'completed' => 'завершён',

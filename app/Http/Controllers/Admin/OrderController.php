@@ -3,27 +3,42 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\BaseRequest;
+use App\Models\Order;
+use App\Services\Admin\OrderService;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public static function edit(string $id): View
+    public static function edit(int $id): View
     {
-        $order_id = $id;
+        $order = Order::with(['shop:id,address', 'orderItems', 'orderItems.product:id,name,slug,category_id,images'])
+            ->find($id);
 
-        return view('admin.orders.edit', compact('order_id'));
+        foreach ($order->orderItems as $orderItem) {
+            $orderItem->cost = bcmul($orderItem->price, $orderItem->quantity);
+        }
+
+        return view('admin.orders.edit', compact('order'));
     }
 
 
-    public static function update()
-    {
-        // return
-    }
+    public static function update(
+        BaseRequest $request,
+        OrderService $orderService,
+        int $id
+    ) {
+        $status = $request->input('status');
+        $status_str = $request->input('status_str');
 
+        $order = Order::find($id);
+        $order->status = $status;
+        $order->save();
 
-    public static function destroy()
-    {
-        // return
+        $orderService->sendSiteNotification($order);
+
+        $request->flashMessage('Статус заказа ' . $id . ' изменён на "' . $status_str . '".');
+
+        return back();
     }
 }

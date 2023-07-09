@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Models\Category;
 use App\Services\Site\CategoryService;
 use App\Services\Admin\CategoryService as AdminCategoryService;
+use App\Services\Admin\ImageService as AdminImageService;
 use App\Http\Requests\Admin\BaseRequest;
 use Illuminate\View\View;
 
@@ -39,13 +40,18 @@ class CategoryController extends Controller
 
     public static function store(
         StoreCategoryRequest $request,
-        AdminCategoryService $admCategoryService
+        AdminCategoryService $admCategoryService,
+        AdminImageService $admImageService
     ) {
         $category = $admCategoryService->saveCategory($request);
         $admCategoryService->saveSpecifications($request, $category->id);
 
         if ($request->hasFile('image')) {
-            $admCategoryService->saveImage($request);
+            $admImageService->saveImageBySlug(
+                'categories',
+                $request->file('image'),
+                $request->input('slug')
+            );
         }
 
         $request->flashMessage('Категория ' . $category->name . ' успешно создана.');
@@ -86,13 +92,22 @@ class CategoryController extends Controller
     public static function update(
         StoreCategoryRequest $request,
         AdminCategoryService $admCategoryService,
+        AdminImageService $admImageService,
         int $id
     ) {
         $message = '';
 
         if ($request->has('name')) {
             $admCategoryService->updateSortOrder($request);
-            Category::where('id', $id)->update($request->validated());
+
+            $validated = $request->validated();
+            Category::where('id', $id)->update($validated);
+            $admImageService->renameImageBySlug(
+                'categories',
+                $validated['slug'],
+                $request->input('slug_old')
+            );
+
             $message = 'Категория успешно обновлена.';
         }
 
@@ -103,7 +118,12 @@ class CategoryController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $admCategoryService->saveImage($request);
+            $admImageService->saveImageBySlug(
+                'categories',
+                $request->file('image'),
+                $request->input('slug')
+            );
+
             $message = 'Изображение успешно обновлено.';
         }
 
@@ -116,13 +136,13 @@ class CategoryController extends Controller
     public static function destroy(
         BaseRequest $request,
         AdminCategoryService $admCategoryService,
+        AdminImageService $admImageService,
         int $id
     ) {
         $category = Category::find($id);
         $category->delete();
         $admCategoryService->updateSortWhenDeleting($category->parent_id, $category->sort);
-
-        $admCategoryService->deleteImage($category->slug);
+        $admImageService->deleteImageBySlug('categories', $category->slug);
 
         $request->flashMessage('Категория ' . $category->name . ' успешно удалена.');
 

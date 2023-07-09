@@ -59,9 +59,11 @@
 
             <a href="#specifications" class="d-block blue_link mb-5" style="width: fit-content" id="all_specs_link">Все характеристики</a>
 
-            <a href="{{ route('brand', $product->brand->slug) }}" class="d-block mb-4" style="width: fit-content">
-                <img style="width: 120px" src="{{ getImageByNameBase('storage/images/brands/' . $product->brand->slug) }}" alt="{{ $product->brand->name }}">
-            </a>
+            @if($product->brand)
+                <a href="{{ route('brand', $product->brand->slug) }}" class="d-block mb-4" style="width: fit-content">
+                    <img style="width: 120px" src="{{ getImageByNameBase('storage/images/brands/' . $product->brand->slug) }}" alt="{{ $product->brand->name }}">
+                </a>
+            @endif
         </div>
 
         <div class="col-xl-3 col-md-5 col-12 px-4" id="item_order_block">

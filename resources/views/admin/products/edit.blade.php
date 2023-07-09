@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('page_title', 'Редактирование - ' . $product->name)
+@section('page_title', $product->name . ' - редактирование')
 
 @section('main_content')
 

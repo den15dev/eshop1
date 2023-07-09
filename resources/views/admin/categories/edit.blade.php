@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('page_title', 'Редактирование - ' . $category->name)
+@section('page_title', $category->name . ' - редактирование')
 
 @section('main_content')
 
@@ -52,6 +52,7 @@
             <x-admin.input name="name" label="Название" :value="$category->name" />
 
             <x-admin.input name="slug" label="Slug" :value="$category->slug" note="Только латинские буквы, цифры и дефис." />
+            <input type="hidden" name="slug_old" value="{{ $category->slug }}" />
 
             <div class="row adm_field_cont">
                 <x-admin.select layout="column"
@@ -103,7 +104,7 @@
             @method('PUT')
             @csrf
             <div class="grey_text mb-1">Изображение:</div>
-            <div class="small grey_text fst-italic mb-2">Спрайт, 484х242 px</div>
+            <div class="small grey_text fst-italic mb-2">Только *.jpg, спрайт, 484х242 px</div>
             @php
                 $image_path = 'storage/images/categories/' . $category->slug . '.jpg';
             @endphp

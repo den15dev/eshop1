@@ -6,7 +6,7 @@
     @endif
 
     <ul class="order_main_list mb-2">
-        <li><span class="lightgrey_text">Дата и время:</span> {{ \Carbon\Carbon::parse($order->created_at)->isoFormat('D.MM.YYYY, H:mm') }}</li>
+        <li><span class="lightgrey_text">Оформлен:</span> {{ \Carbon\Carbon::parse($order->created_at)->isoFormat('D.MM.YYYY, H:mm') }}</li>
         @php
             $status_class = '';
             if ($order->status === 'new' || $order->status === 'accepted') $status_class = ' text-color-main2';

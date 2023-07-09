@@ -73,6 +73,11 @@ class IndexService
                 $result_query = $result_query->where('is_active', $is_active);
             }
 
+            $order_status = $request->query('order_status');
+            if ($order_status !== null) {
+                $result_query = $result_query->where('status', $order_status);
+            }
+
             $search_query = $request->query('query');
             if ($search_query) {
                 $result_query = $result_query->where(function (EBuilder $query) use ($table_settings, $search_query) {

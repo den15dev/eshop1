@@ -681,6 +681,26 @@ header .nav-link:hover {
 
 
 
+/* --------- Orders --------- */
+
+
+.order_main_list {
+    list-style-type: none;
+    margin: 0 0 0 8px;
+    padding: 0;
+}
+
+.order_table img {
+    display: block;
+    height: 40px;
+}
+
+.order_table_name_col {
+    width: 500px;
+}
+
+
+
 
 
 

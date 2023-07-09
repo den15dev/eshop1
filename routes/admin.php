@@ -61,5 +61,4 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/orders', AdmIndexController::class)->name('orders');
     Route::get('/orders/{id}/edit', [AdmOrderController::class, 'edit'])->whereNumber('id')->name('orders.edit');
     Route::put('/orders/{id}', [AdmOrderController::class, 'update'])->whereNumber('id')->name('orders.update');
-    Route::delete('/orders/{id}', [AdmOrderController::class, 'destroy'])->whereNumber('id')->name('orders.destroy');
 });

@@ -7,6 +7,8 @@ const clearBtn = document.getElementById('clear_btn');
 const chbActive = document.getElementById('chb_active');
 const chbInactive = document.getElementById('chb_inactive');
 
+const orderStatusCont = document.getElementById('order_status_filter');
+
 let searchInputTimeOut;
 
 function getSearchResults(query_str = '', page = null) {
@@ -21,6 +23,11 @@ function getSearchResults(query_str = '', page = null) {
     let is_active = getIsActiveValue();
     if (is_active !== 2) {
         data.is_active = is_active;
+    }
+
+    let order_status = getOrderStatusFilter();
+    if (order_status) {
+        data.order_status = order_status;
     }
 
     let order_by = getCurrentOrder();
@@ -106,6 +113,9 @@ searchInput.oninput = showSearchResOnInput;
 clearBtn.onclick = clearSearchRes;
 fixPaginationLinks();
 
+
+/* -------------------- Is active filter ------------------- */
+
 if (chbActive && chbInactive) {
     chbActive.onclick = function () {
         getSearchResults(searchInput.value);
@@ -113,6 +123,34 @@ if (chbActive && chbInactive) {
     chbInactive.onclick = function () {
         getSearchResults(searchInput.value);
     };
+}
+
+
+/* -------------------- Order status filter ------------------- */
+
+function getOrderStatusFilter() {
+    let filterStatus = false;
+
+    if (orderRadios) {
+        [...orderRadios].forEach(function (orderRadio, i, arr) {
+            if (orderRadio.checked && orderRadio.value !== 'all') {
+                filterStatus = orderRadio.value;
+            }
+        });
+    }
+
+    return filterStatus;
+}
+
+let orderRadios = false;
+if (orderStatusCont) {
+    orderRadios = Array.from(orderStatusCont.getElementsByTagName('input'));
+
+    [...orderRadios].forEach(function(orderRadio, i, arr) {
+        orderRadio.onclick = function () {
+            getSearchResults(searchInput.value);
+        };
+    });
 }
 
 
