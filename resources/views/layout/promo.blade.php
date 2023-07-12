@@ -9,9 +9,24 @@
 
         <h2 class="mb-3">{{ $promo->name }}</h2>
 
-        <p class="text-secondary">
-            Акция действует до конца суток {{ \Carbon\Carbon::parse($promo->until)->isoFormat('D MMMM YYYY') }} года.
-        </p>
+        @php
+            $started_at = \Carbon\Carbon::parse($promo->started_at);
+            $until = \Carbon\Carbon::parse($promo->until);
+        @endphp
+        @if($until->isPast())
+            <p class="promo_inactive_badge">
+                Акция завершена
+            </p>
+        @else
+            <p class="text-secondary">
+                @if($started_at->year === $until->year)
+                    Акция действует с {{ $started_at->isoFormat('D MMMM') }} по {{ $until->isoFormat('D MMMM YYYY') }} года.
+                @else
+                    Акция действует с {{ $started_at->isoFormat('D MMMM YYYY') }} года по {{ $until->isoFormat('D MMMM YYYY') }} года.
+                @endif
+            </p>
+        @endif
+
 
         <p class="mb-45">
             {{ $promo->description }}

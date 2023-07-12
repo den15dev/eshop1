@@ -9,6 +9,9 @@ const chbInactive = document.getElementById('chb_inactive');
 
 const orderStatusCont = document.getElementById('order_status_filter');
 
+const chbPromoActive = document.getElementById('chb_active_promos');
+const chbPromoInactive = document.getElementById('chb_inactive_promos');
+
 let searchInputTimeOut;
 
 function getSearchResults(query_str = '', page = null) {
@@ -99,6 +102,14 @@ function fixPaginationLinks() {
     }
 }
 
+searchInput.oninput = showSearchResOnInput;
+clearBtn.onclick = clearSearchRes;
+fixPaginationLinks();
+
+
+
+/* -------------------- Is active filter ------------------- */
+
 function getIsActiveValue() {
     let is_active = 2;
     if (chbActive && chbInactive) {
@@ -107,14 +118,6 @@ function getIsActiveValue() {
     }
     return is_active;
 }
-
-
-searchInput.oninput = showSearchResOnInput;
-clearBtn.onclick = clearSearchRes;
-fixPaginationLinks();
-
-
-/* -------------------- Is active filter ------------------- */
 
 if (chbActive && chbInactive) {
     chbActive.onclick = function () {
@@ -152,7 +155,6 @@ if (orderStatusCont) {
         };
     });
 }
-
 
 
 

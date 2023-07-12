@@ -70,7 +70,18 @@ class IndexService
         if ($request) {
             $is_active = $request->query('is_active');
             if ($is_active !== null) {
-                $result_query = $result_query->where('is_active', $is_active);
+                if ($table === 'promos') {
+                    if (intval($is_active)) {
+                        $result_query = $result_query->whereDate('started_at', '<=', now()->toDateString())
+                            ->whereDate('until', '>=', now()->toDateString());
+                    } else {
+                        $result_query = $result_query->whereDate('started_at', '>', now()->toDateString())
+                            ->orWhereDate('until', '<', now()->toDateString());
+                    }
+
+                } else {
+                    $result_query = $result_query->where('is_active', $is_active);
+                }
             }
 
             $order_status = $request->query('order_status');

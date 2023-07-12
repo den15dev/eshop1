@@ -18,7 +18,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdmHomeController::class, 'index'])->name('home');
 
     Route::get('/search', AdmIndexController::class)->name('search');
-    Route::get('/ajax', AjaxController::class)->name('ajax');
+    Route::get('/ajax', AjaxController::class)->name('ajax.get');
+    Route::post('/ajax', AjaxController::class)->name('ajax.post');
 
     Route::get('/products', AdmIndexController::class)->name('products');
     Route::get('/products/create', [AdmProductController::class, 'create'])->name('products.create');

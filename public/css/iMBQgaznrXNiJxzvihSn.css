@@ -701,6 +701,25 @@ header .nav-link:hover {
 
 
 
+/* ---------- Promos ------------ */
+
+.promo_active_badge,
+.promo_inactive_badge {
+    width: fit-content;
+    color: white;
+    padding: 0 12px;
+}
+
+.promo_active_badge {
+    background-color: #bb5eff;
+}
+
+.promo_inactive_badge {
+    background-color: #cecece;
+}
+
+
+
 
 
 

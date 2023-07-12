@@ -15,28 +15,20 @@
         </div>
 
         <div>
-            @php
-            $is_active_col = false;
-            foreach ($columns as $col) {
-                if ($col['column'] === 'is_active') $is_active_col = true;
-            }
-            @endphp
-            @if($is_active_col)
-                <div class="mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="show_active" value="" id="chb_active" checked>
-                        <label class="form-check-label" for="chb_active">
-                            Активные
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="show_inactive" value="" id="chb_inactive" checked>
-                        <label class="form-check-label" for="chb_inactive">
-                            Не активные
-                        </label>
-                    </div>
+            <div class="mb-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show_active" value="" id="chb_active" checked>
+                    <label class="form-check-label" for="chb_active">
+                        Действующие
+                    </label>
                 </div>
-            @endif
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show_inactive" value="" id="chb_inactive" checked>
+                    <label class="form-check-label" for="chb_inactive">
+                        Не действующие
+                    </label>
+                </div>
+            </div>
 
             <div class="adm_search_input_cont">
                 <input class="search_input" name="search" placeholder="Поиск" autocomplete="off" id="search_input">

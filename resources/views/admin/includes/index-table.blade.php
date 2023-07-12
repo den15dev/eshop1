@@ -14,7 +14,19 @@
     </thead>
     <tbody>
         @foreach($table_data as $record)
-            <tr>
+            @php
+            // -------- Check inactive promo actions ---------
+                $grey_row = false;
+                if ($record->started_at && $record->until) {
+                    $started_at = \Carbon\Carbon::parse($record->started_at);
+                    $until = \Carbon\Carbon::parse($record->until);
+                    if ($until->isPast() || $started_at->isFuture()) {
+                        $grey_row = true;
+                    }
+                }
+            @endphp
+
+            <tr{!! $grey_row ? ' class="lightgrey_text"' : '' !!}>
                 @foreach($columns as $column)
                     @php
                     $col_name = $column['column'];
@@ -47,7 +59,7 @@
                             default => $record->delivery_type_str,
                         },
                         'payment_status' => $value ? '<span class="lightgrey_text">оплачен</span>' : 'не оплачен',
-                        'until' => \Carbon\Carbon::parse($value)->isoFormat('D MMMM YYYY'),
+                        'until', 'started_at' => \Carbon\Carbon::parse($value)->isoFormat('D MMMM YYYY'),
                         default => $value,
                     };
 
@@ -58,7 +70,7 @@
                     };
 
                     if ($loop->index < 3) {
-                        $td_content = '<a href="' . route('admin.' . $table_name . '.edit', $record->id) . '" class="dark_link">' . $td_content . '</a>';
+                        $td_content = '<a href="' . route('admin.' . $table_name . '.edit', $record->id) . '" class="' . ($grey_row ? 'lightgrey_text' : 'dark_link') . '">' . $td_content . '</a>';
                     }
                     @endphp
 

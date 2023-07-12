@@ -112,7 +112,7 @@ class Product extends Model
     public function getPromoNameAttribute()
     {
         return $this->promo_id
-            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)->name
+            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)?->name
             : null;
     }
 
@@ -120,7 +120,7 @@ class Product extends Model
     public function getPromoSlugAttribute()
     {
         return $this->promo_id
-            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)->slug
+            ? PromoService::getActivePromos()->firstWhere('id', $this->promo_id)?->slug
             : null;
     }
 }

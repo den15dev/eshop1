@@ -5,7 +5,7 @@
 @endif
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block position-relative mb-2">
         <div class="cat_badge_cont">
-            @if($type !== 'promo' && $product->promo_id)
+            @if($type !== 'promo' && $product->promo_id && $product->promo_name)
             <div class="cat_img_badge small bg-color-action" title="{{ $product->promo_name }}">Акция</div>
             @endif
             @if($product->discount_prc)

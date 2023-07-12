@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('page_title', 'Заказ ' . $order->id . ' | Администрирование')
+@section('page_title', 'Заказ ' . $order->id . ' - Администрирование')
 
 @section('main_content')
 

@@ -74,10 +74,14 @@ class ProductController extends Controller
         string $id
     )
     {
+        $validated = $request->validated();
         $message = '';
 
         if ($request->has('name')) {
-            Product::where('id', $id)->update($request->validated());
+            // The following is disabled for Search Optimization reasons
+            // $validated['slug'] = str($validated['name'])->slug();
+
+            Product::where('id', $id)->update($validated);
             $message = 'Товар успешно обновлён.';
         }
 

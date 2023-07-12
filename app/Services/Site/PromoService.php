@@ -14,8 +14,8 @@ class PromoService
     public static function getActivePromos(): ECollection|null
     {
         if (self::$active_promos === null) {
-            self::$active_promos = Promo::select('id', 'name', 'slug')
-                ->where('is_active', 1)
+            self::$active_promos = Promo::select('id', 'name', 'slug', 'image')
+                ->whereDate('started_at', '<=', now()->toDateString())
                 ->whereDate('until', '>=', now()->toDateString())
                 ->get();
         }

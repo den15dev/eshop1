@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\BaseRequest;
+use App\Http\Requests\Admin\StorePromoRequest;
+use App\Models\Product;
+use App\Models\Promo;
+use App\Services\Admin\ImageService as AdminImageService;
+use App\Services\Admin\PromoService;
 use Illuminate\View\View;
 
 class PromoController extends Controller
@@ -14,28 +19,70 @@ class PromoController extends Controller
     }
 
 
-    public static function store()
-    {
-        // return
+    public static function store(
+        StorePromoRequest $request,
+        PromoService $promoService
+    ) {
+        $promo = $promoService->createPromo($request);
+
+        $request->flashMessage('Акция ' . $promo->name . ' успешно добавлена.');
+
+        return redirect()->route('admin.promos');
     }
 
 
-    public static function edit(string $id): View
+    public static function edit(PromoService $promoService, string $id): View
     {
-        $promo_id = $id;
+        $promo = $promoService->getPromoWithProducts($id);
 
-        return view('admin.products.edit', compact('promo_id'));
+        return view('admin.promos.edit', compact('promo'));
     }
 
 
-    public static function update()
-    {
-        // return
+    public static function update(
+        StorePromoRequest $request,
+        PromoService $promoService,
+        int $id
+    ) {
+        $message = '';
+
+        if ($request->has('name')) {
+            $promoService->updateMainData($request, $id);
+
+            $message = 'Акция успешно обновлена.';
+        }
+
+        if ($request->hasFile('image')) {
+            $promoService->updateImage($request, $id);
+
+            $message = 'Изображение успешно обновлено.';
+        }
+
+        if ($request->has('add_products')) {
+            $id_list = parse_comma_list($request->validated('add_products'));
+            if ($id_list) {
+                Product::whereIn('id', $id_list)->update(['promo_id' => $id]);
+                $message = 'Товары успешно добавлены.';
+            }
+        }
+
+        $request->flashMessage($message);
+
+        return back();
     }
 
 
-    public static function destroy()
-    {
-        // return
+    public static function destroy(
+        BaseRequest $request,
+        AdminImageService $admImageService,
+        int $id
+    ) {
+        $promo = Promo::find($id);
+        $promo->delete();
+        $admImageService->deleteImageByName('promos', $id, $promo->image);
+
+        $request->flashMessage('Акция ' . $promo->name . ' успешно удалена.');
+
+        return redirect()->route('admin.promos');
     }
 }

@@ -1457,6 +1457,18 @@ footer .flex-column a:hover {
 
 
 
+/* ---------- Promos ------------ */
+
+.promo_inactive_badge {
+    width: fit-content;
+    background-color: #cecece;
+    color: white;
+    padding: 0 12px;
+}
+
+
+
+
 /* ---------- Error pages ---------- */
 
 .not-found-cont {

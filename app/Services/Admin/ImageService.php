@@ -16,12 +16,7 @@ class ImageService
     {
         $base_path = self::IMG_DIR . '/' . $directory . '/' . $slug;
 
-        foreach ($this->extensions as $ext) {
-            $img_path = $base_path . '.' . $ext;
-            if (file_exists($img_path)) {
-                unlink($img_path);
-            }
-        }
+        $this->deleteImageBySlug($directory, $slug);
 
         $source_path = $image_file->path();
         $extension = $image_file->extension();
@@ -62,6 +57,17 @@ class ImageService
                     rename($old_name, $new_name);
                 }
             }
+        }
+    }
+
+
+    public function deleteImageByName(string $directory, int $id, string $name): void
+    {
+        $img_path = self::IMG_DIR . '/' . $directory . '/' . $id . '/' . $name;
+
+        if (file_exists($img_path)) {
+            unlink($img_path);
+            rmdir(self::IMG_DIR . '/' . $directory . '/' . $id);
         }
     }
 }

@@ -10,7 +10,7 @@
     <h2 class="mb-3">
         {{ $product->name }}
         <div class="item_badge_cont">
-            @if($product->promo_id)
+            @if($product->promo_id && $product->promo_slug)
             <a href="{{ route('promo', $product->promo_slug . '-' . $product->promo_id) }}" class="item_badge link-light fw-normal bg-color-action" title="{{ $product->promo_name }}">Акция</a>
             @endif
             @if($product->discount_prc)

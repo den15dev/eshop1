@@ -172,3 +172,32 @@ if (!function_exists('camel_case')) {
         return '';
     }
 }
+
+
+if (!function_exists('parse_comma_list')) {
+    function parse_comma_list(?string $comma_list): ?array
+    {
+        $out_arr = [];
+        if ($comma_list) {
+            $id_arr = explode(',', trim($comma_list));
+
+            foreach ($id_arr as $id_item) {
+                $id_item = trim($id_item);
+                $id_item_arr = explode('-', $id_item);
+                if (count($id_item_arr) > 1) {
+                    $start_id = intval(trim($id_item_arr[0]));
+                    $end_id = intval(trim($id_item_arr[1]));
+                    for ($i = $start_id; $i <= $end_id; $i++) {
+                        array_push($out_arr, $i);
+                    }
+                } else {
+                    if (preg_match('/^\d+$/', $id_item)) {
+                        array_push($out_arr, intval($id_item));
+                    }
+                }
+            }
+        }
+
+        return $out_arr ?: null;
+    }
+}
