@@ -42,18 +42,6 @@ class ReviewService
     }
 
 
-/*
-    public function getReviews(Product $product): Collection
-    {
-        return $product->reviews()
-            ->with(['user:id,name', 'reactions' => function ($q) {
-                $q->selectRaw('review_id, up_down, count(*) as r_count')
-                    ->groupByRaw('review_id, up_down');
-            }])->get();
-    }
-*/
-
-
     /**
      * Gets number of marks from 1 to 5. The first element is the max number
      * for calculation of a bar length.
@@ -85,7 +73,6 @@ class ReviewService
     }
 
 
-
     public function createReview(Request $request, int $user_id): void
     {
         DB::transaction(function () use ($user_id, $request) {
@@ -100,30 +87,35 @@ class ReviewService
             if ($request->comment) $review->comnt = $request->comment;
             $review->save();
 
-            // Get new rating
-            $rating = DB::table('reviews')->selectRaw('COUNT(mark) AS vote_num, AVG(mark) AS rating')
-                ->where('product_id', $request->product_id)
-                ->first();
-
-            // Update rating on the product
-            DB::table('products')
-                ->where('id', $request->product_id)
-                ->update(['rating' => $rating->rating, 'vote_num' => $rating->vote_num]);
+            $this->updateProductRating($request->product_id);
         }, 3);
     }
 
+
+    public function updateProductRating(int $product_id): void
+    {
+        // Get new rating
+        $rating = DB::table('reviews')->selectRaw('COUNT(mark) AS vote_num, AVG(mark) AS rating')
+            ->where('product_id', $product_id)
+            ->first();
+
+        // Update rating on the product
+        DB::table('products')
+            ->where('id', $product_id)
+            ->update(['rating' => $rating->rating, 'vote_num' => $rating->vote_num]);
+    }
 
 
     /**
      * Checks if given product has been already reviewed by current user.
      *
      * @param int $product_id
-     * @param int $user_id
+     * @param int|null $user_id
      * @return bool
      */
     public function isReviewedBy(int $product_id, int|null $user_id): bool
     {
-        return boolval($is_reviewed = DB::table('reviews')
+        return boolval(DB::table('reviews')
             ->select('user_id')
             ->where('user_id', $user_id)
             ->where('product_id', $product_id)

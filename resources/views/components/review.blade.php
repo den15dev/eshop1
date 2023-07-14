@@ -1,5 +1,12 @@
 <div class="item_review_block border-bottom mb-4">
-    <span class="item_review_name text-color-main2 mb-1">{{ $review->user->name }}</span>
+    <div class="d-flex flex-row justify-content-between">
+        @if($review->user)
+            <div class="fw-bold text-color-main2 mb-1">{{ $review->user->name }}</div>
+        @else
+            <div class="fst-italic lightgrey_text" style="margin-bottom: 4px;">Аккаунт удалён</div>
+        @endif
+        <div class="small lightgrey_text">#{{ $review->id }}</div>
+    </div>
     <ul class="d-flex flex-row rating-list mb-1">
         @for($i=0; $i<5; $i++)
             @if($i < $review->mark)

@@ -35,7 +35,7 @@ class BrandController extends Controller
             $brand->slug
         );
 
-        $request->flashMessage('Бренд ' . $brand->name . ' успешно добавлен.');
+        $request->flashMessage('Бренд ' . $brand->name . ' добавлен.');
 
         return redirect()->route('admin.brands');
     }
@@ -66,7 +66,7 @@ class BrandController extends Controller
                 $request->input('slug_old')
             );
 
-            $message = 'Бренд успешно обновлён.';
+            $message = 'Бренд обновлён.';
         }
 
         if ($request->hasFile('image')) {
@@ -76,7 +76,7 @@ class BrandController extends Controller
                 $request->input('slug')
             );
 
-            $message = 'Изображение успешно обновлено.';
+            $message = 'Изображение обновлено.';
         }
 
         $request->flashMessage($message);
@@ -94,7 +94,7 @@ class BrandController extends Controller
         $brand->delete();
         $admImageService->deleteImageBySlug('brands', $brand->slug);
 
-        $request->flashMessage('Бренд ' . $brand->name . ' успешно удалён.');
+        $request->flashMessage('Бренд ' . $brand->name . ' удалён.');
 
         return redirect()->route('admin.brands');
     }

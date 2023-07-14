@@ -168,7 +168,7 @@
 
             @forelse($reviews as $review)
             @if($review->pros || $review->cons || $review->comnt)
-            <x-review :review="$review" :userid="$user_id" />
+            <x-review :review="$review" :userid="$user?->id" />
             @endif
             @empty
             <div class="text-center fs-2 mb-4 lightgrey_text">
@@ -177,9 +177,11 @@
             @endforelse
 
 
-            @if($user_id)
+            @if($user)
                 @if($is_reviewed)
                     <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Ваш отзыв был опубликован</h4>
+                @elseif(!$user->is_active)
+                    <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Вы не можете оставлять отзывы</h4>
                 @else
                     @include('layout.includes.review-form')
                 @endif

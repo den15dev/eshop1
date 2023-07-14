@@ -111,4 +111,14 @@ class User extends Authenticatable
         }
         return $thumbnail;
     }
+
+
+    public function getRoleStrAttribute()
+    {
+        return match ($this->role) {
+            'admin' => 'администратор',
+            'boss' => 'главный',
+            default => 'пользователь',
+        };
+    }
 }

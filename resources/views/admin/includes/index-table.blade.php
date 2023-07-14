@@ -15,6 +15,9 @@
     <tbody>
         @foreach($table_data as $record)
             @php
+                $links_num = 3;
+                if ($table_name === 'reviews') $links_num = 6;
+
             // -------- Check inactive promo actions ---------
                 $grey_row = false;
                 if ($record->started_at && $record->until) {
@@ -69,7 +72,7 @@
                         default => '',
                     };
 
-                    if ($loop->index < 3) {
+                    if ($loop->index < $links_num) {
                         $td_content = '<a href="' . route('admin.' . $table_name . '.edit', $record->id) . '" class="' . ($grey_row ? 'lightgrey_text' : 'dark_link') . '">' . $td_content . '</a>';
                     }
                     @endphp

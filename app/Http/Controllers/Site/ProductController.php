@@ -34,11 +34,11 @@ class ProductController extends Controller
 
         $in_cart = $cartService->isInCart($product_id);
 
-        $user_id = Auth::id();
+        $user = Auth::user();
         $reviews = $product->reviews()->with(['reactions:id,review_id,user_id,up_down', 'user:id,name'])->orderBy('created_at')->get();
-        $reviews = $reviewService->countReactions($reviews, $user_id);
+        $reviews = $reviewService->countReactions($reviews, $user?->id);
 
-        $is_reviewed = $reviewService->isReviewedBy($product_id, $user_id);
+        $is_reviewed = $reviewService->isReviewedBy($product_id, $user?->id);
 
         $bread_crumb = $categoryService->getBreadCrumb($product);
 
@@ -51,7 +51,7 @@ class ProductController extends Controller
             'rating',
             'in_cart',
             'reviews',
-            'user_id',
+            'user',
             'is_reviewed',
             'category_slug',
             'product_slug',

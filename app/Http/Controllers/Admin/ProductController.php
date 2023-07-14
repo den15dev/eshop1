@@ -39,7 +39,7 @@ class ProductController extends Controller
         $productService->saveImages($request, $product->id);
         $productService->saveSpecifications($request->input('specs'), $product->category_id, $product->id);
 
-        $request->flashMessage('Товар ' . $product->id . ' успешно создан.');
+        $request->flashMessage('Товар ' . $product->id . ' создан.');
 
         return redirect()->route('admin.products');
     }
@@ -82,13 +82,13 @@ class ProductController extends Controller
             // $validated['slug'] = str($validated['name'])->slug();
 
             Product::where('id', $id)->update($validated);
-            $message = 'Товар успешно обновлён.';
+            $message = 'Товар обновлён.';
         }
 
         if ($request->has('images')) {
             $productService->updateImages($request, $id);
 
-            $message = 'Изображения успешно обновлены.';
+            $message = 'Изображения обновлены.';
         }
 
         if ($request->has('specs')) {
@@ -96,7 +96,7 @@ class ProductController extends Controller
             $productService->updateCategoryId($id, $category_id);
             $productService->saveSpecifications($request->input('specs'), $category_id, $id);
 
-            $message = 'Характеристики успешно обновлены.';
+            $message = 'Характеристики обновлены.';
         }
 
         $request->flashMessage($message);
@@ -115,7 +115,7 @@ class ProductController extends Controller
         $product->delete();
         $productService->deleteImages($id);
 
-        $request->flashMessage('Товар ' . $id . ' успешно удалён.');
+        $request->flashMessage('Товар ' . $id . ' удалён.');
 
         return redirect()->route('admin.products');
     }

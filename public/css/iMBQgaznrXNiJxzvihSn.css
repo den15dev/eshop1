@@ -536,9 +536,13 @@ header .nav-link:hover {
     margin-bottom: 46px;
 }
 
-.submit_btn {
+.submit_btn,
+.submit_btn2 {
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.submit_btn {
     margin-top: 20px;
 }
 

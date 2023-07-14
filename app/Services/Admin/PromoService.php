@@ -53,7 +53,9 @@ class PromoService
 
     public function getPromoWithProducts(int $promo_id): Promo
     {
-        return Promo::with('products:id,name,promo_id,discount_prc,final_price,images,is_active')->find($promo_id);
+        return Promo::where('id', $promo_id)
+            ->with('products:id,name,promo_id,discount_prc,final_price,images,is_active')
+            ->first();
     }
 
 

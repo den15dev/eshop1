@@ -110,23 +110,6 @@ adjustTextAreas();
 
 
 
-/* ----------------- Category tree ------------------- */
-
-$('.dd-menu-btn, .sub-menu-btn')
-    .on('mouseover', function () {
-        $(this).find('.cat_add_btn').show();
-    })
-    .on('mouseout', function () {
-        $(this).find('.cat_add_btn').hide();
-    });
-
-$('.cat_add_btn').on('click', function (event) {
-    event.preventDefault();
-    alert('Hello!');
-});
-
-
-
 
 /* -------------------- Reduce pagination font size for mobiles ----------------------- */
 

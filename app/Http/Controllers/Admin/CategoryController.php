@@ -54,7 +54,7 @@ class CategoryController extends Controller
             );
         }
 
-        $request->flashMessage('Категория ' . $category->name . ' успешно создана.');
+        $request->flashMessage('Категория ' . $category->name . ' создана.');
 
         return redirect()->route('admin.categories');
     }
@@ -108,13 +108,13 @@ class CategoryController extends Controller
                 $request->input('slug_old')
             );
 
-            $message = 'Категория успешно обновлена.';
+            $message = 'Категория обновлена.';
         }
 
         if ($request->has('specs')) {
             $input_specs = $admCategoryService->getInputSpecs($request->input('specs'));
             $admCategoryService->updateSpecs($input_specs, $id);
-            $message = 'Характеристики успешно обновлены.';
+            $message = 'Характеристики обновлены.';
         }
 
         if ($request->hasFile('image')) {
@@ -124,7 +124,7 @@ class CategoryController extends Controller
                 $request->input('slug')
             );
 
-            $message = 'Изображение успешно обновлено.';
+            $message = 'Изображение обновлено.';
         }
 
         $request->flashMessage($message);
@@ -144,7 +144,7 @@ class CategoryController extends Controller
         $admCategoryService->updateSortWhenDeleting($category->parent_id, $category->sort);
         $admImageService->deleteImageBySlug('categories', $category->slug);
 
-        $request->flashMessage('Категория ' . $category->name . ' успешно удалена.');
+        $request->flashMessage('Категория ' . $category->name . ' удалена.');
 
         return redirect()->route('admin.categories');
     }

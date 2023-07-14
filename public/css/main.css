@@ -917,11 +917,6 @@ footer .flex-column a:hover {
     /*background-color: #e8e8e8;*/
 }
 
-.item_review_name {
-    display: block;
-    font-weight: bold;
-}
-
 .item_review_date {
     display: block;
     color: #9d9d9d;

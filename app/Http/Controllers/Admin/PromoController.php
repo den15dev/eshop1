@@ -25,7 +25,7 @@ class PromoController extends Controller
     ) {
         $promo = $promoService->createPromo($request);
 
-        $request->flashMessage('Акция ' . $promo->name . ' успешно добавлена.');
+        $request->flashMessage('Акция ' . $promo->name . ' добавлена.');
 
         return redirect()->route('admin.promos');
     }
@@ -49,20 +49,20 @@ class PromoController extends Controller
         if ($request->has('name')) {
             $promoService->updateMainData($request, $id);
 
-            $message = 'Акция успешно обновлена.';
+            $message = 'Акция обновлена.';
         }
 
         if ($request->hasFile('image')) {
             $promoService->updateImage($request, $id);
 
-            $message = 'Изображение успешно обновлено.';
+            $message = 'Изображение обновлено.';
         }
 
         if ($request->has('add_products')) {
             $id_list = parse_comma_list($request->validated('add_products'));
             if ($id_list) {
                 Product::whereIn('id', $id_list)->update(['promo_id' => $id]);
-                $message = 'Товары успешно добавлены.';
+                $message = 'Товары добавлены.';
             }
         }
 
@@ -81,7 +81,7 @@ class PromoController extends Controller
         $promo->delete();
         $admImageService->deleteImageByName('promos', $id, $promo->image);
 
-        $request->flashMessage('Акция ' . $promo->name . ' успешно удалена.');
+        $request->flashMessage('Акция ' . $promo->name . ' удалена.');
 
         return redirect()->route('admin.promos');
     }

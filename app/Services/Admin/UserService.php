@@ -4,6 +4,8 @@
 namespace App\Services\Admin;
 
 
+use App\Models\User;
+
 class UserService
 {
     public static array $table_settings = [
@@ -50,4 +52,15 @@ class UserService
             'is_searchable' => false,
         ],
     ];
+
+
+    public function toggleIsActive(int $user_id, int $is_active)
+    {
+        if (in_array($is_active, [0, 1])) {
+            User::where('id', $user_id)->update(['is_active' => $is_active]);
+            return 'ok';
+        }
+
+        return abort(500, 'Incorrect is_active value provided.');
+    }
 }

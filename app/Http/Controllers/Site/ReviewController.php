@@ -14,7 +14,7 @@ class ReviewController extends Controller
         $user_id = Auth::id();
         if ($user_id) {
             $reviewService->createReview($request, $user_id);
-            $message = 'Спасибо! Ваш отзыв успешно опубликован.';
+            $message = 'Спасибо! Ваш отзыв был опубликован.';
         } else {
             $request->flash();
             $message = 'Ваша сессия устарела. Пожалуйста, войдите на сайт заново, чтобы оставить отзыв.';

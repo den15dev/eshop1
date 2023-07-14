@@ -32,14 +32,14 @@ class UserProfileController extends Controller
 
         } elseif ($request->has('email')) {
             $request->user()->update($request->validated());
-            $message = 'Профиль успешно обновлён.';
+            $message = 'Профиль обновлён.';
 
         } elseif ($request->has('new_password')) {
             $validated = $request->validated();
             $request->user()->update([
                 'password' => Hash::make($validated['new_password']),
             ]);
-            $message = 'Пароль успешно обновлён.';
+            $message = 'Пароль обновлён.';
         }
 
         if ($message) {

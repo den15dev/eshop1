@@ -6,6 +6,8 @@ $('#is_active_ui_switch').on('change', function() {
 });
 
 
+
+
 /* ----------------- Final price calculation ------------------ */
 
 const price_input = document.getElementById('price_input');
