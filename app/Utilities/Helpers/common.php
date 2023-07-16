@@ -175,6 +175,12 @@ if (!function_exists('camel_case')) {
 
 
 if (!function_exists('parse_comma_list')) {
+    /**
+     * Parses a list with commas and dashes, like '3,45,48-52,59', into an array.
+     *
+     * @param string|null $comma_list
+     * @return array|null
+     */
     function parse_comma_list(?string $comma_list): ?array
     {
         $out_arr = [];
@@ -199,5 +205,14 @@ if (!function_exists('parse_comma_list')) {
         }
 
         return $out_arr ?: null;
+    }
+}
+
+
+if (!function_exists('mb_ucfirst')) {
+    function mb_ucfirst(string $str): string
+    {
+        $fc = mb_strtoupper(mb_substr($str, 0, 1));
+        return $fc.mb_substr($str, 1);
     }
 }

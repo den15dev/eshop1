@@ -1,7 +1,7 @@
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg bg-color-main" id="head_container2">
         <div class="container">
-            <a class="navbar-brand mb-2 mb-lg-0 h1 fs-3 text-white" href="#">
+            <a href="{{ route('admin.dashboard') }}" class="navbar-brand mb-2 mb-lg-0 h1 fs-3 text-white">
                 Панель администратора
             </a>
 

@@ -54,7 +54,7 @@
             @method('DELETE')
             @csrf
 
-            <button type="submit" class="btn2 btn2-red px-4" style="width: fit-content;">Удалить бренд</button>
+            <button type="submit" class="btn2 btn2-red px-4 mb-3" style="width: fit-content;">Удалить бренд</button>
             <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> При удалении бренда у всех его товаров бренд будет неопределён.</div>
         </form>
     </div>

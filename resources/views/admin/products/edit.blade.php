@@ -126,7 +126,7 @@
         <form class="mb-5" method="POST" action="{{ route('admin.products.destroy', $product->id) }}" onsubmit="return confirmDeleting(this, 'удалить товар {{ $product->name }}?')" novalidate>
             @method('DELETE')
             @csrf
-            <button type="submit" class="btn2 btn2-red px-4" style="width: fit-content;">Удалить товар</button>
+            <button type="submit" class="btn2 btn2-red px-4 mb-3" style="width: fit-content;">Удалить товар</button>
             <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Вместе с товаром будут безвозвратно удалены характеристики и изображения товара, все отзывы к нему вместе с лайками, товар будет удалён из всех корзин пользователей, во всех заказах позиции с этим товаром станут неопределены.<br>Если же вы хотите просто изъять товар из продажи, сделайте его неактивным, воспользовавшись переключателем вверху этой страницы.</div>
         </form>
     </div>

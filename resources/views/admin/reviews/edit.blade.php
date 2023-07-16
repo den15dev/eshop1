@@ -48,7 +48,7 @@
             <input type="hidden" name="product_id" value="{{ $review->product_id }}" />
         </form>
 
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row mb-2">
             <button type="submit" form="edit_form" class="btn2 btn2-primary submit_btn2 me-2">Сохранить</button>
             <button type="submit" form="delete_form" class="btn2 btn2-red submit_btn2">Удалить</button>
         </div>

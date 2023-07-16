@@ -15,7 +15,7 @@
     @elseauth
         @if(Auth::user()->isAdmin())
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.home') }}" style="margin-top: -1px">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}" style="margin-top: -1px">
                     <span class="bi-key me-1"></span>
                     Панель администратора
                 </a>

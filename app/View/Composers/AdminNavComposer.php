@@ -11,7 +11,7 @@ class AdminNavComposer
     {
         // [name, route name without 'admin' prefix, bootstrap icon name]
         $nav_items = [
-            ['Главная', 'home', 'house'],
+            ['Статистика', 'dashboard', 'bar-chart'],
             ['Товары', 'products', 'box'],
             ['Категории', 'categories', 'list-check'],
             ['Бренды', 'brands', 'star'],

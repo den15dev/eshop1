@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use Closure;
 
 class StoreProductRequest extends BaseRequest
 {
@@ -27,7 +28,18 @@ class StoreProductRequest extends BaseRequest
             $rules['promo_id'] = ['nullable', 'integer'];
         }
 
-        $image_rules = ['nullable', 'max:5120', 'dimensions:min_width=1400,min_height=1400,max_width=5000,max_height=5000'];
+        $image_rules = [
+            'nullable',
+            'max:5120',
+            'dimensions:max_width=5000,max_height=5000',
+            function (string $attribute, mixed $value, Closure $fail) {
+                $min_size = 1400;
+                $img_index = explode('.', $attribute)[1];
+                if (getimagesize($value->getPathname())[0] < $min_size && getimagesize($value->getPathname())[1] < $min_size) {
+                    $fail("Размер изображения {$img_index} должен быть минимум {$min_size} px по одной из сторон.");
+                }
+            },
+        ];
 
         if ($this->has('images') || $this->hasFile('new_image')) {
             $rules['new_image'] = $image_rules;

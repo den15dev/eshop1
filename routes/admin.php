@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\IndexController as AdmIndexController;
-use App\Http\Controllers\Admin\HomeController as AdmHomeController;
+use App\Http\Controllers\Admin\DashboardController as AdmDashboardController;
 use App\Http\Controllers\Admin\ProductController as AdmProductController;
 use App\Http\Controllers\Admin\CategoryController as AdmCategoryController;
 use App\Http\Controllers\Admin\BrandController as AdmBrandController;
@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\AjaxController;
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/', [AdmHomeController::class, 'index'])->name('home');
+    Route::get('/', [AdmDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/search', AdmIndexController::class)->name('search');
     Route::get('/ajax', AjaxController::class)->name('ajax.get');

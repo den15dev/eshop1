@@ -132,10 +132,10 @@
             @csrf
 
             @if($children->count() || $category->products_self)
-                <div class="btn2 btn2-inactive px-4">Удалить категорию</div>
+                <div class="btn2 btn2-inactive px-4 mb-3">Удалить категорию</div>
                 <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Удалить можно только пустую категорию. Сначала удалите из категории все товары и дочерние категории.</div>
             @else
-                <button type="submit" class="btn2 btn2-red px-4" style="width: fit-content;">Удалить категорию</button>
+                <button type="submit" class="btn2 btn2-red px-4 mb-3" style="width: fit-content;">Удалить категорию</button>
                 <div class="small grey_text fst-italic mb-2"><span class="fw-semibold text-color-main">Внимание!</span> Вместе с категорией будут безвозвратно удалены её характеристики и изображение.</div>
             @endif
         </form>

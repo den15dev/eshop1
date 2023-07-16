@@ -201,6 +201,13 @@ select {
 
 .ps-25{padding-left:.85rem!important}
 
+select:focus {
+    outline:0 !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+
 
 
 
