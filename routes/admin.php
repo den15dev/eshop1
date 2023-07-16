@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PromoController as AdmPromoController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
 use App\Http\Controllers\Admin\ReviewController as AdmReviewController;
 use App\Http\Controllers\Admin\OrderController as AdmOrderController;
+use App\Http\Controllers\Admin\ShopController as AdmShopController;
 use App\Http\Controllers\Admin\AjaxController;
 
 
@@ -62,4 +63,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/orders', AdmIndexController::class)->name('orders');
     Route::get('/orders/{id}/edit', [AdmOrderController::class, 'edit'])->whereNumber('id')->name('orders.edit');
     Route::put('/orders/{id}', [AdmOrderController::class, 'update'])->whereNumber('id')->name('orders.update');
+
+    Route::get('/shops', AdmIndexController::class)->name('shops');
+    Route::get('/shops/create', [AdmShopController::class, 'create'])->name('shops.create');
+    Route::post('/shops', [AdmShopController::class, 'store'])->name('shops.store');
+    Route::get('/shops/{id}/edit', [AdmShopController::class, 'edit'])->whereNumber('id')->name('shops.edit');
+    Route::put('/shops/{id}', [AdmShopController::class, 'update'])->whereNumber('id')->name('shops.update');
+    Route::delete('/shops/{id}', [AdmShopController::class, 'destroy'])->whereNumber('id')->name('shops.destroy');
 });

@@ -19,6 +19,7 @@ class AdminNavComposer
             ['Пользователи', 'users', 'person'],
             ['Отзывы', 'reviews', 'chat-left'],
             ['Заказы', 'orders', 'basket'],
+            ['Магазины', 'shops', 'geo-alt'],
         ];
 
         $view->with('nav_items', $nav_items);
