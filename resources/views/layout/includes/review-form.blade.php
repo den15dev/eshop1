@@ -36,5 +36,5 @@
         <textarea class="form-control" name="comment" id="item_comment_form" placeholder="Необязательно для заполнения" style="height: 100px">{{ old('comment') }}</textarea>
     </div>
 
-    <button type="submit" class="btn2 btn2-primary adm_main_form_btn px-4">Отправить</button>
+    <button type="submit" class="btn2 btn2-primary px-4">Отправить</button>
 </form>

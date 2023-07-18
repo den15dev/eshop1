@@ -24,7 +24,7 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn2 btn2-primary adm_main_form_btn">Сохранить</button>
+                <button type="submit" class="btn2 btn2-primary user_settings_btn">Сохранить</button>
             </form>
         </div>
 
