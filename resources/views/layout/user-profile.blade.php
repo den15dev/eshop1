@@ -30,6 +30,12 @@
 
 
         <div class="row">
+            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+                    @csrf
+                </form>
+            @endif
+
             <form class="col-12 col-lg-5 user_settings_form ms-0 me-auto" method="POST" action="{{ route('profile.update') }}" novalidate>
                 @csrf
                 <div class="mb-3">
@@ -49,6 +55,24 @@
                         <div class="invalid-feedback">
                             {{ $errors->get('email')[0] }}
                         </div>
+                    @endif
+
+                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail)
+                        @if($user->hasVerifiedEmail())
+                            <div class="small text-color-green fst-italic mt-2 mb-2">
+                                <span class="bi-check-lg me-1"></span>Адрес подтверждён.
+                            </div>
+                        @else
+                            <div class="small grey_text fst-italic mt-2 mb-2">
+                                Адрес не подтверждён! При регистрации на вашу почту была отправлена ссылка для подтверждения, перейдите по ней.
+                            </div>
+                            <button type="submit" form="send-verification" class="btn2 btn2-secondary">Отправить ссылку ещё раз</button>
+                            @if (session('status') === 'verification-link-sent')
+                                <div class="mt-2 small text-color-green">
+                                    Ссылка отправлена на почту.
+                                </div>
+                            @endif
+                        @endif
                     @endif
                 </div>
 

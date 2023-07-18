@@ -182,6 +182,8 @@
                     <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Ваш отзыв был опубликован</h4>
                 @elseif(!$user->is_active)
                     <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Вы не можете оставлять отзывы</h4>
+                @elseif($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                    <h5 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Подтвердите адрес вашей электронной почты, чтобы оставлять отзывы.</h5>
                 @else
                     @include('layout.includes.review-form')
                 @endif

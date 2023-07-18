@@ -54,6 +54,12 @@ class RegisteredUserController extends Controller
 
         $userService->moveGuestActivitySettings($request);
 
+        $request->session()->flash('message', [
+            'type' => 'info',
+            'content' => 'На вашу почту была отправлена ссылка для подтверждения адреса электронной почты.<br>Чтобы оставлять отзывы к товарам, нужно подтвердить почту.',
+            'align' => 'center',
+        ]);
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -24,9 +24,9 @@
         <span class="lightgrey_text">Имя:</span> {{ $user->name }}<br>
         @php
             $verified = '';
-            if ($user->role === 'user') {
-                $verified = $user->email_verified_at
-                    ? '<span class="fst-italic lightgrey_text">(подтверждён)</span>'
+            if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail) {
+                $verified = $user->hasVerifiedEmail()
+                    ? '<span class="fst-italic text-color-green">(подтверждён)</span>'
                     : '<span class="fst-italic text-color-red">(не подтверждён)</span>';
             }
         @endphp

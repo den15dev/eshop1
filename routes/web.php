@@ -65,4 +65,3 @@ Route::get('/shops', ShopController::class)->name('shops');
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 
-// Route::get('/handle-images', [\App\Http\Controllers\Temp\ImageHandleController::class, 'handle']);
