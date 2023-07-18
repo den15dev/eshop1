@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('page_title', config('app.name'))</title>
+    <title>Магазин электроники</title>
     <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_16.png') }}" sizes="16x16">
     <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_32.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ asset('img/electro_logo_64.png') }}" sizes="64x64">
@@ -13,50 +13,23 @@
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
-    @stack('css')
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    @livewireStyles
 </head>
 <body>
+    <div class="container">
+        <div class="not-found-cont">
+            <div class="fs-1 fw-light lightgrey_text">Сайт временно недоступен</div>
+        </div>
 
-    @include('layout.includes.header.svgs')
-
-    <div class="d-flex flex-column justify-content-between min-vh-100">
-
-        @include('layout.includes.header.header')
-
-        <main class="flex-grow-1">
-            @yield('main_content')
-        </main>
-
-        @include('layout.includes.footer')
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let notFoundCont = document.querySelector('.not-found-cont');
+                notFoundCont.style.marginTop = (window.innerHeight - notFoundCont.clientHeight)/2 + 'px';
+            });
+        </script>
     </div>
 
-    @unless(request()->routeIs('comparison'))
-        <livewire:comparison-popup />
-    @endunless
-
-    @include('layout.includes.message-client')
-
-    @if(session()->has('message'))
-        <x-message-flash
-            type="{{ session('message.type') }}"
-            content="{!! session('message.content') !!}"
-            align="{{ session('message.align') }}" />
-    @endif
-
-    @if($is_first_visit)
-        @include('layout.includes.demo-message')
-    @endif
-
-    @include('layout.includes.loadtime')
-
-    @livewireScripts
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
-    <script src="{{ asset('js/common.js') }}"></script>
-    <script src="{{ asset('js/search.js') }}"></script>
-    @stack('scripts')
 </body>
 </html>

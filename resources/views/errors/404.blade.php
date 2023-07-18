@@ -5,7 +5,7 @@
 @section('main_content')
     <div class="container">
         <div class="not-found-cont">
-            <div class="fs-2 lightgrey_text">Страница не найдена</div>
+            <div class="fs-1 fw-light lightgrey_text">Страница не найдена</div>
         </div>
 
         <script>

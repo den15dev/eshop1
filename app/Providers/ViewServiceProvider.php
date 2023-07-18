@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\View\Composers\HeaderComposer;
+use App\View\Composers\LayoutComposer;
 use App\View\Composers\AdminNavComposer;
 
 class ViewServiceProvider extends ServiceProvider
@@ -22,6 +23,9 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Passing data for main layout
+        View::composer('layout.layout', LayoutComposer::class);
+
         // Passing data for header menus
         View::composer('layout.includes.header.header', HeaderComposer::class);
 

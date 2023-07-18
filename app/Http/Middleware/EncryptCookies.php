@@ -12,6 +12,7 @@ class EncryptCookies extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        'vis', // Track if it is not a first visit
         'rct_viewed', // Recently viewed product ids
         'layout', // Products layout settings
         'ord', // List of order ids

@@ -16,11 +16,11 @@ class ProductService
      * Gets a product with brand data.
      *
      * @param int $product_id
-     * @return Product
+     * @return Product|null
      */
-    public function getProduct(int $product_id): Product
+    public function getProduct(int $product_id): ?Product
     {
-        return Product::with('brand:id,name,slug')->find($product_id);
+        return Product::with('brand:id,name,slug')->findOrFail($product_id);
     }
 
 
