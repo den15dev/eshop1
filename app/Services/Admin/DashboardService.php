@@ -129,7 +129,7 @@ class DashboardService
                 }
             } else {
                 if ($year === $curYear) {
-                    $month_list = [$curMonth, mb_ucfirst(Carbon::create()->month($curMonth)->monthName)];
+                    array_push($month_list, [$curMonth, mb_ucfirst(Carbon::create()->month($curMonth)->monthName)]);
                 }
             }
         }
