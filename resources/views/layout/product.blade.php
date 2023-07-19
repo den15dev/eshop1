@@ -171,7 +171,7 @@
             <x-review :review="$review" :userid="$user?->id" />
             @endif
             @empty
-            <div class="text-center fs-2 mb-4 lightgrey_text">
+            <div class="text-center fw-light fs-2 mb-4 lightgrey_text">
                 Нет отзывов
             </div>
             @endforelse

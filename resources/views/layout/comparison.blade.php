@@ -43,7 +43,7 @@
 
         @else
 
-            <div class="text-center fs-2 lightgrey_text" style="padding: 120px 0">
+            <div class="text-center fw-light fs-2 lightgrey_text" style="padding: 120px 0">
                 Товары для сравнения не выбраны
             </div>
 

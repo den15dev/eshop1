@@ -17,7 +17,7 @@
                     @endforeach
                 </div>
             @else
-                <div class="text-center fs-2 lightgrey_text" style="padding: 100px 0">
+                <div class="text-center fw-light fs-2 lightgrey_text" style="padding: 100px 0">
                     Нет товаров
                 </div>
             @endif
