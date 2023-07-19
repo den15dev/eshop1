@@ -26,8 +26,9 @@ class ImageService
             $image = Image::make($source_path);
             $image->save($out_path, 85);
         } else {
-            $orig_name = $image_file->getClientOriginalName();
-            $image_file->storeAs('images/' . $directory, $orig_name);
+            $extension = pathinfo($image_file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $new_filename = $slug . '.' . $extension;
+            $image_file->storeAs('images/' . $directory, $new_filename);
         }
     }
 
