@@ -12,6 +12,6 @@
            @disabled($disabled)
     >
     <label class="form-check-label ms-1" for="{{ $index !== '' ? $filtername . $id . '_' . $index : $filtername . $id }}">
-        {{ $value }} {{ $units }}<span class="lightgrey_text"> ({{ $quantity }})</span>
+        {!! $value !!} {{ $units }}<span class="lightgrey_text"> ({{ $quantity }})</span>
     </label>
 </li>
