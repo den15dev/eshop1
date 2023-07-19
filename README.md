@@ -9,7 +9,7 @@
 
 ## About This Project
 
-This is my first demo e-commerce project created using Laravel framework.
+This is my first demo e-commerce project created using Laravel PHP framework and Bootstrap library.
 
 ## About Laravel
 
