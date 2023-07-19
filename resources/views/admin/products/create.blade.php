@@ -23,7 +23,7 @@
                                 :collection="$brands"
                                 value="id"
                                 option="name"
-                                :selected="old('brand_id', $brands[0]->id)"
+                                :selected="old('brand_id', $brands->count() ? $brands[0]->id : false)"
                                 :nullable="false" />
                 <x-admin.input layout="column" name="sku" label="Код производителя" :value="''" />
             </div>
