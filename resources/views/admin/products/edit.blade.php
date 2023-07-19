@@ -133,11 +133,11 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/fancyapps5/fancybox.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.min.css" />
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/fancyapps5/fancybox.umd.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.min.js"></script>
     <script>Fancybox.bind("[data-fancybox]", {
             wheel: 'slide',
             Thumbs: {

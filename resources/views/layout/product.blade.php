@@ -209,16 +209,16 @@
 
 @push('css')
     <link href="{{ asset('css/splide.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fancyapps5/carousel.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/fancyapps5/carousel.thumbs.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/fancyapps5/fancybox.css') }}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/carousel/carousel.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/carousel/carousel.thumbs.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
     <script src="{{ asset('js/splide.min.js') }}"></script>
-    <script src="{{ asset('js/fancyapps5/carousel.umd.js') }}"></script>
-    <script src="{{ asset('js/fancyapps5/carousel.thumbs.umd.js') }}"></script>
-    <script src="{{ asset('js/fancyapps5/fancybox.umd.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/carousel/carousel.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/carousel/carousel.thumbs.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.min.js"></script>
     <script src="{{ asset('js/product.js') }}"></script>
 @endpush
 
