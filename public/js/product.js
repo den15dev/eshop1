@@ -123,3 +123,32 @@ function validateReviewForm() {
     }
     return true;
 }
+
+
+
+/* -------------------- Adjust height of all textareas ----------------------- */
+
+let txt_area_arr = document.getElementsByTagName('textarea');
+
+function adjustTextareaHeight(elem) {
+    const min_height = 108; // Minimum 4 lines
+    elem.style.overflow = 'hidden';
+    elem.style.height = min_height + 'px';
+    if (elem.scrollHeight > min_height) {
+        elem.style.height = elem.scrollHeight + 'px';
+    }
+}
+
+function adjustTextAreas() {
+    for (let i = 0; i < txt_area_arr.length; i++) {
+        let txtarea = txt_area_arr[i];
+
+        adjustTextareaHeight(txtarea);
+
+        txtarea.addEventListener('keyup', function () {
+            adjustTextareaHeight(this);
+        }, false);
+    }
+}
+
+adjustTextAreas();

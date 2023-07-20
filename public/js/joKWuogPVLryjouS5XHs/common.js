@@ -89,18 +89,23 @@ function showMessage(data) {
 
 let txt_area_arr = document.getElementsByTagName('textarea');
 
+function adjustTextareaHeight(elem) {
+    const min_height = 84; // Minimum 3 lines
+    elem.style.overflow = 'hidden';
+    elem.style.height = min_height + 'px';
+    if (elem.scrollHeight > min_height) {
+        elem.style.height = elem.scrollHeight + 'px';
+    }
+}
+
 function adjustTextAreas() {
     for (let i = 0; i < txt_area_arr.length; i++) {
         let txtarea = txt_area_arr[i];
 
-        txtarea.style.overflow = 'hidden';
-        txtarea.style.height = '84px'; // Minimum 3 lines
-        txtarea.style.height = txtarea.scrollHeight + 'px';
+        adjustTextareaHeight(txtarea);
 
         txtarea.addEventListener('keyup', function () {
-            this.style.overflow = 'hidden';
-            this.style.height = '84px'; // Minimum 3 lines
-            this.style.height = this.scrollHeight + 'px';
+            adjustTextareaHeight(this);
         }, false);
     }
 }
