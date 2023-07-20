@@ -1557,7 +1557,11 @@ footer .flex-column a:hover {
     }
 
     .spec_table {
-        width: 75%;
+        width: 80%;
+    }
+
+    .item_spec_col2 {
+        width: 260px !important;
     }
 
     .cart_descr {
@@ -1605,7 +1609,7 @@ footer .flex-column a:hover {
     }
 
     .spec_table {
-        width: 60%;
+        width: 70%;
     }
 
     #add_review_form {
@@ -1616,5 +1620,9 @@ footer .flex-column a:hover {
 @media only screen and (min-width: 1400px) {
     .note_block {
         width: 80%;
+    }
+
+    .spec_table {
+        width: 65%;
     }
 }
