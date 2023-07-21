@@ -20,7 +20,7 @@
         @if($product->images)
             <img src="{{ get_image('storage/images/products/' . $product->id . '/' . $product->images[0] . '_242.jpg', 242) }}" alt="{{ $product->name }}">
         @else
-            <img src="{{ asset('storage/images/default/no-image_242.jpg') }}" alt="{{ $product->name }}">
+            <img src="{{ asset('img/default/no-image_242.jpg') }}" alt="{{ $product->name }}">
         @endif
     </a>
     <a href="{{ route('product', [$product->category_slug, $product->slug . '-' . $product->id]) }}" class="d-block cat_block_title">

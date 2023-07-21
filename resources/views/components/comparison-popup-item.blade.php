@@ -3,7 +3,7 @@
         @if($product->images)
             <img class="d-block h-100 float-start me-2" src="{{ get_image('storage/images/products/' . $product->id . '/' . $product->images[0] . '_80.jpg', 80) }}" alt="">
         @else
-            <img class="d-block h-100 float-start me-2" src="{{ asset('storage/images/default/no-image_80.jpg') }}" alt="">
+            <img class="d-block h-100 float-start me-2" src="{{ asset('img/default/no-image_80.jpg') }}" alt="">
         @endif
         <div class="comp_popup_name_cont">{{ $product->name }}</div>
     </a>

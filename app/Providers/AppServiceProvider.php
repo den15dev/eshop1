@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Site\InitializationService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         bcscale(2);
+
+        (new InitializationService())->check();
     }
 
     /**

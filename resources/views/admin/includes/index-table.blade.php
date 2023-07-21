@@ -43,7 +43,7 @@
                     $td_content = match ($col_name) {
                         'image' => $value ? '<img src="' . asset('storage/images/' . $table_name . '/' . $record->id . '/' . $value) . '">' : '',
                         'images' => $value ? '<img src="' . get_image('storage/images/' . $table_name . '/' . $record->id . '/' . $value[0] . '_80.jpg', 80) . '">'
-                                            : '<img src="' . asset('storage/images/default/no-image_80.jpg') . '">',
+                                            : '<img src="' . asset('img/default/no-image_80.jpg') . '">',
                         'slug' => '<img src="' . getImageByNameBase('storage/images/' . $table_name . '/' . $value) . '" style="height: 16px">',
                         'price', 'final_price', 'total_cost' => format_price($value),
                         'is_active' => $value ? 'да' : '<span class="lightgrey_text">нет</span>',

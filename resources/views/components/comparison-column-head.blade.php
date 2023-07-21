@@ -7,7 +7,7 @@
             @if($product->images)
                 <img src="{{ get_image('storage/images/products/' . $product->id . '/' . $product->images[0] . '_242.jpg', 242) }}" class="compare_img" alt="{{ $product->name }}">
             @else
-                <img src="{{ asset('storage/images/default/no-image_242.jpg') }}" class="compare_img" alt="{{ $product->name }}">
+                <img src="{{ asset('img/default/no-image_242.jpg') }}" class="compare_img" alt="{{ $product->name }}">
             @endif
         </div>
         <div class="fw-semibold">

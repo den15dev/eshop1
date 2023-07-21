@@ -129,7 +129,7 @@ if (!function_exists('get_image')) {
             return asset($image_path);
         }
 
-        return asset('storage/images/default/no-image_' . $placeholder_resolution . '.jpg');
+        return asset('img/default/no-image_' . $placeholder_resolution . '.jpg');
     }
 }
 

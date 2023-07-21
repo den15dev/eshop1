@@ -5,7 +5,7 @@
             @if($orderitem->product->images)
                 <img src="{{ get_image('storage/images/products/' . $orderitem->product->id . '/' . $orderitem->product->images[0] . '_80.jpg', 80) }}" alt="{{ $orderitem->product->name }}">
             @else
-                <img src="{{ asset('storage/images/default/no-image_80.jpg') }}" alt="{{ $orderitem->product->name }}">
+                <img src="{{ asset('img/default/no-image_80.jpg') }}" alt="{{ $orderitem->product->name }}">
             @endif
         </a>
     </td>

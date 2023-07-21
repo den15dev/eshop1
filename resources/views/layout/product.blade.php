@@ -36,7 +36,7 @@
                     <x-product-image :id="$product->id" :imgname="$image" />
                     @endforeach
                 @else
-                    <img src="{{ asset('storage/images/default/no-image_600.jpg') }}" alt="">
+                    <img src="{{ asset('img/default/no-image_600.jpg') }}" alt="">
                 @endif
             </div>
         </div>
