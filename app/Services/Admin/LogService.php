@@ -10,8 +10,8 @@ class LogService
     /**
      * Reads log files prefixed with "events-" into an array.
      *
-     * @param bool $today - if set, only last day will be output.
-     * @return array
+     * @param bool $today - if set, only last day (today) will be output.
+     * @return array - [[date, [[time, message], [time, message]]], ...].
      */
     public function getEventsLog(bool $today = false): array
     {
@@ -34,14 +34,16 @@ class LogService
             $event = [];
 
             foreach ($content_arr as $line) {
-                $line_arr = explode('local.INFO:', $line);
+                $line_arr = explode('.INFO:', $line);
                 if (count($line_arr) > 1) {
                     if (count($event)) {
                         array_push($event_arr, $event);
                     }
 
-                    $date_full = trim(trim($line_arr[0]), '[]');
+                    $left_part_arr = explode('] ', trim($line_arr[0]));
+                    $date_full = trim($left_part_arr[0], '[');
                     $date_arr = explode(' ', $date_full);
+
                     $text = trim($line_arr[1]);
                     $event = [$date_arr[1], $text];
                 } elseif (count($event)) {
@@ -62,10 +64,16 @@ class LogService
     }
 
 
-    public function getTodaysLogView(): View
+    public function getTodaysLogView(): View|string
     {
-        $day_log = $this->getEventsLog(true)[0];
+        $log = $this->getEventsLog(true);
 
-        return view('admin.includes.log-day-block', compact('day_log'));
+        if (count($log)) {
+            $day_log = $log[0];
+
+            return view('admin.includes.log-day-block', compact('day_log'));
+        }
+
+        return '';
     }
 }

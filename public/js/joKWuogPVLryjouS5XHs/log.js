@@ -10,15 +10,17 @@ function getLog() {
             action: 'get_todays_log_view'
         },
         success: function(data){
-            todayCont.innerHTML = data;
-            updateRefreshTime();
+            if (data !== '') {
+                todayCont.innerHTML = data;
 
-            let curDate = todayCont.getAttribute('data-date');
-            let newDate = todayCont.getElementsByTagName('table')[0].getAttribute('data-date');
-            if (curDate !== newDate) {
-                location.replace(location.href);
+                let curDate = todayCont.getAttribute('data-date');
+                let newDate = todayCont.getElementsByTagName('table')[0].getAttribute('data-date');
+                if (curDate !== newDate) {
+                    location.replace(location.href);
+                }
             }
 
+            updateRefreshTime();
         },
         error: function (jqXHR) {
             showMessage({
