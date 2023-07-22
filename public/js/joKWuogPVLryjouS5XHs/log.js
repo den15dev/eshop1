@@ -10,7 +10,9 @@ function getLog() {
             action: 'get_todays_log_view'
         },
         success: function(data){
-            if (data !== '') {
+            if (data === '') {
+                todayCont.innerHTML = '<div class="lightgrey_text">Нет записей</div>';
+            } else {
                 todayCont.innerHTML = data;
 
                 let curDate = todayCont.getAttribute('data-date');
