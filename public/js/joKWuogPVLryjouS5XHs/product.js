@@ -51,8 +51,6 @@ const img_cont = document.getElementById('item_edit_img_cont');
 const imgSubmitBtn = document.getElementById('img_submit_btn');
 const imgInactiveBtn = document.getElementById('img_inactive_btn');
 const selectImgInput = document.getElementById('img_select_input');
-const imageForm = document.getElementById('image_form');
-const loaderCont = document.getElementById('loader_cont');
 
 function makeBtnActive() {
     imgInactiveBtn.style.display = 'none';
@@ -153,11 +151,7 @@ function rebuildButtons() {
 
 if (selectImgInput) selectImgInput.onchange = makeBtnActive;
 
-if (imageForm) {
-    imageForm.onsubmit = function () {
-        loaderCont.style.display = 'block';
-    }
-}
+
 
 /* -------------------- Add image input ----------------------- */
 
@@ -166,6 +160,15 @@ function addImageInput(btn) {
     const newDiv = lastDiv.cloneNode(true);
     lastDiv.after(newDiv);
 }
+
+
+
+
+/* ------------------ Sumbit buttons loaders ---------------- */
+
+$('.loader_cont').closest('form').on('submit', function () {
+    $('.loader_cont').show();
+});
 
 
 

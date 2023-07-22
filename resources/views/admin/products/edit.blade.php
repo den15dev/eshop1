@@ -82,7 +82,7 @@
             <div class="d-flex">
                 <button type="submit" class="btn2 btn2-primary submit_btn" style="display: none; margin-top: 0" id="img_submit_btn">Сохранить</button>
                 <div class="btn2 btn2-inactive submit_btn" style="margin-top: 0" id="img_inactive_btn">Сохранить</div>
-                <div class="img_loader_cont" style="display: none" id="loader_cont"></div>
+                <div class="loader_cont img_loader" style="display: none"></div>
             </div>
         </form>
 

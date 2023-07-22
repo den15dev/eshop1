@@ -548,12 +548,19 @@ header .nav-link:hover {
     background-color: #eeeeee;
 }
 
-.img_loader_cont {
+.loader_cont {
     width: 28px;
     height: 28px;
     background: url("../img/preloader_01.gif") center no-repeat;
     background-size: 28px;
+}
+
+.img_loader {
     margin: 4px auto auto 10px;
+}
+
+.create_loader {
+    margin: 8px auto auto 10px;
 }
 
 .fancybox__backdrop {

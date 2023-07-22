@@ -97,7 +97,10 @@
             @endphp
             <x-admin.textarea name="specs" label="Характеристики" :value="$spec_list" :note="$specs_note" />
 
-            <button type="submit" class="btn2 btn2-primary submit_btn">Создать</button>
+            <div class="d-flex">
+                <button type="submit" class="btn2 btn2-primary submit_btn" style="margin-top: 4px">Создать</button>
+                <div class="loader_cont create_loader" style="display: none"></div>
+            </div>
         </form>
     </div>
 @endsection
