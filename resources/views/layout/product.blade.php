@@ -183,7 +183,19 @@
                 @elseif(!$user->is_active)
                     <h4 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Вы не можете оставлять отзывы</h4>
                 @elseif($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                    <h5 class="mb-3 pt-2 pb-4 lightgrey_text fw-normal">Подтвердите адрес вашей электронной почты, чтобы оставлять отзывы.</h5>
+                    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+                        @csrf
+                    </form>
+                    <div class="fst-italic grey_text mb-2">
+                        Чтобы оставлять отзывы, нужно подтвердить адрес электронной почты.<br>
+                        При регистрации на указанный вами адрес было отправлено письмо со ссылкой для подтверждения.<br>Если вы не можете найти письмо, нажмите на кнопку ниже:
+                    </div>
+                    <button type="submit" form="send-verification" class="btn2 btn2-secondary">Отправить ссылку ещё раз</button>
+                    @if (session('status') === 'verification-link-sent')
+                        <div class="mt-2 small text-color-green">
+                            Ссылка отправлена на почту.
+                        </div>
+                    @endif
                 @else
                     @include('layout.includes.review-form')
                 @endif

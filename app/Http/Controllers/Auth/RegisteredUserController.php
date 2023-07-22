@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -56,9 +57,11 @@ class RegisteredUserController extends Controller
 
         $request->session()->flash('message', [
             'type' => 'info',
-            'content' => 'На вашу почту была отправлена ссылка для подтверждения адреса электронной почты.<br>Чтобы оставлять отзывы к товарам, нужно подтвердить почту.',
+            'content' => 'На вашу почту была отправлена ссылка для подтверждения адреса электронной почты.',
             'align' => 'center',
         ]);
+
+        Log::channel('events')->info('Зарегистрирован новый пользователь: ' . $user->name . '.');
 
         return redirect(RouteServiceProvider::HOME);
     }

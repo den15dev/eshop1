@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $category_id = 0;
         $dashboard = $dashboardService->getDashboard($current_year, $current_month, $category_id);
 
-        return view('admin.dashboard.index', compact(
+        return view('admin.dashboard', compact(
             'current_year',
             'current_month',
             'years',

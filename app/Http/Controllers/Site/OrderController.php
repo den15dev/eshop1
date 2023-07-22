@@ -10,6 +10,7 @@ use App\Services\Site\ProductService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -55,6 +56,8 @@ class OrderController extends Controller
             array_push($order_ids, $order->id);
             Cookie::queue('ord', json_encode($order_ids), 2628000); // 5 years
         }
+
+        Log::channel('events')->info('<span class=\'fw-semibold text-color-main2\'>Создан новый заказ №' . $order->id . '.</span>');
 
         return redirect()->route('new-order', $order->id);
     }

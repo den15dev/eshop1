@@ -73,9 +73,11 @@ class ReviewService
     }
 
 
-    public function createReview(Request $request, int $user_id): void
+    public function createReview(Request $request, int $user_id): Review
     {
-        DB::transaction(function () use ($user_id, $request) {
+        $review = null;
+
+        DB::transaction(function () use (&$review, $user_id, $request) {
             // Save a review
             $review = new Review();
             $review->user_id = $user_id;
@@ -89,6 +91,8 @@ class ReviewService
 
             $this->updateProductRating($request->product_id);
         }, 3);
+
+        return $review;
     }
 
 

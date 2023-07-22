@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Site\ReviewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
@@ -13,7 +14,8 @@ class ReviewController extends Controller
     {
         $user_id = Auth::id();
         if ($user_id) {
-            $reviewService->createReview($request, $user_id);
+            $review = $reviewService->createReview($request, $user_id);
+            Log::channel('events')->info('Оставлен новый отзыв #' . $review->id . ' к товару ' . $review->product_id . '.');
             $message = 'Спасибо! Ваш отзыв был опубликован.';
         } else {
             $request->flash();
