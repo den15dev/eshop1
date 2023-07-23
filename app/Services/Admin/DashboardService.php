@@ -54,7 +54,7 @@ class DashboardService
     {
         $dashboard = $this->getDashboard($year, $month, $category_id);
 
-        return view('admin.includes.dashboard', compact(
+        return view('admin.includes.dashboard-content', compact(
             'dashboard',
             'category_id'
         ));

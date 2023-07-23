@@ -15,7 +15,10 @@ class ReviewController extends Controller
         $user_id = Auth::id();
         if ($user_id) {
             $review = $reviewService->createReview($request, $user_id);
-            Log::channel('events')->info('Оставлен новый отзыв #' . $review->id . ' к товару ' . $review->product_id . '.');
+
+            $user = $review->user()->first();
+            Log::channel('events')->info($user->name . ' оставил новый отзыв #' . $review->id . ' к товару ' . $review->product_id . '.');
+
             $message = 'Спасибо! Ваш отзыв был опубликован.';
         } else {
             $request->flash();

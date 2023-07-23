@@ -84,6 +84,11 @@ class IndexService
                 }
             }
 
+            $category_id = $request->query('category_id');
+            if ($category_id) {
+                $result_query = $result_query->where('category_id', $category_id);
+            }
+
             $order_status = $request->query('order_status');
             if ($order_status !== null) {
                 $result_query = $result_query->where('status', $order_status);

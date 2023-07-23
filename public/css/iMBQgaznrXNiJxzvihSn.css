@@ -430,6 +430,11 @@ header .nav-link:hover {
     background-color: #f5f5f5;
 }
 
+.index_category_select {
+    width: 100%;
+    border: 1px solid #e8e8e8;
+}
+
 
 
 
@@ -589,6 +594,22 @@ header .nav-link:hover {
     width: 500px;
 }
 
+.count_badge_red {
+    padding: 0 6px 1px 6px;
+    vertical-align: 1px;
+    height: 16px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    border-radius: 8px;
+}
+
+.count_badge_red {
+    background-color: #ea3672;
+}
+
+
 
 
 /* ---------- Promos ------------ */
@@ -626,7 +647,8 @@ header .nav-link:hover {
         float: right;
     }
 
-    .adm_search_input_cont {
+    .adm_search_input_cont,
+    .index_category_select {
         width: 60%;
     }
 
@@ -646,7 +668,8 @@ header .nav-link:hover {
 }
 
 @media only screen and (min-width: 1200px) {
-    .adm_search_input_cont {
+    .adm_search_input_cont,
+    .index_category_select {
         width: 50%;
     }
 

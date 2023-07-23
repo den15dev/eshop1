@@ -81,4 +81,10 @@ class OrderService
             }
         }
     }
+
+
+    public function checkForNewOrders(): int
+    {
+        return Order::where('status', 'new')->count();
+    }
 }

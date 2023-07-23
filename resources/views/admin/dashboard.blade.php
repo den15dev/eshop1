@@ -22,7 +22,7 @@
     </div>
 
     <div class="row" id="dashboard">
-        @include('admin.includes.dashboard')
+        @include('admin.includes.dashboard-content')
     </div>
 @endsection
 

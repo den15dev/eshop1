@@ -38,6 +38,13 @@
                 </div>
             @endif
 
+            <select class="form-select mb-2 index_category_select" aria-label="Выбрать категорию" id="category_select">
+                <option value="0" selected>Все категории</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+
             <div class="adm_search_input_cont">
                 <input class="search_input" name="search" placeholder="Поиск" autocomplete="off" id="search_input">
                 <span class="clear_btn bi-x-lg" id="clear_btn"></span>
@@ -47,9 +54,7 @@
 
 
     <div id="index_table_cont">
-
         @include('admin.includes.index-table')
-
     </div>
 
 @endsection
