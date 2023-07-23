@@ -23,7 +23,7 @@ class NewOrderRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'min:2', 'max:100'],
-            'phone' => ['required', 'regex:/^\+?[0-9]{0,3}[\s-]{0,2}\(?[0-9]{3}\)?[\s-]{0,2}[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/'],
+            'phone' => ['required', 'max:25', 'regex:/^\+?[0-9]{0,3}[\s-]{0,2}\(?[0-9]{3}\)?[\s-]{0,2}[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/'],
             'email' => ['nullable', 'email:rfc,dns', 'max:100'],
         ];
 

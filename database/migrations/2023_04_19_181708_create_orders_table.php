@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->string('name');
-            $table->string('phone', 15);
+            $table->string('phone', 25);
             $table->string('email', 150)->nullable();
             $table->enum('delivery_type', ['delivery', 'self'])->default('delivery');
             $table->enum('payment_method', ['online', 'card', 'cash', 'shop'])->default('online');

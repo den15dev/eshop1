@@ -195,18 +195,21 @@ class OrderService
     public function saveMissingUserData(NewOrderRequest $request): void
     {
         $user = $request->user();
-        $validated = $request->validated();
 
-        $missing_data = false;
-        if (!$user->phone) {
-            $user->phone = $validated['phone'];
-            $missing_data = true;
-        }
-        if ($request->delivery_type === 'delivery' && !$user->address) {
-            $user->address = $request->delivery_address;
-            $missing_data = true;
-        }
+        if ($user) {
+            $validated = $request->validated();
 
-        if ($missing_data) $user->save();
+            $missing_data = false;
+            if (!$user->phone) {
+                $user->phone = $validated['phone'];
+                $missing_data = true;
+            }
+            if ($request->delivery_type === 'delivery' && !$user->address) {
+                $user->address = $request->delivery_address;
+                $missing_data = true;
+            }
+
+            if ($missing_data) $user->save();
+        }
     }
 }

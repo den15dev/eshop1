@@ -128,21 +128,36 @@ function validateName(nameInput) {
     return false;
 }
 
+
+
 function validatePhone(phoneInput) {
     removeErrorMessage(phoneInput);
-    let message = 'Указан некорректный номер телефона.';
-    if (phoneInput.value) {
-        const phone_num_pattern = /^\+?[0-9]{0,3}[\s-]{0,2}\(?[0-9]{3}\)?[\s-]{0,2}[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/;
-        if (phoneInput.value.match(phone_num_pattern)) {
-            return true;
-        }
-    } else {
+
+    let message = '';
+    const phone = phoneInput.value.trim();
+
+    if (!phone) {
         message = 'Пожалуйста, укажите номер телефона.';
     }
 
-    addErrorMessage(phoneInput, message);
-    return false;
+    if (!message && phone.length > 25) {
+        message = 'Номер телефона должен быть короче 25 символов.';
+    }
+
+    const phone_num_pattern = /^\+?[0-9]{0,3}[\s-]{0,2}\(?[0-9]{3}\)?[\s-]{0,2}[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/;
+    if (!message && !phone.match(phone_num_pattern)) {
+        message = 'Указан некорректный номер телефона.';
+    }
+
+    if (message) {
+        addErrorMessage(phoneInput, message);
+        return false;
+    }
+
+    return true;
 }
+
+
 
 function validateShippingAddress(addrInput) {
     const devTypeInput = document.getElementById('delivery_type');
