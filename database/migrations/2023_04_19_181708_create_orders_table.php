@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('email', 150)->nullable();
             $table->enum('delivery_type', ['delivery', 'self'])->default('delivery');
             $table->enum('payment_method', ['online', 'card', 'cash', 'shop'])->default('online');
-            $table->boolean('payment_status')->default(0);
-            $table->string('delivery_address', 150);
+            $table->boolean('payment_status')->unsigned()->default(0);
+            $table->string('delivery_address', 150)->nullable();
             $table->unsignedBigInteger('shop_id')->nullable();
             $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('no action');
             $table->decimal('items_cost', 12, 2);
