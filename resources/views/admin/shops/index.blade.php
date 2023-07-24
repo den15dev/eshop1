@@ -46,7 +46,7 @@
     </div>
 
 
-    <div id="index_table_cont">
+    <div class="overflow-auto" id="index_table_cont">
 
         @include('admin.includes.index-table')
 

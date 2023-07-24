@@ -16,6 +16,8 @@ class LayoutComposer
             $is_first_visit = true;
         }
 
-        $view->with('is_first_visit', $is_first_visit);
+        $view->with([
+            'is_first_visit' => $is_first_visit
+        ]);
     }
 }
